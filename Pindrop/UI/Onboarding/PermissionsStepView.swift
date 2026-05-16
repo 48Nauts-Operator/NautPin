@@ -54,7 +54,7 @@ struct PermissionsStepView: View {
             Text(localized("Permissions", locale: locale))
                 .font(.system(size: 24, weight: .bold, design: .rounded))
 
-            Text(localized("Pindrop needs a few permissions to work.\nYour privacy is always respected.", locale: locale))
+            Text(localized("NautPin needs a few permissions to work.\nYour privacy is always respected.", locale: locale))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

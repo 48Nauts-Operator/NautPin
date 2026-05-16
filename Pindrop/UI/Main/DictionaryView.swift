@@ -31,7 +31,7 @@ enum DictionarySection: String, CaseIterable {
         case .replacements:
             return localized("Define word replacements to automatically replace specific words or phrases", locale: locale)
         case .vocabulary:
-            return localized("Add words to help Pindrop recognize them properly", locale: locale)
+            return localized("Add words to help NautPin recognize them properly", locale: locale)
         }
     }
 

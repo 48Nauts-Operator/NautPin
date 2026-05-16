@@ -106,7 +106,7 @@ struct AIEnhancementSettingsView: View {
          }
          Button(localized("Continue Without", locale: locale), role: .cancel) {}
       } message: {
-         Text(localized("Vibe mode works best with Accessibility permission. Without it, Pindrop falls back to limited app metadata and transcription still works normally.", locale: locale))
+         Text(localized("Vibe mode works best with Accessibility permission. Without it, NautPin falls back to limited app metadata and transcription still works normally.", locale: locale))
       }
    }
 

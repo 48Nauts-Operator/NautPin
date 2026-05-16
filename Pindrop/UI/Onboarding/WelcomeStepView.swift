@@ -21,7 +21,7 @@ struct WelcomeStepView: View {
             appIcon
 
             VStack(spacing: 8) {
-                Text(localized("Welcome to Pindrop", locale: locale))
+                Text(localized("Welcome to NautPin", locale: locale))
                     .font(.system(size: 28, weight: .bold, design: .rounded))
 
                 Text(localized("Local speech-to-text, right from your menu bar.\nFast, private, and always available.", locale: locale))

@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "Een native macOS-dicteerapp voor de menubalk die lokale spraak-naar-tekst gebruikt met WhisperKit. Standaard 100% lokale verwerking met optionele AI-verbetering."
 about:
   _self: "Over"
-  pindrop: "Over Pindrop"
+  pindrop: "Over NautPin"
 accessibility:
   _self: "Toegankelijkheid"
   permission_is_enabled_full_ui_cont: "Toegankelijkheidsrechten zijn ingeschakeld. Volledige UI-context is beschikbaar."
@@ -29,7 +29,7 @@ add:
   to_existing: "Toevoegen aan bestaand"
   trailing_space: "Voeg volgspatie toe"
   word_replacements_to_automatically_correct_c: "Voeg woordvervangingen toe om veelvoorkomende transcriptiefouten automatisch te corrigeren."
-  words_to_help_pindrop_recognize_them_properl: "Voeg woorden toe zodat Pindrop ze goed kan herkennen"
+  words_to_help_pindrop_recognize_them_properl: "Voeg woorden toe zodat NautPin ze goed kan herkennen"
   words_you_manually_correct_into_your_vocabul: "Voeg woorden die u handmatig corrigeert toe aan uw vocabulaire voor toekomstige transcripties."
 ai:
   enhancement: "AI-verbetering"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Automatische updates en handmatige updatecontroles"
 automatically:
   check_for_new_versions_in_the_back: "Controleer automatisch op nieuwe versies op de achtergrond."
-  start_pindrop_when_you_sign_in: "Start Pindrop automatisch wanneer u zich aanmeldt."
+  start_pindrop_when_you_sign_in: "Start NautPin automatisch wanneer u zich aanmeldt."
 available:
   models: "Beschikbare modellen"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Kies tussen Parakeet (meerdere versies, gedownload model) en Apple SpeechTranscriber (macOS 26+, meegeleverd met het besturingssysteem)."
   file: "Kies bestand"
   how_dictated_text_lands_then_tune_the_fin: "Kies hoe gedicteerde tekst terechtkomt en stem vervolgens het uiteindelijke invoeggedrag af."
-  how_pindrop_follows_system_appearance_the: "Kies hoe Pindrop het uiterlijk van het systeem volgt en meng vervolgens samengestelde lichte en donkere paletten."
+  how_pindrop_follows_system_appearance_the: "Kies hoe NautPin het uiterlijk van het systeem volgt en meng vervolgens samengestelde lichte en donkere paletten."
   how_to_import_the_dictionary_data: "Kies hoe u de woordenboekgegevens wilt importeren"
   how_to_import_the_preset_data: "Kies hoe u de vooraf ingestelde gegevens wilt importeren"
   languages_for_the_interface_and_for_dicta: "Kies talen voor de interface en voor dicteren. Automatisch volgt het systeem."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Kies de dagschaal die in de lichtmodus wordt gebruikt."
   the_low_glare_shell_used_in_dark_mode: "Kies de laag-reflecterende behuizing die in de donkere modus wordt gebruikt."
   which_floating_indicator_style_appears_wh: "Kies welke zwevende indicatorstijl wordt weergegeven wanneer de overlay is ingeschakeld."
-  which_microphone_pindrop_should_use_for_d: "Kies welke microfoon Pindrop moet gebruiken voor dicteren en hoe deze zich gedraagt ​​tijdens het opnemen."
+  which_microphone_pindrop_should_use_for_d: "Kies welke microfoon NautPin moet gebruiken voor dicteren en hoe deze zich gedraagt ​​tijdens het opnemen."
   which_side_the_navigation_sidebar_appears: "Kies aan welke kant de navigatiebalk verschijnt."
 clean:
   up_filler_words: "Ruim opvulwoorden op"
@@ -164,7 +164,7 @@ continue:
   with_default: "Ga verder met Standaard"
   without: "Ga verder zonder"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Bepaal hoe Pindrop verschijnt in macOS en of het begint met uw desktopsessie."
+  how_pindrop_appears_in_macos_and_whether: "Bepaal hoe NautPin verschijnt in macOS en of het begint met uw desktopsessie."
 controls:
   how_the_live_dictation_path_polishes_tr: "Bepaalt hoe het live-dicteerpad transcripties bijwerkt. De deterministische opschoner (verwijdering van stopwoorden, hoofdletters, uitgesproken interpunctie, getalsnormalisatie, samenvoegen van gesplitste woorden) loopt hoe dan ook — deze schakelaar regelt de optionele LLM-polijststap die start zodra het dicteren stopt."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Weergavenaam"
   name_c7874aaa: "Weergavenaam"
-  pindrop_in_the_dock_instead_of_running_o: "Geef Pindrop weer in het Dock in plaats van alleen als menubalk-app te draaien."
+  pindrop_in_the_dock_instead_of_running_o: "Geef NautPin weer in het Dock in plaats van alleen als menubalk-app te draaien."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Dock de zijbalk aan de linker- of rechterrand van het venster."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "Japanse"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Houd Pindrop automatisch actueel of activeer een handmatige controle wanneer u maar wilt."
+  pindrop_current_automatically_or_trigger_a: "Houd NautPin automatisch actueel of activeer een handmatige controle wanneer u maar wilt."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "Links"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Laat Pindrop rustig de woordenschat leren van de correcties die u in de loop van de tijd aanbrengt."
+  pindrop_quietly_learn_vocabulary_from_the_co: "Laat NautPin rustig de woordenschat leren van de correcties die u in de loop van de tijd aanbrengt."
 light:
   _self: "Licht"
   dark_and_curated_palette_presets: "Lichte, donkere en samengestelde paletvoorinstellingen"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Lage-latentiemodus (minder nauwkeurig)"
 manage:
-  local_speech_models_feature_models_and_th: "Beheer lokale spraakmodellen, functiemodellen en de standaardengine die Pindrop gebruikt voor transcriptie."
+  local_speech_models_feature_models_and_th: "Beheer lokale spraakmodellen, functiemodellen en de standaardengine die NautPin gebruikt voor transcriptie."
   models: "Beheer modellen"
   presets: "Beheer voorinstellingen"
   presets_ab87986d: "Voorinstellingen beheren..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "Vastzetten op scherm (altijd bovenaan)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Dot"
+  _self: "NautPin"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop is klaar voor gebruik.
     Klik op het menubalkpictogram om aan de slag te gaan.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop is klaar voor gebruik.nKlik op het menubalkpictogram om aan de slag te gaan."
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop heeft een aantal machtigingen nodig om te kunnen werken.nUw privacy wordt altijd gerespecteerd."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin is klaar voor gebruik.nKlik op het menubalkpictogram om aan de slag te gaan."
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin heeft een aantal machtigingen nodig om te kunnen werken.nUw privacy wordt altijd gerespecteerd."
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop heeft een paar machtigingen nodig om te werken.
     Uw privacy wordt altijd gerespecteerd.
   needs_accessibility_permission_to_insert: "\"\" Pindrop heeft toegankelijkheidstoestemming nodig om tekst bij uw cursor in te voegen.                          Om toestemming te verlenen: 1. Klik hieronder op \"Systeeminstellingen openen\" 2. Klik op de knop + 3. Navigeer naar de app die wordt weergegeven in Finder 4. Start Pindrop opnieuw op nadat u toestemming hebt verleend Zonder deze toestemming wordt tekst alleen naar uw klembord gekopieerd.             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop heeft microfoontoegang nodig om je stem op te nemen en te transcriberen.nnVerleen toestemming in Systeeminstellingen."
-  on_github: "Pindrop op GitHub"
-  pill: "Pindrop-pil"
-  theme: "Pindrop-thema"
+  needs_microphone_access_to_record_and_tr: "NautPin heeft microfoontoegang nodig om je stem op te nemen en te transcriberen.nnVerleen toestemming in Systeeminstellingen."
+  on_github: "NautPin op GitHub"
+  pill: "NautPin-pil"
+  theme: "NautPin-thema"
 play:
   _self: "Toneelstuk"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Vooraf ingestelde naam"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Houd ingedrukt om in elke app te dicteren. Pindrop zal uw toespraak transcriberen en de tekst invoegen waar uw cursor zich bevindt."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Houd ingedrukt om in elke app te dicteren. NautPin zal uw toespraak transcriberen en de tekst invoegen waar uw cursor zich bevindt."
   esc_to_cancel: "Druk op Esc om te annuleren"
   keys: "Toetsen indrukken..."
   once_to_start_again_to_stop: "Druk één keer om te starten, nogmaals om te stoppen"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Trek uw laatste transcript snel terug naar het klembord."
 quit:
   _self: "Ontslag nemen"
-  pindrop: "Sluit Pindrop af"
+  pindrop: "Sluit NautPin af"
 ready:
   _self: "Klaar"
   ec1296e1: "● Klaar"
@@ -839,7 +839,7 @@ start:
   recording: "Begin met opnemen"
   recording_to_see_your_transcriptions_here: "Begin met opnemen om hier uw transcripties te bekijken"
   stop_recording: "Opname starten/stoppen"
-  using_pindrop: "Begin met het gebruik van Pindrop"
+  using_pindrop: "Begin met het gebruik van NautPin"
 status:
   _self: "Status"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "Tijd bespaard"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "om te dicteren en Pindrop voor u te laten transcriberen"
+  dictate_and_let_pindrop_transcribe_for_you: "om te dicteren en NautPin voor u te laten transcriberen"
   start_talking: "om te beginnen praten"
 today:
   _self: "Vandaag"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Vibe-modus"
   mode_captures_structured_ui_context_when_re: "De Vibe-modus legt de gestructureerde UI-context vast wanneer de opname start, zodat AI-verbetering uw actieve app-status als referentie kan gebruiken."
-  mode_works_best_with_accessibility_permissi: "De Vibe-modus werkt het beste met Toegankelijkheidstoestemming. Zonder dit valt Pindrop terug op beperkte app-metagegevens en werkt transcriptie nog steeds normaal."
+  mode_works_best_with_accessibility_permissi: "De Vibe-modus werkt het beste met Toegankelijkheidstoestemming. Zonder dit valt NautPin terug op beperkte app-metagegevens en werkt transcriptie nog steeds normaal."
 view:
   _self: "Weergave"
   all: "Bekijk alles"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "versus typen"
 welcome:
-  to_pindrop: "Welkom bij Pindrop"
+  to_pindrop: "Welkom bij NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

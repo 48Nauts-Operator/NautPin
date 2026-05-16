@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "Μια εγγενής εφαρμογή υπαγόρευσης γραμμής μενού macOS που χρησιμοποιεί τοπική ομιλία σε κείμενο με το WhisperKit. 100% τοπική επεξεργασία από προεπιλογή με προαιρετική βελτίωση AI."
 about:
   _self: "Για"
-  pindrop: "Σχετικά με το Pindrop"
+  pindrop: "Σχετικά με το NautPin"
 accessibility:
   _self: "Προσιτότητα"
   permission_is_enabled_full_ui_cont: "Η άδεια προσβασιμότητας είναι ενεργοποιημένη. Διατίθεται πλήρες περιβάλλον διεπαφής χρήστη."
@@ -29,7 +29,7 @@ add:
   to_existing: "Προσθήκη στο Υπάρχον"
   trailing_space: "Προσθέστε ελεύθερο χώρο"
   word_replacements_to_automatically_correct_c: "Προσθέστε αντικαταστάσεις λέξεων για αυτόματη διόρθωση συνηθισμένων σφαλμάτων μεταγραφής."
-  words_to_help_pindrop_recognize_them_properl: "Προσθέστε λέξεις για να βοηθήσετε τον Pindrop να τις αναγνωρίσει σωστά"
+  words_to_help_pindrop_recognize_them_properl: "Προσθέστε λέξεις για να βοηθήσετε τον NautPin να τις αναγνωρίσει σωστά"
   words_you_manually_correct_into_your_vocabul: "Προσθέστε λέξεις που διορθώνετε χειροκίνητα στο λεξιλόγιό σας για μελλοντικές μεταγραφές."
 ai:
   enhancement: "Βελτίωση AI"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Αυτόματες ενημερώσεις και έλεγχοι μη αυτόματων ενημερώσεων"
 automatically:
   check_for_new_versions_in_the_back: "Αυτόματος έλεγχος για νέες εκδόσεις στο παρασκήνιο."
-  start_pindrop_when_you_sign_in: "Αυτόματη έναρξη του Pindrop όταν συνδέεστε."
+  start_pindrop_when_you_sign_in: "Αυτόματη έναρξη του NautPin όταν συνδέεστε."
 available:
   models: "Διαθέσιμα μοντέλα"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Επιλέξτε μεταξύ του Parakeet (διασταυρούμενη έκδοση, ληφθέν μοντέλο) και του Apple SpeechTranscriber (macOS 26+, αποστέλλεται με το λειτουργικό σύστημα)."
   file: "Επιλέξτε αρχείο"
   how_dictated_text_lands_then_tune_the_fin: "Επιλέξτε τον τρόπο προσγείωσης του υπαγορευμένου κειμένου και, στη συνέχεια, συντονίστε την τελική συμπεριφορά εισαγωγής."
-  how_pindrop_follows_system_appearance_the: "Επιλέξτε πώς το Pindrop ακολουθεί την εμφάνιση του συστήματος και, στη συνέχεια, συνδυάστε επιλεγμένες ανοιχτές και σκούρες παλέτες."
+  how_pindrop_follows_system_appearance_the: "Επιλέξτε πώς το NautPin ακολουθεί την εμφάνιση του συστήματος και, στη συνέχεια, συνδυάστε επιλεγμένες ανοιχτές και σκούρες παλέτες."
   how_to_import_the_dictionary_data: "Επιλέξτε τον τρόπο εισαγωγής των δεδομένων του λεξικού"
   how_to_import_the_preset_data: "Επιλέξτε τον τρόπο εισαγωγής των προκαθορισμένων δεδομένων"
   languages_for_the_interface_and_for_dicta: "Επιλέξτε γλώσσες για τη διεπαφή και για την υπαγόρευση. Αυτόματη ακολουθεί το σύστημα."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Επιλέξτε το κέλυφος ημέρας που χρησιμοποιείται στη λειτουργία φωτός."
   the_low_glare_shell_used_in_dark_mode: "Επιλέξτε το κέλυφος χαμηλής λάμψης που χρησιμοποιείται στη σκοτεινή λειτουργία."
   which_floating_indicator_style_appears_wh: "Επιλέξτε ποιο στυλ κινητής ένδειξης θα εμφανίζεται όταν είναι ενεργοποιημένη η επικάλυψη."
-  which_microphone_pindrop_should_use_for_d: "Επιλέξτε ποιο μικρόφωνο θα χρησιμοποιεί το Pindrop για υπαγόρευση και πώς θα συμπεριφέρεται κατά την εγγραφή."
+  which_microphone_pindrop_should_use_for_d: "Επιλέξτε ποιο μικρόφωνο θα χρησιμοποιεί το NautPin για υπαγόρευση και πώς θα συμπεριφέρεται κατά την εγγραφή."
   which_side_the_navigation_sidebar_appears: "Επιλέξτε σε ποια πλευρά θα εμφανίζεται η πλαϊνή γραμμή πλοήγησης."
 clean:
   up_filler_words: "Καθαρίστε τις λέξεις πλήρωσης"
@@ -164,7 +164,7 @@ continue:
   with_default: "Συνεχίστε με Προεπιλογή"
   without: "Συνέχεια χωρίς"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Ελέγξτε πώς εμφανίζεται το Pindrop στο macOS και εάν ξεκινά με την περίοδο λειτουργίας του υπολογιστή σας."
+  how_pindrop_appears_in_macos_and_whether: "Ελέγξτε πώς εμφανίζεται το NautPin στο macOS και εάν ξεκινά με την περίοδο λειτουργίας του υπολογιστή σας."
 controls:
   how_the_live_dictation_path_polishes_tr: "Ελέγχει τον τρόπο με τον οποίο η ζωντανή διαδρομή υπαγόρευσης γυαλίζει τις μεταγραφές. Το ντετερμινιστικό καθαριστικό (αφαίρεση γεμίσματος, χρήση κεφαλαίων, προφορικά σημεία στίξης, κανονικοποίηση αριθμών, συγχώνευση διαχωρισμένων λέξεων) εκτελείται με κάθε τρόπο — αυτή η εναλλαγή κλείνει το προαιρετικό πάσο γυαλίσματος LLM που ενεργοποιείται μόλις σταματήσει η υπαγόρευση."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Εμφανιζόμενο όνομα"
   name_c7874aaa: "Εμφανιζόμενο όνομα"
-  pindrop_in_the_dock_instead_of_running_o: "Εμφανίστε το Pindrop στο Dock αντί να εκτελείται μόνο ως εφαρμογή γραμμής μενού."
+  pindrop_in_the_dock_instead_of_running_o: "Εμφανίστε το NautPin στο Dock αντί να εκτελείται μόνο ως εφαρμογή γραμμής μενού."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Στερεώστε την πλαϊνή γραμμή στην αριστερή ή τη δεξιά άκρη του παραθύρου."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "Ιαπωνικά"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Διατηρήστε το Pindrop τρέχον αυτόματα ή ενεργοποιήστε έναν μη αυτόματο έλεγχο όποτε θέλετε."
+  pindrop_current_automatically_or_trigger_a: "Διατηρήστε το NautPin τρέχον αυτόματα ή ενεργοποιήστε έναν μη αυτόματο έλεγχο όποτε θέλετε."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "Αριστερά"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Αφήστε τον Pindrop να μάθει αθόρυβα λεξιλόγιο από τις διορθώσεις που κάνετε με την πάροδο του χρόνου."
+  pindrop_quietly_learn_vocabulary_from_the_co: "Αφήστε τον NautPin να μάθει αθόρυβα λεξιλόγιο από τις διορθώσεις που κάνετε με την πάροδο του χρόνου."
 light:
   _self: "Φως"
   dark_and_curated_palette_presets: "Προκαθορισμένες παλέτες ανοιχτόχρωμες, σκοτεινές και επιμελημένες"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Λειτουργία χαμηλής καθυστέρησης (λιγότερο ακριβής)"
 manage:
-  local_speech_models_feature_models_and_th: "Διαχειριστείτε μοντέλα τοπικής ομιλίας, μοντέλα δυνατοτήτων και τον προεπιλεγμένο κινητήρα που χρησιμοποιεί το Pindrop για μεταγραφή."
+  local_speech_models_feature_models_and_th: "Διαχειριστείτε μοντέλα τοπικής ομιλίας, μοντέλα δυνατοτήτων και τον προεπιλεγμένο κινητήρα που χρησιμοποιεί το NautPin για μεταγραφή."
   models: "Διαχείριση μοντέλων"
   presets: "Διαχείριση προεπιλογών"
   presets_ab87986d: "Διαχείριση προεπιλογών..."
@@ -617,20 +617,20 @@ pin:
   to_screen_always_on_top: "Καρφίτσωμα στην οθόνη (πάντα στην κορυφή)"
 pindrop:
   _self: "Πίνδροπ"
-  dot: "Pindrop Dot"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Το Pindrop είναι έτοιμο για χρήση.
     Κάντε κλικ στο εικονίδιο της γραμμής μενού για να ξεκινήσετε.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Το Pindrop είναι έτοιμο για χρήση. nΚάντε κλικ στο εικονίδιο της γραμμής μενού για να ξεκινήσετε."
-  needs_a_few_permissions_to_work_nyour_pr: "Το Pindrop χρειάζεται μερικές άδειες για να λειτουργήσει. nΤο απόρρητό σας είναι πάντα σεβαστό."
+  is_ready_to_use_nclick_the_menu_bar_icon: "Το NautPin είναι έτοιμο για χρήση. nΚάντε κλικ στο εικονίδιο της γραμμής μενού για να ξεκινήσετε."
+  needs_a_few_permissions_to_work_nyour_pr: "Το NautPin χρειάζεται μερικές άδειες για να λειτουργήσει. nΤο απόρρητό σας είναι πάντα σεβαστό."
   needs_a_few_permissions_to_work_your_pri: |-
     Το Pindrop χρειάζεται μερικά δικαιώματα για να λειτουργήσει.
     Το απόρρητό σας τηρείται πάντα.
   needs_accessibility_permission_to_insert: "\"\" Το Pindrop χρειάζεται άδεια προσβασιμότητας για να εισαγάγει κείμενο στον κέρσορα σας.                          Για να εκχωρήσετε άδεια: 1. Κάντε κλικ στο \"Άνοιγμα ρυθμίσεων συστήματος\" παρακάτω 2. Κάντε κλικ στο κουμπί + 3. Μεταβείτε στην εφαρμογή που εμφανίζεται στο Finder 4. Επανεκκινήστε το Pindrop μετά τη χορήγηση άδειας Χωρίς αυτήν την άδεια, το κείμενο θα αντιγραφεί μόνο στο πρόχειρό σας.             \"\""
-  needs_microphone_access_to_record_and_tr: "Το Pindrop χρειάζεται πρόσβαση στο μικρόφωνο για την εγγραφή και τη μεταγραφή της φωνής σας.nnΠαρακαλούμε παραχωρήστε άδεια στις Ρυθμίσεις συστήματος."
-  on_github: "Pindrop στο GitHub"
-  pill: "Χάπι Pindrop"
-  theme: "Θέμα Pindrop"
+  needs_microphone_access_to_record_and_tr: "Το NautPin χρειάζεται πρόσβαση στο μικρόφωνο για την εγγραφή και τη μεταγραφή της φωνής σας.nnΠαρακαλούμε παραχωρήστε άδεια στις Ρυθμίσεις συστήματος."
+  on_github: "NautPin στο GitHub"
+  pill: "Χάπι NautPin"
+  theme: "Θέμα NautPin"
 play:
   _self: "Παιχνίδι"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Προκαθορισμένο όνομα"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Πατήστε παρατεταμένα για υπαγόρευση σε οποιαδήποτε εφαρμογή. Το Pindrop θα μεταγράψει την ομιλία σας και θα εισαγάγει το κείμενο όπου βρίσκεται ο κέρσορας σας."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Πατήστε παρατεταμένα για υπαγόρευση σε οποιαδήποτε εφαρμογή. Το NautPin θα μεταγράψει την ομιλία σας και θα εισαγάγει το κείμενο όπου βρίσκεται ο κέρσορας σας."
   esc_to_cancel: "Πατήστε Esc για ακύρωση"
   keys: "Πατήστε τα πλήκτρα..."
   once_to_start_again_to_stop: "Πατήστε μία φορά για να ξεκινήσετε, ξανά για να σταματήσετε"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Τραβήξτε γρήγορα την τελευταία μεταγραφή σας πίσω στο πρόχειρο."
 quit:
   _self: "Εγκαταλείπω"
-  pindrop: "Κλείστε το Pindrop"
+  pindrop: "Κλείστε το NautPin"
 ready:
   _self: "Ετοιμος"
   ec1296e1: "● Έτοιμος"
@@ -839,7 +839,7 @@ start:
   recording: "Ξεκινήστε την εγγραφή"
   recording_to_see_your_transcriptions_here: "Ξεκινήστε την εγγραφή για να δείτε τις μεταγραφές σας εδώ"
   stop_recording: "Έναρξη/διακοπή εγγραφής"
-  using_pindrop: "Ξεκινήστε να χρησιμοποιείτε το Pindrop"
+  using_pindrop: "Ξεκινήστε να χρησιμοποιείτε το NautPin"
 status:
   _self: "Κατάσταση"
 stop:
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Λειτουργία Vibe"
   mode_captures_structured_ui_context_when_re: "Η λειτουργία Vibe καταγράφει το δομημένο περιβάλλον διεπαφής χρήστη όταν ξεκινά η εγγραφή, έτσι ώστε η βελτίωση AI να μπορεί να χρησιμοποιεί την ενεργή κατάσταση της εφαρμογής σας ως αναφορά."
-  mode_works_best_with_accessibility_permissi: "Η λειτουργία Vibe λειτουργεί καλύτερα με την άδεια Προσβασιμότητας. Χωρίς αυτό, το Pindrop επιστρέφει σε περιορισμένα μεταδεδομένα εφαρμογής και η μεταγραφή εξακολουθεί να λειτουργεί κανονικά."
+  mode_works_best_with_accessibility_permissi: "Η λειτουργία Vibe λειτουργεί καλύτερα με την άδεια Προσβασιμότητας. Χωρίς αυτό, το NautPin επιστρέφει σε περιορισμένα μεταδεδομένα εφαρμογής και η μεταγραφή εξακολουθεί να λειτουργεί κανονικά."
 view:
   _self: "Θέα"
   all: "Προβολή όλων"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "έναντι πληκτρολόγησης"
 welcome:
-  to_pindrop: "Καλώς ήρθατε στο Pindrop"
+  to_pindrop: "Καλώς ήρθατε στο NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

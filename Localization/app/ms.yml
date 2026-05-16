@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "Apl imlak bar menu macOS asli menggunakan pertuturan-ke-teks tempatan dengan WhisperKit. 100% pemprosesan tempatan secara lalai dengan peningkatan AI pilihan."
 about:
   _self: "Tentang"
-  pindrop: "Mengenai Pindrop"
+  pindrop: "Mengenai NautPin"
 accessibility:
   _self: "Kebolehcapaian"
   permission_is_enabled_full_ui_cont: "Kebenaran kebolehaksesan didayakan. Konteks UI penuh tersedia."
@@ -29,7 +29,7 @@ add:
   to_existing: "Tambahkan pada Sedia Ada"
   trailing_space: "Tambah ruang belakang"
   word_replacements_to_automatically_correct_c: "Tambahkan penggantian perkataan untuk membetulkan ralat transkripsi biasa secara automatik."
-  words_to_help_pindrop_recognize_them_properl: "Tambahkan perkataan untuk membantu Pindrop mengenalinya dengan betul"
+  words_to_help_pindrop_recognize_them_properl: "Tambahkan perkataan untuk membantu NautPin mengenalinya dengan betul"
   words_you_manually_correct_into_your_vocabul: "Tambahkan perkataan yang anda betulkan secara manual ke dalam perbendaharaan kata anda untuk transkripsi masa hadapan."
 ai:
   enhancement: "Peningkatan AI"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Kemas kini automatik dan semakan kemas kini manual"
 automatically:
   check_for_new_versions_in_the_back: "Semak versi baharu di latar belakang secara automatik."
-  start_pindrop_when_you_sign_in: "Mulakan Pindrop secara automatik apabila anda log masuk."
+  start_pindrop_when_you_sign_in: "Mulakan NautPin secara automatik apabila anda log masuk."
 available:
   models: "Model Tersedia"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Pilih antara Parakeet (versi silang, model yang dimuat turun) dan Apple SpeechTranscriber (macOS 26+, dihantar dengan OS)."
   file: "Pilih fail"
   how_dictated_text_lands_then_tune_the_fin: "Pilih cara teks yang ditentukan tiba, kemudian sesuaikan gelagat sisipan akhir."
-  how_pindrop_follows_system_appearance_the: "Pilih cara Pindrop mengikuti penampilan sistem, kemudian campurkan palet terang dan gelap yang dipilih susun."
+  how_pindrop_follows_system_appearance_the: "Pilih cara NautPin mengikuti penampilan sistem, kemudian campurkan palet terang dan gelap yang dipilih susun."
   how_to_import_the_dictionary_data: "Pilih cara mengimport data kamus"
   how_to_import_the_preset_data: "Pilih cara mengimport data pratetap"
   languages_for_the_interface_and_for_dicta: "Pilih bahasa untuk antara muka dan untuk imlak. Automatik mengikut sistem."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Pilih cangkerang siang hari yang digunakan dalam mod cahaya."
   the_low_glare_shell_used_in_dark_mode: "Pilih cangkerang silau rendah yang digunakan dalam mod gelap."
   which_floating_indicator_style_appears_wh: "Pilih gaya penunjuk terapung yang muncul apabila tindanan didayakan."
-  which_microphone_pindrop_should_use_for_d: "Pilih mikrofon yang Pindrop harus gunakan untuk imlak dan cara ia berkelakuan semasa merakam."
+  which_microphone_pindrop_should_use_for_d: "Pilih mikrofon yang NautPin harus gunakan untuk imlak dan cara ia berkelakuan semasa merakam."
   which_side_the_navigation_sidebar_appears: "Pilih sebelah mana bar sisi navigasi muncul."
 clean:
   up_filler_words: "Bersihkan perkataan pengisi"
@@ -164,7 +164,7 @@ continue:
   with_default: "Teruskan dengan Lalai"
   without: "Teruskan Tanpa"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Kawal cara Pindrop muncul dalam macOS dan sama ada ia bermula dengan sesi desktop anda."
+  how_pindrop_appears_in_macos_and_whether: "Kawal cara NautPin muncul dalam macOS dan sama ada ia bermula dengan sesi desktop anda."
 controls:
   how_the_live_dictation_path_polishes_tr: "Mengawal cara laluan imlak langsung menggilap transkrip. Pembersih deterministik (penyingkiran pengisi, penggunaan huruf besar, tanda baca yang dituturkan, penormalan nombor, penggabungan perkataan berpecah) berjalan dengan cara sama ada — togol ini mengawal pas pengilat LLM pilihan yang menyala sebaik sahaja imlak berhenti."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Nama Paparan"
   name_c7874aaa: "Nama paparan"
-  pindrop_in_the_dock_instead_of_running_o: "Paparkan Pindrop dalam Dok dan bukannya berjalan hanya sebagai apl bar menu."
+  pindrop_in_the_dock_instead_of_running_o: "Paparkan NautPin dalam Dok dan bukannya berjalan hanya sebagai apl bar menu."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Dok bar sisi ke tepi kiri atau kanan tetingkap."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "Jepun"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Pastikan Pindrop semasa secara automatik, atau cetuskan semakan manual pada bila-bila masa anda mahu."
+  pindrop_current_automatically_or_trigger_a: "Pastikan NautPin semasa secara automatik, atau cetuskan semakan manual pada bila-bila masa anda mahu."
 key:
   _self: "#%@"
   a979ef10: "None"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "kiri"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Biarkan Pindrop mempelajari perbendaharaan kata secara senyap-senyap daripada pembetulan yang anda buat dari semasa ke semasa."
+  pindrop_quietly_learn_vocabulary_from_the_co: "Biarkan NautPin mempelajari perbendaharaan kata secara senyap-senyap daripada pembetulan yang anda buat dari semasa ke semasa."
 light:
   _self: "Cahaya"
   dark_and_curated_palette_presets: "Pratetap palet terang, gelap dan dipilih susun"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Mod kependaman rendah (kurang tepat)"
 manage:
-  local_speech_models_feature_models_and_th: "Urus model pertuturan tempatan, model ciri dan enjin lalai yang digunakan Pindrop untuk transkripsi."
+  local_speech_models_feature_models_and_th: "Urus model pertuturan tempatan, model ciri dan enjin lalai yang digunakan NautPin untuk transkripsi."
   models: "Urus model"
   presets: "Urus Pratetap"
   presets_ab87986d: "Urus Pratetap..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "Semat pada skrin (sentiasa di atas)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Titik Pindrop"
+  _self: "NautPin"
+  dot: "Titik NautPin"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop sedia untuk digunakan.
     Klik ikon bar menu untuk bermula.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop sedia untuk digunakan.nKlik ikon bar menu untuk bermula."
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop memerlukan beberapa kebenaran untuk berfungsi.nPrivasi anda sentiasa dihormati."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin sedia untuk digunakan.nKlik ikon bar menu untuk bermula."
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin memerlukan beberapa kebenaran untuk berfungsi.nPrivasi anda sentiasa dihormati."
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop memerlukan beberapa kebenaran untuk berfungsi.
     Privasi anda sentiasa dihormati.
   needs_accessibility_permission_to_insert: "\"\" Pindrop memerlukan kebenaran Kebolehaksesan untuk memasukkan teks pada kursor anda.                          Untuk memberikan kebenaran: 1. Klik \"Buka Tetapan Sistem\" di bawah 2. Klik butang + 3. Navigasi ke apl yang ditunjukkan dalam Finder 4. Mulakan semula Pindrop selepas memberikan kebenaran Tanpa kebenaran ini, teks hanya akan disalin ke papan keratan anda.             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop memerlukan akses mikrofon untuk merakam dan menyalin suara anda.nnSila berikan kebenaran dalam Tetapan Sistem."
-  on_github: "Pindrop pada GitHub"
-  pill: "Pil Pindrop"
-  theme: "Tema Pindrop"
+  needs_microphone_access_to_record_and_tr: "NautPin memerlukan akses mikrofon untuk merakam dan menyalin suara anda.nnSila berikan kebenaran dalam Tetapan Sistem."
+  on_github: "NautPin pada GitHub"
+  pill: "Pil NautPin"
+  theme: "Tema NautPin"
 play:
   _self: "Main"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Nama Pratetap"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Tekan dan tahan untuk menentukan dalam mana-mana apl. Pindrop akan menyalin pertuturan anda dan memasukkan teks di mana kursor anda berada."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Tekan dan tahan untuk menentukan dalam mana-mana apl. NautPin akan menyalin pertuturan anda dan memasukkan teks di mana kursor anda berada."
   esc_to_cancel: "Tekan Esc untuk membatalkan"
   keys: "Tekan kekunci..."
   once_to_start_again_to_stop: "Tekan sekali untuk memulakan, sekali lagi untuk berhenti"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Tarik transkrip terbaharu anda kembali ke papan keratan dengan cepat."
 quit:
   _self: "Berhenti"
-  pindrop: "Berhenti Pindrop"
+  pindrop: "Berhenti NautPin"
 ready:
   _self: "sedia"
   ec1296e1: "● Sedia"
@@ -839,7 +839,7 @@ start:
   recording: "Mulakan Rakaman"
   recording_to_see_your_transcriptions_here: "Mulakan rakaman untuk melihat transkripsi anda di sini"
   stop_recording: "Mula/hentikan rakaman"
-  using_pindrop: "Mula Menggunakan Pindrop"
+  using_pindrop: "Mula Menggunakan NautPin"
 status:
   _self: "Status"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "Masa Dijimatkan"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "untuk menentukan dan biarkan Pindrop menyalin untuk anda"
+  dictate_and_let_pindrop_transcribe_for_you: "untuk menentukan dan biarkan NautPin menyalin untuk anda"
   start_talking: "untuk mula bercakap"
 today:
   _self: "Hari ini"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Mod Vibe"
   mode_captures_structured_ui_context_when_re: "Mod vibe menangkap konteks UI berstruktur apabila rakaman bermula supaya peningkatan AI boleh menggunakan keadaan apl aktif anda sebagai rujukan."
-  mode_works_best_with_accessibility_permissi: "Mod vibe berfungsi paling baik dengan kebenaran Kebolehaksesan. Tanpa itu, Pindrop kembali kepada metadata apl terhad dan transkripsi masih berfungsi seperti biasa."
+  mode_works_best_with_accessibility_permissi: "Mod vibe berfungsi paling baik dengan kebenaran Kebolehaksesan. Tanpa itu, NautPin kembali kepada metadata apl terhad dan transkripsi masih berfungsi seperti biasa."
 view:
   _self: "Lihat"
   all: "Lihat semua"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "vs menaip"
 welcome:
-  to_pindrop: "Selamat datang ke Pindrop"
+  to_pindrop: "Selamat datang ke NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

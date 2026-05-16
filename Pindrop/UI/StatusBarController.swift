@@ -451,7 +451,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         menu.addItem(NSMenuItem.separator())
 
         let quitItem = NSMenuItem(
-            title: localized("Quit Pindrop", locale: locale),
+            title: localized("Quit NautPin", locale: locale),
             action: #selector(quit),
             keyEquivalent: "q"
         )

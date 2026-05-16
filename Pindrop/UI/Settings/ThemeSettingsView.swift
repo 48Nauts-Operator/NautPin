@@ -81,7 +81,7 @@ struct ThemeSettingsView: View {
         SettingsCard(
             title: localized("Theme", locale: locale),
             icon: "paintbrush.pointed",
-            detail: localized("Choose how Pindrop follows system appearance, then mix curated light and dark palettes.", locale: locale)
+            detail: localized("Choose how NautPin follows system appearance, then mix curated light and dark palettes.", locale: locale)
         ) {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
                 Picker(localized("Theme mode", locale: locale), selection: modeBinding) {

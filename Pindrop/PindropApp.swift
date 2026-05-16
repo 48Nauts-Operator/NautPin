@@ -153,14 +153,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let appMenuItem = NSMenuItem()
         appMenuItem.submenu = appMenu
         
-        appMenu.addItem(NSMenuItem(title: localized("About Pindrop", locale: currentLocale), action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: ""))
+        appMenu.addItem(NSMenuItem(title: localized("About NautPin", locale: currentLocale), action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: ""))
         appMenu.addItem(NSMenuItem.separator())
         
         let settingsItem = NSMenuItem(title: localized("Settings…", locale: currentLocale), action: #selector(openSettings(_:)), keyEquivalent: ",")
         appMenu.addItem(settingsItem)
 
         appMenu.addItem(NSMenuItem.separator())
-        appMenu.addItem(NSMenuItem(title: localized("Quit Pindrop", locale: currentLocale), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        appMenu.addItem(NSMenuItem(title: localized("Quit NautPin", locale: currentLocale), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         
         mainMenu.addItem(appMenuItem)
         

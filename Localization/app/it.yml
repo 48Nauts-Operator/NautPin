@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "Un'app nativa per la dettatura della barra dei menu di macOS che utilizza la sintesi vocale locale con WhisperKit. Elaborazione locale al 100% per impostazione predefinita con miglioramento dell'intelligenza artificiale opzionale."
 about:
   _self: "Di"
-  pindrop: "A proposito di Pindrop"
+  pindrop: "A proposito di NautPin"
 accessibility:
   _self: "Accessibilità"
   permission_is_enabled_full_ui_cont: "L'autorizzazione di accessibilità è abilitata. È disponibile il contesto completo dell'interfaccia utente."
@@ -29,7 +29,7 @@ add:
   to_existing: "Aggiungi a esistente"
   trailing_space: "Aggiungi spazio finale"
   word_replacements_to_automatically_correct_c: "Aggiungi sostituzioni di parole per correggere automaticamente gli errori di trascrizione più comuni."
-  words_to_help_pindrop_recognize_them_properl: "Aggiungi parole per aiutare Pindrop a riconoscerle correttamente"
+  words_to_help_pindrop_recognize_them_properl: "Aggiungi parole per aiutare NautPin a riconoscerle correttamente"
   words_you_manually_correct_into_your_vocabul: "Aggiungi le parole che correggi manualmente al tuo vocabolario per le trascrizioni future."
 ai:
   enhancement: "Miglioramento dell'intelligenza artificiale"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Aggiornamenti automatici e controlli manuali degli aggiornamenti"
 automatically:
   check_for_new_versions_in_the_back: "Controlla automaticamente la presenza di nuove versioni in background."
-  start_pindrop_when_you_sign_in: "Avvia automaticamente Pindrop quando accedi."
+  start_pindrop_when_you_sign_in: "Avvia automaticamente NautPin quando accedi."
 available:
   models: "Modelli disponibili"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Scegli tra Parakeet (multi-versione, modello scaricato) e Apple SpeechTranscriber (macOS 26+, fornito con il sistema)."
   file: "Scegli file"
   how_dictated_text_lands_then_tune_the_fin: "Scegli la modalità di destinazione del testo dettato, quindi ottimizza il comportamento di inserimento finale."
-  how_pindrop_follows_system_appearance_the: "Scegli in che modo Pindrop segue l'aspetto del sistema, quindi mescola tavolozze chiare e scure selezionate."
+  how_pindrop_follows_system_appearance_the: "Scegli in che modo NautPin segue l'aspetto del sistema, quindi mescola tavolozze chiare e scure selezionate."
   how_to_import_the_dictionary_data: "Scegli come importare i dati del dizionario"
   how_to_import_the_preset_data: "Scegli come importare i dati preimpostati"
   languages_for_the_interface_and_for_dicta: "Scegli le lingue per l'interfaccia e per la dettatura. Automatico segue il sistema."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Scegli la shell diurna utilizzata in modalità luce."
   the_low_glare_shell_used_in_dark_mode: "Scegli il guscio antiriflesso utilizzato in modalità oscura."
   which_floating_indicator_style_appears_wh: "Scegli lo stile dell'indicatore mobile da visualizzare quando l'overlay è abilitato."
-  which_microphone_pindrop_should_use_for_d: "Scegli quale microfono Pindrop deve utilizzare per la dettatura e come si comporta durante la registrazione."
+  which_microphone_pindrop_should_use_for_d: "Scegli quale microfono NautPin deve utilizzare per la dettatura e come si comporta durante la registrazione."
   which_side_the_navigation_sidebar_appears: "Scegli su quale lato appare la barra di navigazione laterale."
 clean:
   up_filler_words: "Pulisci le parole di riempimento"
@@ -164,7 +164,7 @@ continue:
   with_default: "Continua con Predefinito"
   without: "Continua senza"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Controlla come appare Pindrop in macOS e se si avvia con la sessione desktop."
+  how_pindrop_appears_in_macos_and_whether: "Controlla come appare NautPin in macOS e se si avvia con la sessione desktop."
 controls:
   how_the_live_dictation_path_polishes_tr: "Controlla come il percorso di dettatura in diretta rifinisce le trascrizioni. Il pulitore deterministico (rimozione riempitivi, maiuscole, punteggiatura parlata, normalizzazione dei numeri, unione di parole divise) viene eseguito comunque — questo interruttore abilita la lucidatura LLM opzionale al termine della dettatura."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Nome da visualizzare"
   name_c7874aaa: "Nome da visualizzare"
-  pindrop_in_the_dock_instead_of_running_o: "Visualizza Pindrop nel Dock invece di essere eseguito solo come app della barra dei menu."
+  pindrop_in_the_dock_instead_of_running_o: "Visualizza NautPin nel Dock invece di essere eseguito solo come app della barra dei menu."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Ancora la barra laterale al bordo sinistro o destro della finestra."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "giapponese"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Mantieni Pindrop aggiornato automaticamente o attiva un controllo manuale quando vuoi."
+  pindrop_current_automatically_or_trigger_a: "Mantieni NautPin aggiornato automaticamente o attiva un controllo manuale quando vuoi."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "Sinistra"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Lascia che Pindrop impari tranquillamente il vocabolario dalle correzioni che apporti nel tempo."
+  pindrop_quietly_learn_vocabulary_from_the_co: "Lascia che NautPin impari tranquillamente il vocabolario dalle correzioni che apporti nel tempo."
 light:
   _self: "Leggero"
   dark_and_curated_palette_presets: "Preimpostazioni di tavolozza chiare, scure e curate"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Modalità a bassa latenza (meno accurata)"
 manage:
-  local_speech_models_feature_models_and_th: "Gestisci modelli vocali locali, modelli di funzionalità e il motore predefinito utilizzato da Pindrop per la trascrizione."
+  local_speech_models_feature_models_and_th: "Gestisci modelli vocali locali, modelli di funzionalità e il motore predefinito utilizzato da NautPin per la trascrizione."
   models: "Gestisci modelli"
   presets: "Gestisci preimpostazioni"
   presets_ab87986d: "Gestisci preimpostazioni..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "Aggiungi allo schermo (sempre in primo piano)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Dot"
+  _self: "NautPin"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop è pronto per l'uso.
     Fare clic sull'icona della barra dei menu per iniziare.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop è pronto per l'uso.nFai clic sull'icona della barra dei menu per iniziare."
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop necessita di alcune autorizzazioni per funzionare. La tua privacy è sempre rispettata."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin è pronto per l'uso.nFai clic sull'icona della barra dei menu per iniziare."
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin necessita di alcune autorizzazioni per funzionare. La tua privacy è sempre rispettata."
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop necessita di alcune autorizzazioni per funzionare.
     La tua privacy è sempre rispettata.
   needs_accessibility_permission_to_insert: "\"\" Pindrop necessita dell'autorizzazione di accessibilità per inserire testo in corrispondenza del cursore.                          Per concedere l'autorizzazione: 1. Fai clic su \"Apri Impostazioni di sistema\" di seguito 2. Fai clic sul pulsante + 3. Passa all'app mostrata nel Finder 4. Riavvia Pindrop dopo aver concesso l'autorizzazione Senza questa autorizzazione, il testo verrà solo copiato negli appunti.             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop necessita dell'accesso al microfono per registrare e trascrivere la tua voce.nnConcedi l'autorizzazione nelle Impostazioni di sistema."
-  on_github: "Pindrop su GitHub"
-  pill: "Pillola Pindrop"
-  theme: "Tema Pindrop"
+  needs_microphone_access_to_record_and_tr: "NautPin necessita dell'accesso al microfono per registrare e trascrivere la tua voce.nnConcedi l'autorizzazione nelle Impostazioni di sistema."
+  on_github: "NautPin su GitHub"
+  pill: "Pillola NautPin"
+  theme: "Tema NautPin"
 play:
   _self: "Giocare"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Nome preimpostato"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Tieni premuto per dettare in qualsiasi app. Pindrop trascriverà il tuo discorso e inserirà il testo nel punto in cui si trova il cursore."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Tieni premuto per dettare in qualsiasi app. NautPin trascriverà il tuo discorso e inserirà il testo nel punto in cui si trova il cursore."
   esc_to_cancel: "Premi Esc per annullare"
   keys: "Premere i tasti..."
   once_to_start_again_to_stop: "Premere una volta per avviare, un'altra per interrompere"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Riporta rapidamente la tua ultima trascrizione negli appunti."
 quit:
   _self: "Esentato"
-  pindrop: "Esci da Pindrop"
+  pindrop: "Esci da NautPin"
 ready:
   _self: "Pronto"
   ec1296e1: "● Pronto"
@@ -839,7 +839,7 @@ start:
   recording: "Inizia a registrare"
   recording_to_see_your_transcriptions_here: "Inizia a registrare per vedere le tue trascrizioni qui"
   stop_recording: "Avvia/interrompe la registrazione"
-  using_pindrop: "Inizia a utilizzare Pindrop"
+  using_pindrop: "Inizia a utilizzare NautPin"
 status:
   _self: "Stato"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "Tempo risparmiato"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "per dettare e lasciare che Pindrop trascriva per te"
+  dictate_and_let_pindrop_transcribe_for_you: "per dettare e lasciare che NautPin trascriva per te"
   start_talking: "per iniziare a parlare"
 today:
   _self: "Oggi"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Modalità vibrazione"
   mode_captures_structured_ui_context_when_re: "La modalità Vibe acquisisce il contesto dell'interfaccia utente strutturata all'avvio della registrazione in modo che il miglioramento dell'intelligenza artificiale possa utilizzare lo stato dell'app attiva come riferimento."
-  mode_works_best_with_accessibility_permissi: "La modalità Vibe funziona meglio con l'autorizzazione di Accessibilità. Senza di esso, Pindrop ricorre ai metadati limitati dell'app e la trascrizione funziona ancora normalmente."
+  mode_works_best_with_accessibility_permissi: "La modalità Vibe funziona meglio con l'autorizzazione di Accessibilità. Senza di esso, NautPin ricorre ai metadati limitati dell'app e la trascrizione funziona ancora normalmente."
 view:
   _self: "Visualizzazione"
   all: "Visualizza tutto"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "rispetto alla digitazione"
 welcome:
-  to_pindrop: "Benvenuto in Pindrop"
+  to_pindrop: "Benvenuto in NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

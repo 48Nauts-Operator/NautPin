@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "O aplicație nativă de dictare a barei de meniu macOS care folosește conversia vocală în text local cu WhisperKit. Procesare 100% locală în mod implicit, cu îmbunătățire opțională AI."
 about:
   _self: "Despre"
-  pindrop: "Despre Pindrop"
+  pindrop: "Despre NautPin"
 accessibility:
   _self: "Accesibilitate"
   permission_is_enabled_full_ui_cont: "Permisiunea de accesibilitate este activată. Contextul UI complet este disponibil."
@@ -29,7 +29,7 @@ add:
   to_existing: "Adăugați la Existing"
   trailing_space: "Adăugați spațiu de sfârșit"
   word_replacements_to_automatically_correct_c: "Adăugați înlocuiri de cuvinte pentru a corecta automat erorile comune de transcriere."
-  words_to_help_pindrop_recognize_them_properl: "Adăugați cuvinte pentru a ajuta Pindrop să le recunoască corect"
+  words_to_help_pindrop_recognize_them_properl: "Adăugați cuvinte pentru a ajuta NautPin să le recunoască corect"
   words_you_manually_correct_into_your_vocabul: "Adăugați cuvinte pe care le corectați manual în vocabularul dvs. pentru transcrieri viitoare."
 ai:
   enhancement: "Îmbunătățirea AI"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Actualizări automate și verificări manuale ale actualizărilor"
 automatically:
   check_for_new_versions_in_the_back: "Verificați automat versiunile noi în fundal."
-  start_pindrop_when_you_sign_in: "Porniți automat Pindrop când vă conectați."
+  start_pindrop_when_you_sign_in: "Porniți automat NautPin când vă conectați."
 available:
   models: "Modele disponibile"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Alegeți între Parakeet (versiunea încrucișată, model descărcat) și Apple SpeechTranscriber (macOS 26+, livrat cu sistemul de operare)."
   file: "Alegeți fișierul"
   how_dictated_text_lands_then_tune_the_fin: "Alegeți cum aterizează textul dictat, apoi reglați comportamentul final de inserare."
-  how_pindrop_follows_system_appearance_the: "Alegeți modul în care Pindrop urmărește aspectul sistemului, apoi amestecați paletele luminoase și întunecate."
+  how_pindrop_follows_system_appearance_the: "Alegeți modul în care NautPin urmărește aspectul sistemului, apoi amestecați paletele luminoase și întunecate."
   how_to_import_the_dictionary_data: "Alegeți cum să importați datele din dicționar"
   how_to_import_the_preset_data: "Alegeți cum să importați datele presetate"
   languages_for_the_interface_and_for_dicta: "Alegeți limbile pentru interfață și pentru dictare. Sistemul urmează automat."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Alegeți carcasa de zi folosită în modul de lumină."
   the_low_glare_shell_used_in_dark_mode: "Alegeți carcasa cu strălucire redusă utilizată în modul întunecat."
   which_floating_indicator_style_appears_wh: "Alegeți stilul de indicator plutitor care apare atunci când suprapunerea este activată."
-  which_microphone_pindrop_should_use_for_d: "Alegeți ce microfon ar trebui să folosească Pindrop pentru dictare și cum se comportă în timpul înregistrării."
+  which_microphone_pindrop_should_use_for_d: "Alegeți ce microfon ar trebui să folosească NautPin pentru dictare și cum se comportă în timpul înregistrării."
   which_side_the_navigation_sidebar_appears: "Alegeți pe ce parte apare bara laterală de navigare."
 clean:
   up_filler_words: "Curățați cuvintele de completare"
@@ -164,7 +164,7 @@ continue:
   with_default: "Continuați cu Implicit"
   without: "Continuați fără"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Controlați cum apare Pindrop în macOS și dacă începe cu sesiunea desktop."
+  how_pindrop_appears_in_macos_and_whether: "Controlați cum apare NautPin în macOS și dacă începe cu sesiunea desktop."
 controls:
   how_the_live_dictation_path_polishes_tr: "Controlează modul în care calea de dictare live lustruiește transcrierile. Curățarea deterministă (înlăturarea umplerii, scrierea cu majuscule, punctuația rostită, normalizarea numerelor, îmbinarea cuvintelor împărțite) rulează în orice direcție - această comutare pornește trecerea opțională de lustruire LLM care se declanșează odată ce dictarea se oprește."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Numele de afișare"
   name_c7874aaa: "Numele de afișare"
-  pindrop_in_the_dock_instead_of_running_o: "Afișați Pindrop în Dock în loc să rulați doar ca aplicație pentru bara de meniu."
+  pindrop_in_the_dock_instead_of_running_o: "Afișați NautPin în Dock în loc să rulați doar ca aplicație pentru bara de meniu."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Fixați bara laterală la marginea stângă sau dreaptă a ferestrei."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "japonez"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Păstrați curentul Pindrop în mod automat sau declanșați o verificare manuală oricând doriți."
+  pindrop_current_automatically_or_trigger_a: "Păstrați curentul NautPin în mod automat sau declanșați o verificare manuală oricând doriți."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "Stânga"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Lăsați-l pe Pindrop să învețe în liniște vocabularul din corecțiile pe care le faceți în timp."
+  pindrop_quietly_learn_vocabulary_from_the_co: "Lăsați-l pe NautPin să învețe în liniște vocabularul din corecțiile pe care le faceți în timp."
 light:
   _self: "Aprinde"
   dark_and_curated_palette_presets: "Presetări ale paletei deschise, întunecate și îngrijite"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Mod cu latență scăzută (mai puțin precis)"
 manage:
-  local_speech_models_feature_models_and_th: "Gestionați modelele locale de vorbire, modelele de caracteristici și motorul implicit pe care Pindrop îl folosește pentru transcriere."
+  local_speech_models_feature_models_and_th: "Gestionați modelele locale de vorbire, modelele de caracteristici și motorul implicit pe care NautPin îl folosește pentru transcriere."
   models: "Gestionați modelele"
   presets: "Gestionați presetări"
   presets_ab87986d: "Gestionați presetări..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "Fixați pe ecran (întotdeauna în partea de sus)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Dot"
+  _self: "NautPin"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop este gata de utilizare.
     Faceți clic pe pictograma barei de meniu pentru a începe.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop este gata de utilizare.n Faceți clic pe pictograma barei de meniu pentru a începe."
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop are nevoie de câteva permisiuni pentru a funcționa.nConfidențialitatea dvs. este întotdeauna respectată."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin este gata de utilizare.n Faceți clic pe pictograma barei de meniu pentru a începe."
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin are nevoie de câteva permisiuni pentru a funcționa.nConfidențialitatea dvs. este întotdeauna respectată."
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop are nevoie de câteva permisiuni pentru a funcționa.
     Intimitatea ta este întotdeauna respectată.
-  needs_accessibility_permission_to_insert: "„” Pindrop are nevoie de permisiunea de accesibilitate pentru a insera text la cursor.                          Pentru a acorda permisiunea: 1. Faceți clic pe „Open System Settings” de mai jos 2. Faceți clic pe butonul + 3. Navigați la aplicația afișată în Finder 4. Reporniți Pindrop după acordarea permisiunii Fără această permisiune, textul va fi copiat numai în clipboard.             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop are nevoie de acces la microfon pentru a vă înregistra și a transcrie vocea.nnVă rugăm să acordați permisiunea în Setările de sistem."
-  on_github: "Pindrop pe GitHub"
-  pill: "Pilula Pindrop"
-  theme: "Tema Pindrop"
+  needs_accessibility_permission_to_insert: "„” NautPin are nevoie de permisiunea de accesibilitate pentru a insera text la cursor.                          Pentru a acorda permisiunea: 1. Faceți clic pe „Open System Settings” de mai jos 2. Faceți clic pe butonul + 3. Navigați la aplicația afișată în Finder 4. Reporniți NautPin după acordarea permisiunii Fără această permisiune, textul va fi copiat numai în clipboard.             \"\""
+  needs_microphone_access_to_record_and_tr: "NautPin are nevoie de acces la microfon pentru a vă înregistra și a transcrie vocea.nnVă rugăm să acordați permisiunea în Setările de sistem."
+  on_github: "NautPin pe GitHub"
+  pill: "Pilula NautPin"
+  theme: "Tema NautPin"
 play:
   _self: "Juca"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Nume presetat"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Apăsați lung pentru a dicta în orice aplicație. Pindrop vă va transcrie discursul și va insera textul acolo unde se află cursorul."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Apăsați lung pentru a dicta în orice aplicație. NautPin vă va transcrie discursul și va insera textul acolo unde se află cursorul."
   esc_to_cancel: "Apăsați Esc pentru a anula"
   keys: "Apăsați tastele..."
   once_to_start_again_to_stop: "Apăsați o dată pentru a începe, din nou pentru a opri"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Trageți rapid cea mai recentă transcriere înapoi în clipboard."
 quit:
   _self: "Renunță"
-  pindrop: "Părăsiți Pindrop"
+  pindrop: "Părăsiți NautPin"
 ready:
   _self: "Gata"
   ec1296e1: "● Gata"
@@ -839,7 +839,7 @@ start:
   recording: "Începeți înregistrarea"
   recording_to_see_your_transcriptions_here: "Începeți înregistrarea pentru a vă vedea transcripțiile aici"
   stop_recording: "Porniți/opriți înregistrarea"
-  using_pindrop: "Începeți să utilizați Pindrop"
+  using_pindrop: "Începeți să utilizați NautPin"
 status:
   _self: "Stare"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "Timp economisit"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "să dicteze și să-l lase pe Pindrop să transpună pentru tine"
+  dictate_and_let_pindrop_transcribe_for_you: "să dicteze și să-l lase pe NautPin să transpună pentru tine"
   start_talking: "să înceapă să vorbească"
 today:
   _self: "Astăzi"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Modul Vibe"
   mode_captures_structured_ui_context_when_re: "Modul Vibe captează contextul structurat al interfeței de utilizare atunci când începe înregistrarea, astfel încât îmbunătățirea AI să poată utiliza starea dvs. activă a aplicației ca referință."
-  mode_works_best_with_accessibility_permissi: "Modul Vibe funcționează cel mai bine cu permisiunea Accesibilitate. Fără aceasta, Pindrop se întoarce la metadatele limitate ale aplicației, iar transcrierea funcționează în continuare normal."
+  mode_works_best_with_accessibility_permissi: "Modul Vibe funcționează cel mai bine cu permisiunea Accesibilitate. Fără aceasta, NautPin se întoarce la metadatele limitate ale aplicației, iar transcrierea funcționează în continuare normal."
 view:
   _self: "Vedere"
   all: "Vezi toate"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "vs tastarea"
 welcome:
-  to_pindrop: "Bun venit la Pindrop"
+  to_pindrop: "Bun venit la NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

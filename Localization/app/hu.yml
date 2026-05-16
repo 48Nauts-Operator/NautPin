@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "Natív macOS-menüsoros diktálóalkalmazás, amely helyi beszéd-szövegké alakítást használ a WhisperKit funkcióval. Alapértelmezés szerint 100%-ban helyi feldolgozás opcionális AI-javítással."
 about:
   _self: "Körülbelül"
-  pindrop: "Körülbelül Pindrop"
+  pindrop: "Körülbelül NautPin"
 accessibility:
   _self: "Megközelíthetőség"
   permission_is_enabled_full_ui_cont: "A kisegítő lehetőségek engedélyezve vannak. A teljes felhasználói felület kontextus elérhető."
@@ -29,7 +29,7 @@ add:
   to_existing: "Hozzáadás a meglévőhöz"
   trailing_space: "Adjon hozzá záró szóközt"
   word_replacements_to_automatically_correct_c: "Szóhelyettesítések hozzáadása a gyakori átírási hibák automatikus kijavításához."
-  words_to_help_pindrop_recognize_them_properl: "Adjon hozzá szavakat, hogy segítsen Pindrop helyesen felismerni őket"
+  words_to_help_pindrop_recognize_them_properl: "Adjon hozzá szavakat, hogy segítsen NautPin helyesen felismerni őket"
   words_you_manually_correct_into_your_vocabul: "Adjon hozzá kézzel javított szavakat szókincséhez a későbbi átírásokhoz."
 ai:
   enhancement: "AI fejlesztés"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Automatikus frissítések és kézi frissítés-ellenőrzések"
 automatically:
   check_for_new_versions_in_the_back: "Az új verziók automatikus keresése a háttérben."
-  start_pindrop_when_you_sign_in: "A Pindrop automatikus indítása bejelentkezéskor."
+  start_pindrop_when_you_sign_in: "A NautPin automatikus indítása bejelentkezéskor."
 available:
   models: "Elérhető modellek"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Válasszon a Parakeet (több verzió, letöltött modell) és az Apple SpeechTranscriber (macOS 26+, az operációs rendszerrel együtt) közül."
   file: "Válasszon fájlt"
   how_dictated_text_lands_then_tune_the_fin: "Válassza ki a diktált szöveg érkezési módját, majd hangolja be a végső beillesztési viselkedést."
-  how_pindrop_follows_system_appearance_the: "Válassza ki, hogy a Pindrop hogyan kövesse a rendszer megjelenését, majd keverje össze a világos és sötét palettákat."
+  how_pindrop_follows_system_appearance_the: "Válassza ki, hogy a NautPin hogyan kövesse a rendszer megjelenését, majd keverje össze a világos és sötét palettákat."
   how_to_import_the_dictionary_data: "Válassza ki a szótári adatok importálásának módját"
   how_to_import_the_preset_data: "Válassza ki az előre beállított adatok importálásának módját"
   languages_for_the_interface_and_for_dicta: "Válassza ki a kezelőfelület és a diktálás nyelveit. Az automatikus követi a rendszert."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Válassza ki a világos módban használt nappali kagylót."
   the_low_glare_shell_used_in_dark_mode: "Válassza a sötét módban használt alacsony vakító héjat."
   which_floating_indicator_style_appears_wh: "Válassza ki, hogy melyik lebegő jelzőstílus jelenjen meg, ha az átfedés engedélyezve van."
-  which_microphone_pindrop_should_use_for_d: "Válassza ki, hogy a Pindrop melyik mikrofont használja a diktáláshoz, és hogyan viselkedjen felvétel közben."
+  which_microphone_pindrop_should_use_for_d: "Válassza ki, hogy a NautPin melyik mikrofont használja a diktáláshoz, és hogyan viselkedjen felvétel közben."
   which_side_the_navigation_sidebar_appears: "Válassza ki, hogy a navigációs oldalsáv melyik oldalon jelenjen meg."
 clean:
   up_filler_words: "Tisztítsa meg a töltelékszavakat"
@@ -164,7 +164,7 @@ continue:
   with_default: "Folytatás az Alapértelmezettel"
   without: "Folytatás nélkül"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Szabályozza, hogy a Pindrop hogyan jelenjen meg a macOS rendszerben, és hogy elinduljon-e az asztali munkamenettel."
+  how_pindrop_appears_in_macos_and_whether: "Szabályozza, hogy a NautPin hogyan jelenjen meg a macOS rendszerben, és hogy elinduljon-e az asztali munkamenettel."
 controls:
   how_the_live_dictation_path_polishes_tr: "Azt szabályozza, hogy az élő diktálási útvonal hogyan csiszolja az átiratokat. A determinisztikus tisztító (kitöltés eltávolítása, nagybetűk írása, kimondott írásjelek, számnormalizálás, felosztott szavak összevonása) mindkét irányban fut – ez a kapcsoló az opcionális LLM-fényezési lépést állítja be, amely a diktálás leállása után indul el."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Megjelenítési név"
   name_c7874aaa: "Megjelenítési név"
-  pindrop_in_the_dock_instead_of_running_o: "A Pindrop megjelenítése a Dockban, ahelyett, hogy csak menüsor-alkalmazásként futna."
+  pindrop_in_the_dock_instead_of_running_o: "A NautPin megjelenítése a Dockban, ahelyett, hogy csak menüsor-alkalmazásként futna."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Rögzítse az oldalsávot az ablak bal vagy jobb széléhez."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "japán"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Tartsa Pindrop automatikusan aktuális, vagy indítson el egy kézi ellenőrzést, amikor csak akarja."
+  pindrop_current_automatically_or_trigger_a: "Tartsa NautPin automatikusan aktuális, vagy indítson el egy kézi ellenőrzést, amikor csak akarja."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "Balra"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Hagyja, hogy Pindrop csendesen tanulja meg a szókincset az idők során elvégzett javításokból."
+  pindrop_quietly_learn_vocabulary_from_the_co: "Hagyja, hogy NautPin csendesen tanulja meg a szókincset az idők során elvégzett javításokból."
 light:
   _self: "Fény"
   dark_and_curated_palette_presets: "Világos, sötét és válogatott paletta-előbeállítások"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Alacsony késleltetésű mód (kevésbé pontos)"
 manage:
-  local_speech_models_feature_models_and_th: "Kezelheti a helyi beszédmodelleket, funkciómodelleket és az átíráshoz használt Pindrop alapértelmezett motort."
+  local_speech_models_feature_models_and_th: "Kezelheti a helyi beszédmodelleket, funkciómodelleket és az átíráshoz használt NautPin alapértelmezett motort."
   models: "Modellek kezelése"
   presets: "Előbeállítások kezelése"
   presets_ab87986d: "Előbeállítások kezelése..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "Rögzítés a képernyőn (mindig felül)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Pont"
+  _self: "NautPin"
+  dot: "NautPin Pont"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop használatra kész.
     A kezdéshez kattintson a menüsor ikonjára.
-  is_ready_to_use_nclick_the_menu_bar_icon: "A Pindrop használatra kész.nKattintson a menüsor ikonjára a kezdéshez."
-  needs_a_few_permissions_to_work_nyour_pr: "A Pindrop működéséhez néhány engedélyre van szüksége.nA magánéletét mindig tiszteletben tartják."
+  is_ready_to_use_nclick_the_menu_bar_icon: "A NautPin használatra kész.nKattintson a menüsor ikonjára a kezdéshez."
+  needs_a_few_permissions_to_work_nyour_pr: "A NautPin működéséhez néhány engedélyre van szüksége.nA magánéletét mindig tiszteletben tartják."
   needs_a_few_permissions_to_work_your_pri: |-
     A Pindrop működéséhez néhány engedélyre van szüksége.
     Az Ön személyes adatait mindig tiszteletben tartják.
   needs_accessibility_permission_to_insert: "\"\" A Pindrop kisegítő lehetőségeket igényel, hogy szöveget illesszen be a kurzorba.                          Engedély megadása: 1. Kattintson az alábbi \"Rendszerbeállítások megnyitása\" lehetőségre. 2. Kattintson a + gombra 3. Navigáljon a Finderben látható alkalmazáshoz 4. Indítsa újra a Pindrop alkalmazást az engedély megadása után Ezen engedély nélkül a szöveg csak a vágólapra kerül.             \"\""
-  needs_microphone_access_to_record_and_tr: "A Pindrop-nak mikrofon-hozzáférésre van szüksége a hang rögzítéséhez és átírásához.nnKérjük, adjon engedélyt a rendszerbeállításokban."
-  on_github: "Pindrop a GitHubon"
-  pill: "Pindrop Tabletta"
-  theme: "Pindrop téma"
+  needs_microphone_access_to_record_and_tr: "A NautPin-nak mikrofon-hozzáférésre van szüksége a hang rögzítéséhez és átírásához.nnKérjük, adjon engedélyt a rendszerbeállításokban."
+  on_github: "NautPin a GitHubon"
+  pill: "NautPin Tabletta"
+  theme: "NautPin téma"
 play:
   _self: "Játék"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Előre beállított név"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Nyomja meg és tartsa lenyomva a diktáláshoz bármely alkalmazásban. A Pindrop átírja a beszédet, és beszúrja a szöveget oda, ahol a kurzor van."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Nyomja meg és tartsa lenyomva a diktáláshoz bármely alkalmazásban. A NautPin átírja a beszédet, és beszúrja a szöveget oda, ahol a kurzor van."
   esc_to_cancel: "A törléshez nyomja meg az Esc billentyűt"
   keys: "Nyomd meg a gombokat..."
   once_to_start_again_to_stop: "Nyomja meg egyszer az indításhoz, újra a leállításhoz"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Gyorsan húzza vissza legújabb átiratát a vágólapra."
 quit:
   _self: "Kilép"
-  pindrop: "Kilépés: Pindrop"
+  pindrop: "Kilépés: NautPin"
 ready:
   _self: "Kész"
   ec1296e1: "● Kész"
@@ -839,7 +839,7 @@ start:
   recording: "Indítsa el a Felvételt"
   recording_to_see_your_transcriptions_here: "Kezdje el a rögzítést, hogy itt lássa az átiratokat"
   stop_recording: "Felvétel indítása/leállítása"
-  using_pindrop: "Kezdje el használni a Pindrop"
+  using_pindrop: "Kezdje el használni a NautPin"
 status:
   _self: "Állapot"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "Megtakarított idő"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "diktálni, és hagyni, hogy Pindrop átírja helyetted"
+  dictate_and_let_pindrop_transcribe_for_you: "diktálni, és hagyni, hogy NautPin átírja helyetted"
   start_talking: "hogy elkezdjen beszélni"
 today:
   _self: "Ma"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Vibe mód"
   mode_captures_structured_ui_context_when_re: "A Vibe mód rögzíti a strukturált felhasználói felület kontextusát a felvétel indításakor, így az AI-javítás referenciaként használhatja az aktív alkalmazásállapotot."
-  mode_works_best_with_accessibility_permissi: "A Vibe mód a Kisegítő lehetőségek engedéllyel működik a legjobban. Enélkül a Pindrop korlátozott alkalmazás-metaadatokra tér vissza, és az átírás továbbra is normálisan működik."
+  mode_works_best_with_accessibility_permissi: "A Vibe mód a Kisegítő lehetőségek engedéllyel működik a legjobban. Enélkül a NautPin korlátozott alkalmazás-metaadatokra tér vissza, és az átírás továbbra is normálisan működik."
 view:
   _self: "Kilátás"
   all: "Az összes megtekintése"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "vs gépelés"
 welcome:
-  to_pindrop: "Üdvözli a Pindrop"
+  to_pindrop: "Üdvözli a NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

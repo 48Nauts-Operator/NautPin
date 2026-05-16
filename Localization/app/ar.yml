@@ -29,7 +29,7 @@ add:
   to_existing: "إضافة إلى الموجود"
   trailing_space: "أضف مسافة زائدة"
   word_replacements_to_automatically_correct_c: "أضف بدائل الكلمات لتصحيح أخطاء النسخ الشائعة تلقائيًا."
-  words_to_help_pindrop_recognize_them_properl: "أضف كلمات لمساعدة Pindrop في التعرف عليها بشكل صحيح"
+  words_to_help_pindrop_recognize_them_properl: "أضف كلمات لمساعدة NautPin في التعرف عليها بشكل صحيح"
   words_you_manually_correct_into_your_vocabul: "أضف الكلمات التي تقوم بتصحيحها يدويًا إلى مفرداتك لعمليات النسخ المستقبلية."
 ai:
   enhancement: "تعزيز الذكاء الاصطناعي"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "التحديثات التلقائية والتحقق من التحديث اليدوي"
 automatically:
   check_for_new_versions_in_the_back: "التحقق تلقائيًا من وجود إصدارات جديدة في الخلفية."
-  start_pindrop_when_you_sign_in: "قم بتشغيل Pindrop تلقائيًا عند تسجيل الدخول."
+  start_pindrop_when_you_sign_in: "قم بتشغيل NautPin تلقائيًا عند تسجيل الدخول."
 available:
   models: "النماذج المتاحة"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "اختر بين Parakeet (الإصدار المشترك، النموذج الذي تم تنزيله) وApple SpeechTranscriber (macOS 26+، يأتي مع نظام التشغيل)."
   file: "اختر الملف"
   how_dictated_text_lands_then_tune_the_fin: "اختر كيفية وصول النص الذي تم إملاؤه، ثم قم بضبط سلوك الإدراج النهائي."
-  how_pindrop_follows_system_appearance_the: "اختر كيفية اتباع Pindrop لمظهر النظام، ثم قم بمزج اللوحات الفاتحة والداكنة المنسقة."
+  how_pindrop_follows_system_appearance_the: "اختر كيفية اتباع NautPin لمظهر النظام، ثم قم بمزج اللوحات الفاتحة والداكنة المنسقة."
   how_to_import_the_dictionary_data: "اختر كيفية استيراد بيانات القاموس"
   how_to_import_the_preset_data: "اختر كيفية استيراد البيانات المعدة مسبقًا"
   languages_for_the_interface_and_for_dicta: "اختر اللغات للواجهة والإملاء. التلقائي يتبع النظام."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "اختر الغلاف النهاري المستخدم في الوضع الخفيف."
   the_low_glare_shell_used_in_dark_mode: "اختر الغلاف منخفض الوهج المستخدم في الوضع المظلم."
   which_floating_indicator_style_appears_wh: "اختر نمط المؤشر العائم الذي يظهر عند تمكين التراكب."
-  which_microphone_pindrop_should_use_for_d: "اختر الميكروفون الذي يجب أن يستخدمه Pindrop للإملاء وكيف يتصرف أثناء التسجيل."
+  which_microphone_pindrop_should_use_for_d: "اختر الميكروفون الذي يجب أن يستخدمه NautPin للإملاء وكيف يتصرف أثناء التسجيل."
   which_side_the_navigation_sidebar_appears: "اختر الجانب الذي يظهر عليه شريط التنقل الجانبي."
 clean:
   up_filler_words: "تنظيف الكلمات الحشو"
@@ -164,7 +164,7 @@ continue:
   with_default: "تابع مع الافتراضي"
   without: "الاستمرار بدون"
 control:
-  how_pindrop_appears_in_macos_and_whether: "تحكم في كيفية ظهور Pindrop في نظام التشغيل macOS وما إذا كان سيبدأ بجلسة سطح المكتب لديك."
+  how_pindrop_appears_in_macos_and_whether: "تحكم في كيفية ظهور NautPin في نظام التشغيل macOS وما إذا كان سيبدأ بجلسة سطح المكتب لديك."
 controls:
   how_the_live_dictation_path_polishes_tr: "يتحكم في كيفية تحسين مسار الإملاء المباشر للنصوص. يعمل المنظف الحتمي (إزالة الحشو، الكتابة بالأحرف الكبيرة، علامات الترقيم المنطوقة، تطبيع الأرقام، دمج الكلمات المنقسمة) في كلا الاتجاهين - يؤدي هذا التبديل إلى تمرير تمرير تلميع LLM الاختياري الذي يتم تشغيله بمجرد توقف الإملاء."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "اسم العرض"
   name_c7874aaa: "اسم العرض"
-  pindrop_in_the_dock_instead_of_running_o: "قم بعرض Pindrop في Dock بدلاً من تشغيله كتطبيق شريط قوائم فقط."
+  pindrop_in_the_dock_instead_of_running_o: "قم بعرض NautPin في Dock بدلاً من تشغيله كتطبيق شريط قوائم فقط."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "قم بإرساء الشريط الجانبي على الحافة اليسرى أو اليمنى من النافذة."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "اليابانية"
 keep:
-  pindrop_current_automatically_or_trigger_a: "حافظ على تحديث Pindrop تلقائيًا، أو قم بإجراء فحص يدوي وقتما تشاء."
+  pindrop_current_automatically_or_trigger_a: "حافظ على تحديث NautPin تلقائيًا، أو قم بإجراء فحص يدوي وقتما تشاء."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "غادر"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "اسمح لـ Pindrop بتعلم المفردات بهدوء من التصحيحات التي تجريها مع مرور الوقت."
+  pindrop_quietly_learn_vocabulary_from_the_co: "اسمح لـ NautPin بتعلم المفردات بهدوء من التصحيحات التي تجريها مع مرور الوقت."
 light:
   _self: "ضوء"
   dark_and_curated_palette_presets: "الإعدادات المسبقة للوحة الفاتحة والداكنة والمنسقة"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "وضع الكمون المنخفض (أقل دقة)"
 manage:
-  local_speech_models_feature_models_and_th: "إدارة نماذج الكلام المحلية ونماذج الميزات والمحرك الافتراضي الذي يستخدمه Pindrop للنسخ."
+  local_speech_models_feature_models_and_th: "إدارة نماذج الكلام المحلية ونماذج الميزات والمحرك الافتراضي الذي يستخدمه NautPin للنسخ."
   models: "إدارة النماذج"
   presets: "إدارة الإعدادات المسبقة"
   presets_ab87986d: "إدارة الإعدادات المسبقة..."
@@ -621,14 +621,14 @@ pindrop:
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop جاهز للاستخدام.
     انقر على أيقونة شريط القائمة للبدء.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop جاهز للاستخدام. انقر فوق رمز شريط القائمة للبدء."
-  needs_a_few_permissions_to_work_nyour_pr: "يحتاج Pindrop إلى بعض الأذونات للعمل. خصوصيتك تُحترم دائمًا."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin جاهز للاستخدام. انقر فوق رمز شريط القائمة للبدء."
+  needs_a_few_permissions_to_work_nyour_pr: "يحتاج NautPin إلى بعض الأذونات للعمل. خصوصيتك تُحترم دائمًا."
   needs_a_few_permissions_to_work_your_pri: |-
     يحتاج Pindrop إلى بعض الأذونات للعمل.
     خصوصيتك تحترم دائما.
   needs_accessibility_permission_to_insert: "\" \"يحتاج Pindrop إلى إذن الوصول لإدراج نص في المؤشر.                          لمنح الإذن: 1. انقر فوق \"فتح إعدادات النظام\" أدناه 2. انقر فوق الزر + 3. انتقل إلى التطبيق الموضح في Finder 4. أعد تشغيل Pindrop بعد منح الإذن. بدون هذا الإذن، سيتم نسخ النص إلى الحافظة الخاصة بك فقط.             \"\""
-  needs_microphone_access_to_record_and_tr: "يحتاج Pindrop إلى الوصول إلى الميكروفون لتسجيل صوتك ونسخه. يرجى منح الإذن في إعدادات النظام."
-  on_github: "Pindrop على جيثب"
+  needs_microphone_access_to_record_and_tr: "يحتاج NautPin إلى الوصول إلى الميكروفون لتسجيل صوتك ونسخه. يرجى منح الإذن في إعدادات النظام."
+  on_github: "NautPin على جيثب"
   pill: "حبة بيندروب"
   theme: "موضوع بيندروب"
 play:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "الاسم المحدد مسبقًا"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "اضغط مع الاستمرار للإملاء في أي تطبيق. سوف يقوم Pindrop بنسخ كلامك وإدراج النص حيث يوجد المؤشر."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "اضغط مع الاستمرار للإملاء في أي تطبيق. سوف يقوم NautPin بنسخ كلامك وإدراج النص حيث يوجد المؤشر."
   esc_to_cancel: "اضغط على Esc للإلغاء"
   keys: "اضغط على المفاتيح..."
   once_to_start_again_to_stop: "اضغط مرة واحدة للبدء، ومرة ​​أخرى للتوقف"
@@ -839,7 +839,7 @@ start:
   recording: "ابدأ التسجيل"
   recording_to_see_your_transcriptions_here: "ابدأ التسجيل لترى نسختك الصوتية هنا"
   stop_recording: "بدء/إيقاف التسجيل"
-  using_pindrop: "البدء في استخدام Pindrop"
+  using_pindrop: "البدء في استخدام NautPin"
 status:
   _self: "حالة"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "الوقت المحفوظ"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "للإملاء والسماح لـ Pindrop بالنسخ لك"
+  dictate_and_let_pindrop_transcribe_for_you: "للإملاء والسماح لـ NautPin بالنسخ لك"
   start_talking: "لبدء الحديث"
 today:
   _self: "اليوم"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "وضع فيبي"
   mode_captures_structured_ui_context_when_re: "يلتقط وضع Vibe سياق واجهة المستخدم المنظم عند بدء التسجيل حتى يتمكن تحسين الذكاء الاصطناعي من استخدام حالة التطبيق النشطة كمرجع."
-  mode_works_best_with_accessibility_permissi: "يعمل وضع Vibe بشكل أفضل مع إذن الوصول. وبدون ذلك، يعود Pindrop إلى البيانات الوصفية المحدودة للتطبيق ويظل النسخ يعمل بشكل طبيعي."
+  mode_works_best_with_accessibility_permissi: "يعمل وضع Vibe بشكل أفضل مع إذن الوصول. وبدون ذلك، يعود NautPin إلى البيانات الوصفية المحدودة للتطبيق ويظل النسخ يعمل بشكل طبيعي."
 view:
   _self: "منظر"
   all: "عرض الكل"

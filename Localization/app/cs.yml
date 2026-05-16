@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "Nativní aplikace pro diktování na liště nabídek macOS využívající místní převod řeči na text pomocí WhisperKit. 100% místní zpracování ve výchozím nastavení s volitelným vylepšením AI."
 about:
   _self: "O"
-  pindrop: "O Pindropovi"
+  pindrop: "O NautPinovi"
 accessibility:
   _self: "Přístupnost"
   permission_is_enabled_full_ui_cont: "Je povoleno oprávnění k usnadnění. K dispozici je úplný kontext uživatelského rozhraní."
@@ -29,7 +29,7 @@ add:
   to_existing: "Přidat k existujícím"
   trailing_space: "Přidejte mezeru na konci"
   word_replacements_to_automatically_correct_c: "Přidáním náhrad slov automaticky opravíte běžné chyby v přepisu."
-  words_to_help_pindrop_recognize_them_properl: "Přidejte slova, abyste je Pindrop mohli správně rozpoznat"
+  words_to_help_pindrop_recognize_them_properl: "Přidejte slova, abyste je NautPin mohli správně rozpoznat"
   words_you_manually_correct_into_your_vocabul: "Přidejte slova, která ručně opravíte, do své slovní zásoby pro budoucí přepisy."
 ai:
   enhancement: "Vylepšení AI"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Automatické aktualizace a ruční kontrola aktualizací"
 automatically:
   check_for_new_versions_in_the_back: "Automaticky kontrolovat nové verze na pozadí."
-  start_pindrop_when_you_sign_in: "Automaticky spustit Pindrop, když se přihlásíte."
+  start_pindrop_when_you_sign_in: "Automaticky spustit NautPin, když se přihlásíte."
 available:
   models: "Dostupné modely"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Vyberte si mezi Parakeet (křížová verze, stažený model) a Apple SpeechTranscriber (macOS 26+, dodává se s OS)."
   file: "Vyberte soubor"
   how_dictated_text_lands_then_tune_the_fin: "Vyberte, jak bude diktovaný text přistávat, a poté vylaďte konečné chování vkládání."
-  how_pindrop_follows_system_appearance_the: "Vyberte, jak Pindrop sleduje vzhled systému, a poté smíchejte upravené světlé a tmavé palety."
+  how_pindrop_follows_system_appearance_the: "Vyberte, jak NautPin sleduje vzhled systému, a poté smíchejte upravené světlé a tmavé palety."
   how_to_import_the_dictionary_data: "Vyberte, jak importovat data slovníku"
   how_to_import_the_preset_data: "Vyberte způsob importu přednastavených dat"
   languages_for_the_interface_and_for_dicta: "Vyberte jazyky pro rozhraní a pro diktování. Automaticky následuje systém."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Vyberte denní skořepinu používanou ve světelném režimu."
   the_low_glare_shell_used_in_dark_mode: "Vyberte skořepinu s nízkým oslněním použitou v tmavém režimu."
   which_floating_indicator_style_appears_wh: "Vyberte, který styl plovoucího indikátoru se zobrazí, když je povoleno překrytí."
-  which_microphone_pindrop_should_use_for_d: "Vyberte, který mikrofon má Pindrop používat pro diktování a jak se chová při nahrávání."
+  which_microphone_pindrop_should_use_for_d: "Vyberte, který mikrofon má NautPin používat pro diktování a jak se chová při nahrávání."
   which_side_the_navigation_sidebar_appears: "Vyberte, na které straně se zobrazí postranní navigační panel."
 clean:
   up_filler_words: "Vyčistěte výplňová slova"
@@ -164,7 +164,7 @@ continue:
   with_default: "Pokračujte s Výchozí"
   without: "Pokračovat bez"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Určete, jak se Pindrop zobrazí v macOS a zda se spustí s vaší relací na ploše."
+  how_pindrop_appears_in_macos_and_whether: "Určete, jak se NautPin zobrazí v macOS a zda se spustí s vaší relací na ploše."
 controls:
   how_the_live_dictation_path_polishes_tr: "Řídí, jak cesta živého diktování vyleští přepisy. Deterministický čistič (odstranění výplně, psaní velkých písmen, mluvená interpunkce, normalizace čísel, slučování rozdělených slov) běží v obou směrech – tento přepínač uzavírá volitelný LLM polský průchod, který se spustí, jakmile se diktování zastaví."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Zobrazovaný název"
   name_c7874aaa: "Zobrazovaný název"
-  pindrop_in_the_dock_instead_of_running_o: "Zobrazte Pindrop v doku místo toho, aby běžel pouze jako aplikace na liště nabídek."
+  pindrop_in_the_dock_instead_of_running_o: "Zobrazte NautPin v doku místo toho, aby běžel pouze jako aplikace na liště nabídek."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Ukotvete postranní panel k levému nebo pravému okraji okna."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "japonský"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Udržujte Pindrop aktuální automaticky nebo spusťte ruční kontrolu, kdykoli budete chtít."
+  pindrop_current_automatically_or_trigger_a: "Udržujte NautPin aktuální automaticky nebo spusťte ruční kontrolu, kdykoli budete chtít."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "Vlevo"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Nechte Pindrop tiše se učit slovní zásobu z oprav, které v průběhu času uděláte."
+  pindrop_quietly_learn_vocabulary_from_the_co: "Nechte NautPin tiše se učit slovní zásobu z oprav, které v průběhu času uděláte."
 light:
   _self: "Světlo"
   dark_and_curated_palette_presets: "Světlé, tmavé a upravené předvolby palet"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Režim nízké latence (méně přesné)"
 manage:
-  local_speech_models_feature_models_and_th: "Spravujte modely místní řeči, modely funkcí a výchozí modul, který Pindrop používá pro přepis."
+  local_speech_models_feature_models_and_th: "Spravujte modely místní řeči, modely funkcí a výchozí modul, který NautPin používá pro přepis."
   models: "Správa modelů"
   presets: "Správa předvoleb"
   presets_ab87986d: "Spravovat předvolby..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "Připnout na obrazovku (vždy nahoře)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Dot"
+  _self: "NautPin"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop je připraven k použití.
     Začněte kliknutím na ikonu panelu nabídek.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop je připraveno k použití.nZačněte kliknutím na ikonu na liště nabídek."
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop npotřebuje několik oprávněníns, aby fungovalo.nVaše soukromí je vždy respektováno."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin je připraveno k použití.nZačněte kliknutím na ikonu na liště nabídek."
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin npotřebuje několik oprávněníns, aby fungovalo.nVaše soukromí je vždy respektováno."
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop potřebuje k práci několik oprávnění.
     Vaše soukromí je vždy respektováno.
   needs_accessibility_permission_to_insert: "\"\" Pindrop potřebuje oprávnění pro usnadnění přístupu, aby mohl vložit text na váš kurzor.                          Udělení oprávnění: 1. Klikněte na „Otevřít nastavení systému“ níže 2. Klikněte na tlačítko + 3. Přejděte do aplikace zobrazené ve Finderu 4. Po udělení oprávnění restartujte Pindrop Bez tohoto oprávnění bude text zkopírován pouze do vaší schránky.             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop potřebuje přístup k mikrofonu, aby mohl nahrávat a přepisovat váš hlas.nnUdělte prosím oprávnění v Nastavení systému."
-  on_github: "Pindrop na GitHubu"
-  pill: "Pindrop pilulka"
-  theme: "Pindrop téma"
+  needs_microphone_access_to_record_and_tr: "NautPin potřebuje přístup k mikrofonu, aby mohl nahrávat a přepisovat váš hlas.nnUdělte prosím oprávnění v Nastavení systému."
+  on_github: "NautPin na GitHubu"
+  pill: "NautPin pilulka"
+  theme: "NautPin téma"
 play:
   _self: "Hrát"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Název předvolby"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Stisknutím a podržením můžete diktovat v libovolné aplikaci. Pindrop přepíše vaši řeč a vloží text tam, kde je váš kurzor."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Stisknutím a podržením můžete diktovat v libovolné aplikaci. NautPin přepíše vaši řeč a vloží text tam, kde je váš kurzor."
   esc_to_cancel: "Pro zrušení stiskněte Esc"
   keys: "Stiskněte klávesy..."
   once_to_start_again_to_stop: "Jedním stisknutím spustíte, dalším stisknutím zastavíte"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Rychle stáhněte svůj nejnovější přepis zpět do schránky."
 quit:
   _self: "Přestat"
-  pindrop: "Ukončete Pindrop"
+  pindrop: "Ukončete NautPin"
 ready:
   _self: "Připraveno"
   ec1296e1: "● Připraveno"
@@ -839,7 +839,7 @@ start:
   recording: "Spusťte nahrávání"
   recording_to_see_your_transcriptions_here: "Chcete-li zde vidět své přepisy, spusťte nahrávání"
   stop_recording: "Spuštění/zastavení nahrávání"
-  using_pindrop: "Začněte používat Pindrop"
+  using_pindrop: "Začněte používat NautPin"
 status:
   _self: "Postavení"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "Čas ušetřen"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "diktovat a nechat Pindrop přepisovat za vás"
+  dictate_and_let_pindrop_transcribe_for_you: "diktovat a nechat NautPin přepisovat za vás"
   start_talking: "začít mluvit"
 today:
   _self: "Dnes"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Vibe režim"
   mode_captures_structured_ui_context_when_re: "Režim Vibe zachycuje strukturovaný kontext uživatelského rozhraní při zahájení nahrávání, takže vylepšení AI může použít stav vaší aktivní aplikace jako referenci."
-  mode_works_best_with_accessibility_permissi: "Vibe režim funguje nejlépe s oprávněním Usnadnění. Bez něj se Pindrop vrátí k omezeným metadatům aplikace a přepis stále funguje normálně."
+  mode_works_best_with_accessibility_permissi: "Vibe režim funguje nejlépe s oprávněním Usnadnění. Bez něj se NautPin vrátí k omezeným metadatům aplikace a přepis stále funguje normálně."
 view:
   _self: "Pohled"
   all: "Zobrazit vše"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "vs psaní"
 welcome:
-  to_pindrop: "Vítejte v destinaci Pindrop"
+  to_pindrop: "Vítejte v destinaci NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

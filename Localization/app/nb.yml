@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "En innebygd macOS-menylinjedikteringsapp som bruker lokal tale-til-tekst med WhisperKit. 100 % lokal behandling som standard med valgfri AI-forbedring."
 about:
   _self: "Om"
-  pindrop: "Om Pindrop"
+  pindrop: "Om NautPin"
 accessibility:
   _self: "Tilgjengelighet"
   permission_is_enabled_full_ui_cont: "Tilgjengelighetstillatelse er aktivert. Full UI-kontekst er tilgjengelig."
@@ -29,7 +29,7 @@ add:
   to_existing: "Legg til i eksisterende"
   trailing_space: "Legg til etterfølgende plass"
   word_replacements_to_automatically_correct_c: "Legg til orderstatninger for å automatisk korrigere vanlige transkripsjonsfeil."
-  words_to_help_pindrop_recognize_them_properl: "Legg til ord for å hjelpe Pindrop å gjenkjenne dem riktig"
+  words_to_help_pindrop_recognize_them_properl: "Legg til ord for å hjelpe NautPin å gjenkjenne dem riktig"
   words_you_manually_correct_into_your_vocabul: "Legg til ord du manuelt korrigerer i vokabularet ditt for fremtidige transkripsjoner."
 ai:
   enhancement: "AI-forbedring"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Automatiske oppdateringer og manuelle oppdateringskontroller"
 automatically:
   check_for_new_versions_in_the_back: "Se automatisk etter nye versjoner i bakgrunnen."
-  start_pindrop_when_you_sign_in: "Start Pindrop automatisk når du logger på."
+  start_pindrop_when_you_sign_in: "Start NautPin automatisk når du logger på."
 available:
   models: "Tilgjengelige modeller"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Velg mellom Parakeet (kryssversjon, nedlastet modell) og Apple SpeechTranscriber (macOS 26+, leveres med OS)."
   file: "Velg fil"
   how_dictated_text_lands_then_tune_the_fin: "Velg hvordan diktert tekst lander, og juster deretter den endelige innsettingsatferden."
-  how_pindrop_follows_system_appearance_the: "Velg hvordan Pindrop følger systemets utseende, og bland deretter kurerte lyse og mørke paletter."
+  how_pindrop_follows_system_appearance_the: "Velg hvordan NautPin følger systemets utseende, og bland deretter kurerte lyse og mørke paletter."
   how_to_import_the_dictionary_data: "Velg hvordan du vil importere ordbokdataene"
   how_to_import_the_preset_data: "Velg hvordan du vil importere forhåndsinnstilte data"
   languages_for_the_interface_and_for_dicta: "Velg språk for grensesnittet og for diktering. Automatisk følger systemet."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Velg dagskallet som brukes i lysmodus."
   the_low_glare_shell_used_in_dark_mode: "Velg skallet med lav gjenskinn som brukes i mørk modus."
   which_floating_indicator_style_appears_wh: "Velg hvilken flytende indikatorstil som skal vises når overlegget er aktivert."
-  which_microphone_pindrop_should_use_for_d: "Velg hvilken mikrofon Pindrop skal bruke til diktering og hvordan den oppfører seg under opptak."
+  which_microphone_pindrop_should_use_for_d: "Velg hvilken mikrofon NautPin skal bruke til diktering og hvordan den oppfører seg under opptak."
   which_side_the_navigation_sidebar_appears: "Velg hvilken side navigasjonssidefeltet skal vises på."
 clean:
   up_filler_words: "Rydd opp i fyllord"
@@ -164,7 +164,7 @@ continue:
   with_default: "Fortsett med standard"
   without: "Fortsett uten"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Kontroller hvordan Pindrop vises i macOS og om det starter med skrivebordsøkten."
+  how_pindrop_appears_in_macos_and_whether: "Kontroller hvordan NautPin vises i macOS og om det starter med skrivebordsøkten."
 controls:
   how_the_live_dictation_path_polishes_tr: "Kontrollerer hvordan den direkte dikteringsbanen polerer transkripsjoner. Den deterministiske renseren (fjerning av fyllstoff, bruk av store og små bokstaver, talt tegnsetting, tallnormalisering, sammenslåing av delte ord) kjører begge veier - denne bryteren åpner for det valgfrie LLM-poleringspasset som utløses når dikteringen stopper."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Vist navn"
   name_c7874aaa: "Visningsnavn"
-  pindrop_in_the_dock_instead_of_running_o: "Vis Pindrop i Dock i stedet for å kjøre bare som en menylinjeapp."
+  pindrop_in_the_dock_instead_of_running_o: "Vis NautPin i Dock i stedet for å kjøre bare som en menylinjeapp."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Fest sidefeltet til venstre eller høyre kant av vinduet."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "japansk"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Hold Pindrop oppdatert automatisk, eller utløs en manuell sjekk når du vil."
+  pindrop_current_automatically_or_trigger_a: "Hold NautPin oppdatert automatisk, eller utløs en manuell sjekk når du vil."
 key:
   _self: "#%@"
   a979ef10:
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "Igjen"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "La Pindrop rolig lære ordforråd fra rettelsene du gjør over tid."
+  pindrop_quietly_learn_vocabulary_from_the_co: "La NautPin rolig lære ordforråd fra rettelsene du gjør over tid."
 light:
   _self: "Lys"
   dark_and_curated_palette_presets: "Forhåndsinnstillinger for lys, mørk og kuratert palett"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Lav latensmodus (mindre nøyaktig)"
 manage:
-  local_speech_models_feature_models_and_th: "Administrer lokale talemodeller, funksjonsmodeller og standardmotoren Pindrop bruker for transkripsjon."
+  local_speech_models_feature_models_and_th: "Administrer lokale talemodeller, funksjonsmodeller og standardmotoren NautPin bruker for transkripsjon."
   models: "Administrer modeller"
   presets: "Administrer forhåndsinnstillinger"
   presets_ab87986d: "Administrer forhåndsinnstillinger..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "Fest til skjermen (alltid øverst)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Dot"
+  _self: "NautPin"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop er klar til bruk.
     Klikk på menylinjeikonet for å komme i gang.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop er klar til bruk.nKlikk på menylinjeikonet for å komme i gang."
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop trenger noen få tillatelser for å fungere.nPersonvernet ditt blir alltid respektert."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin er klar til bruk.nKlikk på menylinjeikonet for å komme i gang."
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin trenger noen få tillatelser for å fungere.nPersonvernet ditt blir alltid respektert."
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop trenger noen få tillatelser for å fungere.
     Personvernet ditt blir alltid respektert.
   needs_accessibility_permission_to_insert: "\"\" Pindrop trenger tilgangstillatelse for å sette inn tekst ved markøren.                          For å gi tillatelse: 1. Klikk \"Åpne systeminnstillinger\" nedenfor 2. Klikk på +-knappen 3. Naviger til appen vist i Finder 4. Start Pindrop på nytt etter å ha gitt tillatelse Uten denne tillatelsen vil teksten bare bli kopiert til utklippstavlen din.             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop trenger mikrofontilgang for å ta opp og transkribere stemmen din.nnVennligst gi tillatelse i systeminnstillingene."
-  on_github: "Pindrop på GitHub"
-  pill: "Pindrop pille"
-  theme: "Pindrop-tema"
+  needs_microphone_access_to_record_and_tr: "NautPin trenger mikrofontilgang for å ta opp og transkribere stemmen din.nnVennligst gi tillatelse i systeminnstillingene."
+  on_github: "NautPin på GitHub"
+  pill: "NautPin pille"
+  theme: "NautPin-tema"
 play:
   _self: "Spille"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Forhåndsinnstilt navn"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Trykk og hold for å diktere i en hvilken som helst app. Pindrop vil transkribere talen din og sette inn teksten der markøren er."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Trykk og hold for å diktere i en hvilken som helst app. NautPin vil transkribere talen din og sette inn teksten der markøren er."
   esc_to_cancel: "Trykk Esc for å avbryte"
   keys: "Trykk på tastene..."
   once_to_start_again_to_stop: "Trykk én gang for å starte, igjen for å stoppe"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Dra raskt det siste transkripsjonen tilbake til utklippstavlen."
 quit:
   _self: "Slutte"
-  pindrop: "Avslutt Pindrop"
+  pindrop: "Avslutt NautPin"
 ready:
   _self: "Ferdig"
   ec1296e1: "● Klar"
@@ -839,7 +839,7 @@ start:
   recording: "Start opptak"
   recording_to_see_your_transcriptions_here: "Start opptaket for å se transkripsjonene dine her"
   stop_recording: "Start/stopp opptak"
-  using_pindrop: "Begynn å bruke Pindrop"
+  using_pindrop: "Begynn å bruke NautPin"
 status:
   _self: "Status"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "Tid spart"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "å diktere og la Pindrop transkribere for deg"
+  dictate_and_let_pindrop_transcribe_for_you: "å diktere og la NautPin transkribere for deg"
   start_talking: "å begynne å snakke"
 today:
   _self: "I dag"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Vibe-modus"
   mode_captures_structured_ui_context_when_re: "Vibe-modus fanger opp strukturert brukergrensesnitt-kontekst når opptaket starter, slik at AI-forbedring kan bruke den aktive appstatusen din som referanse."
-  mode_works_best_with_accessibility_permissi: "Vibe-modus fungerer best med tilgjengelighetstillatelse. Uten det faller Pindrop tilbake til begrensede app-metadata og transkripsjon fungerer fortsatt normalt."
+  mode_works_best_with_accessibility_permissi: "Vibe-modus fungerer best med tilgjengelighetstillatelse. Uten det faller NautPin tilbake til begrensede app-metadata og transkripsjon fungerer fortsatt normalt."
 view:
   _self: "Utsikt"
   all: "Se alle"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "kontra skriving"
 welcome:
-  to_pindrop: "Velkommen til Pindrop"
+  to_pindrop: "Velkommen til NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

@@ -29,7 +29,7 @@ add:
   to_existing: "বিদ্যমান এ যোগ করুন"
   trailing_space: "পিছনের স্থান যোগ করুন"
   word_replacements_to_automatically_correct_c: "স্বয়ংক্রিয়ভাবে সাধারণ ট্রান্সক্রিপশন ত্রুটি সংশোধন করতে শব্দ প্রতিস্থাপন যোগ করুন।"
-  words_to_help_pindrop_recognize_them_properl: "Pindrop তাদের সঠিকভাবে চিনতে সাহায্য করার জন্য শব্দ যোগ করুন"
+  words_to_help_pindrop_recognize_them_properl: "NautPin তাদের সঠিকভাবে চিনতে সাহায্য করার জন্য শব্দ যোগ করুন"
   words_you_manually_correct_into_your_vocabul: "ভবিষ্যত ট্রান্সক্রিপশনের জন্য আপনার শব্দভান্ডারে ম্যানুয়ালি ঠিক করা শব্দ যোগ করুন।"
 ai:
   enhancement: "এআই এনহান্সমেন্ট"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "স্বয়ংক্রিয় আপডেট এবং ম্যানুয়াল আপডেট চেক"
 automatically:
   check_for_new_versions_in_the_back: "স্বয়ংক্রিয়ভাবে পটভূমিতে নতুন সংস্করণগুলির জন্য পরীক্ষা করুন৷"
-  start_pindrop_when_you_sign_in: "আপনি সাইন ইন করার সময় স্বয়ংক্রিয়ভাবে Pindrop শুরু করুন।"
+  start_pindrop_when_you_sign_in: "আপনি সাইন ইন করার সময় স্বয়ংক্রিয়ভাবে NautPin শুরু করুন।"
 available:
   models: "উপলব্ধ মডেল"
 avg:
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "হালকা মোডে ব্যবহৃত দিনের সময় শেল চয়ন করুন।"
   the_low_glare_shell_used_in_dark_mode: "অন্ধকার মোডে ব্যবহৃত লো-গ্লেয়ার শেল বেছে নিন।"
   which_floating_indicator_style_appears_wh: "ওভারলে সক্ষম হলে কোন ভাসমান সূচক শৈলী প্রদর্শিত হবে তা চয়ন করুন৷"
-  which_microphone_pindrop_should_use_for_d: "ডিক্টেশনের জন্য কোন মাইক্রোফোন Pindrop ব্যবহার করা উচিত এবং রেকর্ডিংয়ের সময় এটি কীভাবে আচরণ করবে তা চয়ন করুন৷"
+  which_microphone_pindrop_should_use_for_d: "ডিক্টেশনের জন্য কোন মাইক্রোফোন NautPin ব্যবহার করা উচিত এবং রেকর্ডিংয়ের সময় এটি কীভাবে আচরণ করবে তা চয়ন করুন৷"
   which_side_the_navigation_sidebar_appears: "নেভিগেশন সাইডবার কোন দিকে প্রদর্শিত হবে তা চয়ন করুন৷"
 clean:
   up_filler_words: "ফিলার শব্দ পরিষ্কার করুন"
@@ -164,7 +164,7 @@ continue:
   with_default: "ডিফল্ট দিয়ে চালিয়ে যান"
   without: "ছাড়া চালিয়ে যান"
 control:
-  how_pindrop_appears_in_macos_and_whether: "MacOS-এ Pindrop কীভাবে উপস্থিত হয় এবং এটি আপনার ডেস্কটপ সেশন দিয়ে শুরু হয় কিনা তা নিয়ন্ত্রণ করুন।"
+  how_pindrop_appears_in_macos_and_whether: "MacOS-এ NautPin কীভাবে উপস্থিত হয় এবং এটি আপনার ডেস্কটপ সেশন দিয়ে শুরু হয় কিনা তা নিয়ন্ত্রণ করুন।"
 controls:
   how_the_live_dictation_path_polishes_tr: "লাইভ ডিক্টেশন পাথ ট্রান্সক্রিপ্টগুলিকে কীভাবে পালিশ করে তা নিয়ন্ত্রণ করে। ডিটারমিনিস্টিক ক্লিনার (ফিলার রিমুভাল, ক্যাপিটালাইজেশন, কথ্য বিরাম চিহ্ন, সংখ্যা স্বাভাবিকীকরণ, বিভক্ত-শব্দ একত্রিতকরণ) যেকোন উপায়ে চলে — এই টগলটি ঐচ্ছিক এলএলএম পলিশ পাসকে গেট করে যেটি ডিক্টেশন বন্ধ হয়ে গেলে ফায়ার করে।"
 copied:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "জাপানিজ"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Pindrop কে স্বয়ংক্রিয়ভাবে বর্তমান রাখুন, অথবা আপনি যখনই চান একটি ম্যানুয়াল চেক ট্রিগার করুন।"
+  pindrop_current_automatically_or_trigger_a: "NautPin কে স্বয়ংক্রিয়ভাবে বর্তমান রাখুন, অথবা আপনি যখনই চান একটি ম্যানুয়াল চেক ট্রিগার করুন।"
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "বাম"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "সময়ের সাথে আপনার করা সংশোধনগুলি থেকে Pindrop কে শান্তভাবে শব্দভান্ডার শিখতে দিন।"
+  pindrop_quietly_learn_vocabulary_from_the_co: "সময়ের সাথে আপনার করা সংশোধনগুলি থেকে NautPin কে শান্তভাবে শব্দভান্ডার শিখতে দিন।"
 light:
   _self: "আলো"
   dark_and_curated_palette_presets: "হালকা, অন্ধকার, এবং কিউরেটেড প্যালেট প্রিসেট"
@@ -623,8 +623,8 @@ pindrop:
     পিনড্রপ ব্যবহারের জন্য প্রস্তুত।
     
     শুরু করতে মেনু বার আইকনে ক্লিক করুন।
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop ব্যবহার করার জন্য প্রস্তুত। শুরু করতে মেনু বার আইকনে ক্লিক করুন।"
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop-এর কাজ করার জন্য কিছু অনুমতির প্রয়োজন৷ আপনার গোপনীয়তা সর্বদা সম্মান করা হয়৷"
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin ব্যবহার করার জন্য প্রস্তুত। শুরু করতে মেনু বার আইকনে ক্লিক করুন।"
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin-এর কাজ করার জন্য কিছু অনুমতির প্রয়োজন৷ আপনার গোপনীয়তা সর্বদা সম্মান করা হয়৷"
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop কাজ করার জন্য কিছু অনুমতি প্রয়োজন.
     
@@ -654,7 +654,7 @@ preparing:
 preset:
   name: "পূর্বনির্ধারিত নাম"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "যেকোন অ্যাপে নির্দেশ দিতে টিপুন এবং ধরে রাখুন। Pindrop আপনার বক্তৃতা প্রতিলিপি এবং আপনার কার্সার যেখানে পাঠ্য সন্নিবেশ করা হবে."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "যেকোন অ্যাপে নির্দেশ দিতে টিপুন এবং ধরে রাখুন। NautPin আপনার বক্তৃতা প্রতিলিপি এবং আপনার কার্সার যেখানে পাঠ্য সন্নিবেশ করা হবে."
   esc_to_cancel: "বাতিল করতে Esc টিপুন"
   keys: "কী টিপুন..."
   once_to_start_again_to_stop: "শুরু করতে একবার টিপুন, আবার থামাতে"
@@ -844,7 +844,7 @@ start:
   recording: "রেকর্ডিং শুরু করুন"
   recording_to_see_your_transcriptions_here: "এখানে আপনার ট্রান্সক্রিপশন দেখতে রেকর্ডিং শুরু করুন"
   stop_recording: "রেকর্ডিং শুরু/স্টপ করুন"
-  using_pindrop: "Pindrop ব্যবহার করা শুরু করুন"
+  using_pindrop: "NautPin ব্যবহার করা শুরু করুন"
 status:
   _self: "স্ট্যাটাস"
 stop:
@@ -898,7 +898,7 @@ this:
 time:
   saved: "সময় সংরক্ষিত"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "নির্দেশ দিতে এবং আপনার জন্য Pindrop প্রতিলিপি করতে দেয়"
+  dictate_and_let_pindrop_transcribe_for_you: "নির্দেশ দিতে এবং আপনার জন্য NautPin প্রতিলিপি করতে দেয়"
   start_talking: "কথা শুরু করতে"
 today:
   _self: "আজ"
@@ -977,7 +977,7 @@ via:
 vibe:
   mode: "ভাইব মোড"
   mode_captures_structured_ui_context_when_re: "রেকর্ডিং শুরু হলে Vibe মোড স্ট্রাকচার্ড UI প্রসঙ্গ ক্যাপচার করে যাতে AI বর্ধিতকরণ আপনার সক্রিয় অ্যাপের অবস্থাকে রেফারেন্স হিসেবে ব্যবহার করতে পারে।"
-  mode_works_best_with_accessibility_permissi: "Vibe মোড অ্যাক্সেসিবিলিটি অনুমতির সাথে সবচেয়ে ভালো কাজ করে। এটি ছাড়া, Pindrop সীমিত অ্যাপ মেটাডেটাতে ফিরে আসে এবং ট্রান্সক্রিপশন এখনও স্বাভাবিকভাবে কাজ করে।"
+  mode_works_best_with_accessibility_permissi: "Vibe মোড অ্যাক্সেসিবিলিটি অনুমতির সাথে সবচেয়ে ভালো কাজ করে। এটি ছাড়া, NautPin সীমিত অ্যাপ মেটাডেটাতে ফিরে আসে এবং ট্রান্সক্রিপশন এখনও স্বাভাবিকভাবে কাজ করে।"
 view:
   _self: "দেখুন"
   all: "সব দেখুন"
@@ -988,7 +988,7 @@ vocabulary:
 vs:
   typing: "বনাম টাইপিং"
 welcome:
-  to_pindrop: "Pindrop স্বাগতম"
+  to_pindrop: "NautPin স্বাগতম"
 whisperkit:
   _self: "হুইস্পারকিট"
 word:

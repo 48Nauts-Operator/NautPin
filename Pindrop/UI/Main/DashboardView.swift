@@ -620,7 +620,7 @@ struct DashboardView: View {
                         KeyCapView(text: "Space")
                     }
 
-                    Text(localized("to dictate and let Pindrop transcribe for you", locale: locale))
+                    Text(localized("to dictate and let NautPin transcribe for you", locale: locale))
                         .font(AppTypography.headline)
                         .foregroundStyle(AppColors.textPrimary)
                 }
@@ -641,7 +641,7 @@ struct DashboardView: View {
                 .help(localized("Dismiss", locale: locale))
             }
 
-            Text(localized("Press and hold to dictate in any app. Pindrop will transcribe your speech and insert the text where your cursor is.", locale: locale))
+            Text(localized("Press and hold to dictate in any app. NautPin will transcribe your speech and insert the text where your cursor is.", locale: locale))
                 .font(AppTypography.body)
                 .foregroundStyle(AppColors.textSecondary)
                 .lineLimit(2)

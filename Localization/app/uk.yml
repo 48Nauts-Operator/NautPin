@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "Рідна програма для диктування панелі меню macOS, яка використовує локальне перетворення мовлення в текст за допомогою WhisperKit. 100% локальна обробка за замовчуванням із додатковим покращенням ШІ."
 about:
   _self: "про"
-  pindrop: "Про Pindrop"
+  pindrop: "Про NautPin"
 accessibility:
   _self: "Доступність"
   permission_is_enabled_full_ui_cont: "Дозвіл доступності ввімкнено. Доступний повний контекст інтерфейсу користувача."
@@ -29,7 +29,7 @@ add:
   to_existing: "Додати до існуючих"
   trailing_space: "Додати кінцевий пробіл"
   word_replacements_to_automatically_correct_c: "Додайте заміни слів для автоматичного виправлення типових помилок транскрипції."
-  words_to_help_pindrop_recognize_them_properl: "Додайте слова, щоб допомогти Pindrop правильно їх розпізнати"
+  words_to_help_pindrop_recognize_them_properl: "Додайте слова, щоб допомогти NautPin правильно їх розпізнати"
   words_you_manually_correct_into_your_vocabul: "Додайте слова, які ви виправили вручну, у свій словник для майбутніх транскрипцій."
 ai:
   enhancement: "Покращення AI"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "Автоматичне оновлення та перевірка оновлень вручну"
 automatically:
   check_for_new_versions_in_the_back: "Автоматично перевіряти наявність нових версій у фоновому режимі."
-  start_pindrop_when_you_sign_in: "Автоматично запускати Pindrop під час входу."
+  start_pindrop_when_you_sign_in: "Автоматично запускати NautPin під час входу."
 available:
   models: "Доступні моделі"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Вибирайте між Parakeet (крос-версія, завантажена модель) і Apple SpeechTranscriber (macOS 26+, постачається з ОС)."
   file: "Виберіть файл"
   how_dictated_text_lands_then_tune_the_fin: "Виберіть спосіб розміщення продиктованого тексту, а потім налаштуйте остаточну поведінку вставки."
-  how_pindrop_follows_system_appearance_the: "Виберіть, як Pindrop слідує зовнішньому вигляду системи, а потім змішайте підібрані світлі та темні палітри."
+  how_pindrop_follows_system_appearance_the: "Виберіть, як NautPin слідує зовнішньому вигляду системи, а потім змішайте підібрані світлі та темні палітри."
   how_to_import_the_dictionary_data: "Виберіть спосіб імпорту даних словника"
   how_to_import_the_preset_data: "Виберіть спосіб імпорту попередньо встановлених даних"
   languages_for_the_interface_and_for_dicta: "Виберіть мови для інтерфейсу та для диктування. Автомат слідкує за системою."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "Вибирайте денну оболонку, яка використовується в світлому режимі."
   the_low_glare_shell_used_in_dark_mode: "Виберіть оболонку з низьким відблиском, яка використовується в темному режимі."
   which_floating_indicator_style_appears_wh: "Виберіть, який стиль плаваючого індикатора відображатиметься, коли ввімкнено накладання."
-  which_microphone_pindrop_should_use_for_d: "Виберіть, який мікрофон Pindrop використовуватиме для диктування та як він поводитиметься під час запису."
+  which_microphone_pindrop_should_use_for_d: "Виберіть, який мікрофон NautPin використовуватиме для диктування та як він поводитиметься під час запису."
   which_side_the_navigation_sidebar_appears: "Виберіть, з якого боку відображатиметься бічна панель навігації."
 clean:
   up_filler_words: "Очистіть слова-заповнювачі"
@@ -164,7 +164,7 @@ continue:
   with_default: "Продовжити за замовчуванням"
   without: "Продовжити без"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Контролюйте, як Pindrop відображається в macOS і чи запускається він під час сеансу робочого столу."
+  how_pindrop_appears_in_macos_and_whether: "Контролюйте, як NautPin відображається в macOS і чи запускається він під час сеансу робочого столу."
 controls:
   how_the_live_dictation_path_polishes_tr: "Контролює, як шлях живого диктування відшліфовує стенограми. Детермінований очищувач (видалення заповнювачів, використання великих літер, промовна пунктуація, нормалізація чисел, об’єднання розділених слів) працює в будь-якому напрямку — цей перемикач блокує додатковий проход полірування LLM, який запускається після завершення диктування."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "Відображуване ім'я"
   name_c7874aaa: "Відображуване ім'я"
-  pindrop_in_the_dock_instead_of_running_o: "Відображати Pindrop у Dock замість running лише як програму на панелі меню."
+  pindrop_in_the_dock_instead_of_running_o: "Відображати NautPin у Dock замість running лише як програму на панелі меню."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "Прикріпіть бічну панель до лівого або правого краю вікна."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "Японський"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Автоматично підтримуйте Pindrop актуальним або запустіть перевірку вручну, коли забажаєте."
+  pindrop_current_automatically_or_trigger_a: "Автоматично підтримуйте NautPin актуальним або запустіть перевірку вручну, коли забажаєте."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "Ліворуч"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Дозвольте Pindrop спокійно вивчати лексику на основі виправлень, які ви вносите з часом."
+  pindrop_quietly_learn_vocabulary_from_the_co: "Дозвольте NautPin спокійно вивчати лексику на основі виправлень, які ви вносите з часом."
 light:
   _self: "світло"
   dark_and_curated_palette_presets: "Світлі, темні та попередньо налаштовані палітри"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "Режим низької затримки (менш точний)"
 manage:
-  local_speech_models_feature_models_and_th: "Керуйте локальними моделями мовлення, моделями функцій і механізмом за замовчуванням, який Pindrop використовує для транскрипції."
+  local_speech_models_feature_models_and_th: "Керуйте локальними моделями мовлення, моделями функцій і механізмом за замовчуванням, який NautPin використовує для транскрипції."
   models: "Керуйте моделями"
   presets: "Керування пресетами"
   presets_ab87986d: "Керувати попередніми налаштуваннями..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "Закріпити на екрані (завжди зверху)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Dot"
+  _self: "NautPin"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop готовий до використання.
     Щоб розпочати, натисніть значок панелі меню.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop готовий до використання.nНатисніть піктограму панелі меню, щоб розпочати."
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop потребує кількох дозволів для роботи.nВаша конфіденційність завжди поважається."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin готовий до використання.nНатисніть піктограму панелі меню, щоб розпочати."
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin потребує кількох дозволів для роботи.nВаша конфіденційність завжди поважається."
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop потребує кількох дозволів для роботи.
     Ваша конфіденційність завжди поважається.
   needs_accessibility_permission_to_insert: "\"\" Для вставлення тексту під курсором Pindrop потрібен дозвіл на доступність.                          Щоб надати дозвіл: 1. Натисніть «Відкрити налаштування системи» нижче 2. Натисніть кнопку + 3. Перейдіть до програми, яка відображається у Finder 4. Перезапустіть Pindrop після надання дозволу. Без цього дозволу текст буде скопійовано лише в буфер обміну.             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop потрібен доступ до мікрофона, щоб записувати та транскрибувати ваш голос.nnНадайте дозвіл у налаштуваннях системи."
-  on_github: "Pindrop на GitHub"
-  pill: "Pindrop Pill"
-  theme: "Тема Pindrop"
+  needs_microphone_access_to_record_and_tr: "NautPin потрібен доступ до мікрофона, щоб записувати та транскрибувати ваш голос.nnНадайте дозвіл у налаштуваннях системи."
+  on_github: "NautPin на GitHub"
+  pill: "NautPin Pill"
+  theme: "Тема NautPin"
 play:
   _self: "грати"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "Попереднє ім'я"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "Натисніть і утримуйте, щоб продиктувати в будь-якій програмі. Pindrop транскрибує вашу промову та вставляє текст у місце курсора."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "Натисніть і утримуйте, щоб продиктувати в будь-якій програмі. NautPin транскрибує вашу промову та вставляє текст у місце курсора."
   esc_to_cancel: "Натисніть Esc, щоб скасувати"
   keys: "Натисніть клавіші..."
   once_to_start_again_to_stop: "Натисніть один раз, щоб почати, ще раз, щоб зупинити"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "Швидко перетягніть останню стенограму назад у буфер обміну."
 quit:
   _self: "Вийти"
-  pindrop: "Вийти з Pindrop"
+  pindrop: "Вийти з NautPin"
 ready:
   _self: "Готовий"
   ec1296e1: "● Готовий"
@@ -839,7 +839,7 @@ start:
   recording: "Почніть запис"
   recording_to_see_your_transcriptions_here: "Почніть запис, щоб переглянути свої транскрипції тут"
   stop_recording: "Почати/зупинити запис"
-  using_pindrop: "Почніть використовувати Pindrop"
+  using_pindrop: "Почніть використовувати NautPin"
 status:
   _self: "Статус"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "Економія часу"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "диктувати та дозволяти Pindrop транскрибувати для вас"
+  dictate_and_let_pindrop_transcribe_for_you: "диктувати та дозволяти NautPin транскрибувати для вас"
   start_talking: "почати говорити"
 today:
   _self: "Сьогодні"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Режим Vibe"
   mode_captures_structured_ui_context_when_re: "Режим Vibe фіксує структурований контекст інтерфейсу користувача на початку запису, щоб удосконалення штучного інтелекту могло використовувати стан вашої активної програми як довідковий матеріал."
-  mode_works_best_with_accessibility_permissi: "Режим Vibe найкраще працює з дозволом на спеціальні можливості. Без нього Pindrop повертається до обмежених метаданих програми, і транскрипція все ще працює нормально."
+  mode_works_best_with_accessibility_permissi: "Режим Vibe найкраще працює з дозволом на спеціальні можливості. Без нього NautPin повертається до обмежених метаданих програми, і транскрипція все ще працює нормально."
 view:
   _self: "Переглянути"
   all: "Переглянути всі"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "проти набору тексту"
 welcome:
-  to_pindrop: "Ласкаво просимо до Pindrop"
+  to_pindrop: "Ласкаво просимо до NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

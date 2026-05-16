@@ -30,7 +30,7 @@ struct ReadyStepView: View {
                 Text(localized("You're All Set!", locale: locale))
                     .font(.system(size: 28, weight: .bold, design: .rounded))
 
-                Text(localized("Pindrop is ready to use.\nClick the menu bar icon to get started.", locale: locale))
+                Text(localized("NautPin is ready to use.\nClick the menu bar icon to get started.", locale: locale))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -42,7 +42,7 @@ struct ReadyStepView: View {
 
             Button(action: onComplete) {
                 HStack {
-                    Text(localized("Start Using Pindrop", locale: locale))
+                    Text(localized("Start Using NautPin", locale: locale))
                     IconView(icon: .arrowRight, size: 16)
                 }
                 .font(.headline)

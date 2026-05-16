@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "עדכונים אוטומטיים ובדיקות עדכונים ידניות"
 automatically:
   check_for_new_versions_in_the_back: "בדוק אוטומטית אם יש גרסאות חדשות ברקע."
-  start_pindrop_when_you_sign_in: "הפעל באופן אוטומטי את Pindrop כשאתה נכנס."
+  start_pindrop_when_you_sign_in: "הפעל באופן אוטומטי את NautPin כשאתה נכנס."
 available:
   models: "דגמים זמינים"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "בחר בין Parakeet (גרסה צולבת, דגם שהורד) לבין Apple SpeechTranscriber (macOS 26+, נשלח עם מערכת ההפעלה)."
   file: "בחר קובץ"
   how_dictated_text_lands_then_tune_the_fin: "בחר כיצד נוחת הטקסט המוכתב ולאחר מכן כוונן את התנהגות ההוספה הסופית."
-  how_pindrop_follows_system_appearance_the: "בחר כיצד Pindrop עוקב אחר מראה המערכת, ולאחר מכן ערבב פלטות בהירות וכהות."
+  how_pindrop_follows_system_appearance_the: "בחר כיצד NautPin עוקב אחר מראה המערכת, ולאחר מכן ערבב פלטות בהירות וכהות."
   how_to_import_the_dictionary_data: "בחר כיצד לייבא את נתוני המילון"
   how_to_import_the_preset_data: "בחר כיצד לייבא את הנתונים המוגדרים מראש"
   languages_for_the_interface_and_for_dicta: "בחר שפות לממשק ולהכתבה. אוטומטי עוקב אחר המערכת."
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "בחר את מעטפת היום המשמשת במצב אור."
   the_low_glare_shell_used_in_dark_mode: "בחר את המעטפת הזוהרת נמוכה המשמשת במצב כהה."
   which_floating_indicator_style_appears_wh: "בחר איזה סגנון מחוון צף יופיע כאשר שכבת העל מופעלת."
-  which_microphone_pindrop_should_use_for_d: "בחר באיזה מיקרופון Pindrop צריך להשתמש להכתבה וכיצד הוא מתנהג בזמן ההקלטה."
+  which_microphone_pindrop_should_use_for_d: "בחר באיזה מיקרופון NautPin צריך להשתמש להכתבה וכיצד הוא מתנהג בזמן ההקלטה."
   which_side_the_navigation_sidebar_appears: "בחר באיזה צד יופיע סרגל הניווט."
 clean:
   up_filler_words: "נקה מילות מילוי"
@@ -164,7 +164,7 @@ continue:
   with_default: "המשך עם ברירת מחדל"
   without: "המשך בלי"
 control:
-  how_pindrop_appears_in_macos_and_whether: "שלוט כיצד Pindrop יופיע ב-macOS והאם הוא מתחיל בהפעלת שולחן העבודה שלך."
+  how_pindrop_appears_in_macos_and_whether: "שלוט כיצד NautPin יופיע ב-macOS והאם הוא מתחיל בהפעלת שולחן העבודה שלך."
 controls:
   how_the_live_dictation_path_polishes_tr: "שולט כיצד נתיב ההכתבה החיה ללטש תמלילים. מנקה הדטרמיניסטי (הסרת חומרי מילוי, שימוש באותיות רישיות, סימני פיסוק מדוברים, נורמליזציה של מספרים, מיזוג של פיצול מילים) פועל לשני הכיוונים - החלפה זו משדרת את מעבר הפוליש האופציונלי של LLM שנפתח ברגע שההכתבה נפסקת."
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "שם תצוגה"
   name_c7874aaa: "שם תצוגה"
-  pindrop_in_the_dock_instead_of_running_o: "הצג Pindrop ב-Dock במקום לפעול רק כאפליקציה של שורת תפריטים."
+  pindrop_in_the_dock_instead_of_running_o: "הצג NautPin ב-Dock במקום לפעול רק כאפליקציה של שורת תפריטים."
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "עגן את סרגל הצד לקצה השמאלי או הימני של החלון."
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "יַפָּנִית"
 keep:
-  pindrop_current_automatically_or_trigger_a: "שמור על עדכניות של Pindrop באופן אוטומטי, או הפעל בדיקה ידנית מתי שתרצה."
+  pindrop_current_automatically_or_trigger_a: "שמור על עדכניות של NautPin באופן אוטומטי, או הפעל בדיקה ידנית מתי שתרצה."
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "מצב אחזור נמוך (פחות מדויק)"
 manage:
-  local_speech_models_feature_models_and_th: "נהל מודלים מקומיים של דיבור, דגמי תכונה ומנוע ברירת המחדל ש-Pindrop משתמש בו לתמלול."
+  local_speech_models_feature_models_and_th: "נהל מודלים מקומיים של דיבור, דגמי תכונה ומנוע ברירת המחדל ש-NautPin משתמש בו לתמלול."
   models: "ניהול דגמים"
   presets: "נהל הגדרות קבועות מראש"
   presets_ab87986d: "נהל הגדרות מוגדרות מראש..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "הצמד למסך (תמיד למעלה)"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Dot"
+  _self: "NautPin"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop מוכן לשימוש.
     לחץ על סמל שורת התפריטים כדי להתחיל.
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop מוכן לשימוש. nלחץ על סמל שורת התפריטים כדי להתחיל."
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop זקוק לכמה הרשאות כדי לעבוד. nהפרטיות שלך תמיד מכבדת."
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin מוכן לשימוש. nלחץ על סמל שורת התפריטים כדי להתחיל."
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin זקוק לכמה הרשאות כדי לעבוד. nהפרטיות שלך תמיד מכבדת."
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop זקוק לכמה הרשאות כדי לעבוד.
     הפרטיות שלך תמיד מכבדת.
   needs_accessibility_permission_to_insert: "\"\" Pindrop זקוק להרשאת נגישות כדי להוסיף טקסט ליד הסמן.                          כדי להעניק הרשאה: 1. לחץ על \"פתח הגדרות מערכת\" למטה 2. לחץ על כפתור + 3. נווט אל האפליקציה המוצגת ב-Finder 4. הפעל מחדש את Pindrop לאחר מתן הרשאה ללא הרשאה זו, הטקסט יועתק רק ללוח שלך.             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop זקוק לגישה למיקרופון כדי להקליט ולתמלל את הקול שלך.nnאנא הענק הרשאה בהגדרות המערכת."
-  on_github: "Pindrop ב-GitHub"
+  needs_microphone_access_to_record_and_tr: "NautPin זקוק לגישה למיקרופון כדי להקליט ולתמלל את הקול שלך.nnאנא הענק הרשאה בהגדרות המערכת."
+  on_github: "NautPin ב-GitHub"
   pill: "גלולת פינדרופ"
-  theme: "נושא Pindrop"
+  theme: "נושא NautPin"
 play:
   _self: "לְשַׂחֵק"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "שם מוגדר מראש"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "לחץ והחזק כדי להכתיב בכל אפליקציה. Pindrop תעתיק את הנאום שלך ותוסיף את הטקסט במקום שבו הסמן שלך נמצא."
+  and_hold_to_dictate_in_any_app_pindrop_wil: "לחץ והחזק כדי להכתיב בכל אפליקציה. NautPin תעתיק את הנאום שלך ותוסיף את הטקסט במקום שבו הסמן שלך נמצא."
   esc_to_cancel: "הקש Esc כדי לבטל"
   keys: "לחץ על מקשים..."
   once_to_start_again_to_stop: "לחץ פעם אחת כדי להתחיל, שוב כדי לעצור"
@@ -839,7 +839,7 @@ start:
   recording: "התחל להקליט"
   recording_to_see_your_transcriptions_here: "התחל להקליט כדי לראות את התמלילים שלך כאן"
   stop_recording: "התחל/הפסק הקלטה"
-  using_pindrop: "התחל להשתמש ב-Pindrop"
+  using_pindrop: "התחל להשתמש ב-NautPin"
 status:
   _self: "סטָטוּס"
 stop:
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "מצב וייב"
   mode_captures_structured_ui_context_when_re: "מצב Vibe לוכד הקשר מובנה של ממשק המשתמש כאשר ההקלטה מתחילה כך ששיפור בינה מלאכותית יכול להשתמש במצב האפליקציה הפעילה שלך כעיון."
-  mode_works_best_with_accessibility_permissi: "מצב Vibe עובד בצורה הטובה ביותר עם הרשאת נגישות. בלעדיו, Pindrop חוזר למטא נתונים מוגבלים של אפליקציה והתמלול עדיין עובד כרגיל."
+  mode_works_best_with_accessibility_permissi: "מצב Vibe עובד בצורה הטובה ביותר עם הרשאת נגישות. בלעדיו, NautPin חוזר למטא נתונים מוגבלים של אפליקציה והתמלול עדיין עובד כרגיל."
 view:
   _self: "נוֹף"
   all: "הצג הכל"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "לעומת הקלדה"
 welcome:
-  to_pindrop: "ברוכים הבאים ל-Pindrop"
+  to_pindrop: "ברוכים הבאים ל-NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

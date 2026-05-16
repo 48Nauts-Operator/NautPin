@@ -495,7 +495,7 @@ struct ParticipantsSettingsView: View {
                 .font(AppTypography.body)
                 .foregroundStyle(AppColors.textSecondary)
 
-            Text(localized("Rename speakers in transcripts to teach Pindrop to recognize voices automatically.", locale: locale))
+            Text(localized("Rename speakers in transcripts to teach NautPin to recognize voices automatically.", locale: locale))
                 .font(AppTypography.caption)
                 .foregroundStyle(AppColors.textTertiary)
                 .multilineTextAlignment(.center)

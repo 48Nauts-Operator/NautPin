@@ -7,7 +7,7 @@ a:
   native_macos_menu_bar_dictation_app_using_loca: "一款使用 WhisperKit 進行本地語音轉文字的原生 macOS 選單欄聽寫應用。預設 100% 本地處理，可選 AI 增強。"
 about:
   _self: "關於"
-  pindrop: "關於 Pindrop"
+  pindrop: "關於 NautPin"
 accessibility:
   _self: "輔助功能"
   permission_is_enabled_full_ui_cont: "輔助功能許可權已啟用。完整的 UI 上下文可用。"
@@ -29,7 +29,7 @@ add:
   to_existing: "新增到現有"
   trailing_space: "新增尾隨空格"
   word_replacements_to_automatically_correct_c: "新增詞彙替換以自動糾正常見的轉錄錯誤。"
-  words_to_help_pindrop_recognize_them_properl: "新增詞彙以幫助 Pindrop 正確識別它們"
+  words_to_help_pindrop_recognize_them_properl: "新增詞彙以幫助 NautPin 正確識別它們"
   words_you_manually_correct_into_your_vocabul: "將您手動更正的詞彙新增到詞彙表中，以供將來的轉錄使用。"
 ai:
   enhancement: "AI 增強"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "自動更新和手動更新檢查"
 automatically:
   check_for_new_versions_in_the_back: "自動在後臺檢查新版本。"
-  start_pindrop_when_you_sign_in: "登入時自動啟動 Pindrop。"
+  start_pindrop_when_you_sign_in: "登入時自動啟動 NautPin。"
 available:
   models: "可用模型"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "在 Parakeet（跨版本，需下載模型）和 Apple SpeechTranscriber（macOS 26 及以上，系統自帶）之間進行選擇。"
   file: "選擇檔案"
   how_dictated_text_lands_then_tune_the_fin: "選擇聽寫文字的插入方式，然後調整最終插入行為。"
-  how_pindrop_follows_system_appearance_the: "選擇 Pindrop 如何跟隨系統外觀，然後混合精選的淺色和深色調色盤。"
+  how_pindrop_follows_system_appearance_the: "選擇 NautPin 如何跟隨系統外觀，然後混合精選的淺色和深色調色盤。"
   how_to_import_the_dictionary_data: "選擇如何匯入詞典資料"
   how_to_import_the_preset_data: "選擇如何匯入預設資料"
   languages_for_the_interface_and_for_dicta: "選擇介面語言和聽寫語言。“自動”選項跟隨系統。"
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "選擇在淺色模式下使用的日間外觀。"
   the_low_glare_shell_used_in_dark_mode: "選擇在深色模式下使用的低眩光外觀。"
   which_floating_indicator_style_appears_wh: "選擇在啟用疊加層時顯示的浮動指示器樣式。"
-  which_microphone_pindrop_should_use_for_d: "選擇 Pindrop 用於聽寫的麥克風以及錄製時的行為。"
+  which_microphone_pindrop_should_use_for_d: "選擇 NautPin 用於聽寫的麥克風以及錄製時的行為。"
   which_side_the_navigation_sidebar_appears: "選擇導航側邊欄顯示在哪一側。"
 clean:
   up_filler_words: "清理填充詞"
@@ -164,7 +164,7 @@ continue:
   with_default: "使用預設繼續"
   without: "繼續不使用"
 control:
-  how_pindrop_appears_in_macos_and_whether: "控制 Pindrop 在 macOS 中的顯示方式以及是否隨桌面會話啟動。"
+  how_pindrop_appears_in_macos_and_whether: "控制 NautPin 在 macOS 中的顯示方式以及是否隨桌面會話啟動。"
 controls:
   how_the_live_dictation_path_polishes_tr: "控制實時聽寫路徑如何修飾轉錄內容。確定性清理（填充詞移除、首字母大寫、口頭標點、數字規範化、拆分詞合併）始終執行——此開關控制可選的 LLM 潤色步驟，該步驟在聽寫停止後觸發。"
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "顯示名稱"
   name_c7874aaa: "顯示名稱"
-  pindrop_in_the_dock_instead_of_running_o: "在 Dock 中顯示 Pindrop，而不是僅作為選單欄應用執行。"
+  pindrop_in_the_dock_instead_of_running_o: "在 Dock 中顯示 NautPin，而不是僅作為選單欄應用執行。"
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "將側邊欄固定到視窗的左側或右側邊緣。"
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "日語"
 keep:
-  pindrop_current_automatically_or_trigger_a: "自動保持 Pindrop 最新，或隨時觸發手動檢查。"
+  pindrop_current_automatically_or_trigger_a: "自動保持 NautPin 最新，或隨時觸發手動檢查。"
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "左側"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "讓 Pindrop 悄悄地從您隨時間做出的更正中學習詞彙。"
+  pindrop_quietly_learn_vocabulary_from_the_co: "讓 NautPin 悄悄地從您隨時間做出的更正中學習詞彙。"
 light:
   _self: "淺色"
   dark_and_curated_palette_presets: "淺色、深色和精選調色盤預設"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "低延遲模式（準確度較低）"
 manage:
-  local_speech_models_feature_models_and_th: "管理本地語音模型、功能模型和 Pindrop 用於轉錄的預設引擎。"
+  local_speech_models_feature_models_and_th: "管理本地語音模型、功能模型和 NautPin 用於轉錄的預設引擎。"
   models: "管理模型"
   presets: "管理預設"
   presets_ab87986d: "管理預設..."
@@ -616,21 +616,21 @@ pill:
 pin:
   to_screen_always_on_top: "固定到螢幕（始終置頂）"
 pindrop:
-  _self: "Pindrop"
-  dot: "Pindrop Dot"
+  _self: "NautPin"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     Pindrop 已準備好使用。
     點選選單欄圖示開始使用。
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop 已準備好使用。n點選選單欄圖示開始使用。"
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop 需要一些許可權才能工作。n您的隱私始終受到尊重。"
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin 已準備好使用。n點選選單欄圖示開始使用。"
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin 需要一些許可權才能工作。n您的隱私始終受到尊重。"
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop 需要一些許可權才能工作。
     您的隱私始終受到尊重。
   needs_accessibility_permission_to_insert: "\"\"             Pindrop 需要輔助功能許可權才能在您的游標處插入文字。                          授予許可權：             1. 點選下方\"開啟系統設定\"             2. 點選 + 按鈕             3. 導航到 Finder 中顯示的應用             4. 授予許可權後重新啟動 Pindrop                          沒有此許可權，文字將只複製到您的剪貼簿。             \"\""
-  needs_microphone_access_to_record_and_tr: "Pindrop 需要麥克風訪問許可權來錄製和轉錄您的語音。nn請在系統設定中授予許可權。"
-  on_github: "GitHub 上的 Pindrop"
-  pill: "Pindrop 膠囊"
-  theme: "Pindrop 主題"
+  needs_microphone_access_to_record_and_tr: "NautPin 需要麥克風訪問許可權來錄製和轉錄您的語音。nn請在系統設定中授予許可權。"
+  on_github: "GitHub 上的 NautPin"
+  pill: "NautPin 膠囊"
+  theme: "NautPin 主題"
 play:
   _self: "播放"
 please:
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "預設名稱"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "按住以在任何應用中聽寫。Pindrop 將轉錄您的語音並在游標位置插入文字。"
+  and_hold_to_dictate_in_any_app_pindrop_wil: "按住以在任何應用中聽寫。NautPin 將轉錄您的語音並在游標位置插入文字。"
   esc_to_cancel: "按 Esc 取消"
   keys: "按按鍵..."
   once_to_start_again_to_stop: "按一次開始，再按一次停止"
@@ -681,7 +681,7 @@ quickly:
   pull_your_latest_transcript_back_to_the: "快速將您最新的轉錄拉回剪貼簿。"
 quit:
   _self: "退出"
-  pindrop: "退出 Pindrop"
+  pindrop: "退出 NautPin"
 ready:
   _self: "就緒"
   ec1296e1: "● 就緒"
@@ -839,7 +839,7 @@ start:
   recording: "開始錄製"
   recording_to_see_your_transcriptions_here: "開始錄製以在此處檢視您的轉錄"
   stop_recording: "開始/停止錄製"
-  using_pindrop: "開始使用 Pindrop"
+  using_pindrop: "開始使用 NautPin"
 status:
   _self: "狀態"
 stop:
@@ -891,7 +891,7 @@ this:
 time:
   saved: "節省時間"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "進行聽寫並讓 Pindrop 為您轉錄"
+  dictate_and_let_pindrop_transcribe_for_you: "進行聽寫並讓 NautPin 為您轉錄"
   start_talking: "開始說話"
 today:
   _self: "今天"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "Vibe 模式"
   mode_captures_structured_ui_context_when_re: "Vibe 模式在錄製開始時捕獲結構化的 UI 上下文，以便 AI 增強可以將您的活動應用狀態作為參考。"
-  mode_works_best_with_accessibility_permissi: "Vibe 模式在具有輔助功能許可權時效果最佳。沒有它，Pindrop 將回退到有限的應用後設資料，轉錄仍能正常工作。"
+  mode_works_best_with_accessibility_permissi: "Vibe 模式在具有輔助功能許可權時效果最佳。沒有它，NautPin 將回退到有限的應用後設資料，轉錄仍能正常工作。"
 view:
   _self: "檢視"
   all: "檢視全部"
@@ -981,7 +981,7 @@ vocabulary:
 vs:
   typing: "對比輸入"
 welcome:
-  to_pindrop: "歡迎使用 Pindrop"
+  to_pindrop: "歡迎使用 NautPin"
 whisperkit:
   _self: "WhisperKit"
 word:

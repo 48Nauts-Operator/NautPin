@@ -39,7 +39,7 @@ struct MCPSettingsView: View {
         SettingsCard(
             title: localized("MCP Server", locale: locale),
             icon: "network",
-            detail: localized("Run a local HTTP server so AI agents can submit transcription jobs, search history, and manage speakers — without touching the Pindrop UI.", locale: locale)
+            detail: localized("Run a local HTTP server so AI agents can submit transcription jobs, search history, and manage speakers — without touching the NautPin UI.", locale: locale)
         ) {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
                 SettingsToggleRow(

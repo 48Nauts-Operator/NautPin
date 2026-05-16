@@ -380,7 +380,7 @@ final class DotFloatingIndicatorController: NSObject, ObservableObject, Floating
 
     private func makeContextMenu() -> NSMenu {
         let locale = settingsStore.selectedAppLocale.locale
-        let menu = NSMenu(title: localized("Pindrop Dot", locale: locale))
+        let menu = NSMenu(title: localized("NautPin Dot", locale: locale))
         menu.delegate = self
 
         let sizeMenu = NSMenu(title: localized("Size", locale: locale))

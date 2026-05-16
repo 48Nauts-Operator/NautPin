@@ -32,7 +32,7 @@ struct AboutSettingsView: View {
       SettingsCard(
          title: localized("Updates", locale: locale),
          icon: "arrow.triangle.2.circlepath",
-         detail: localized("Keep Pindrop current automatically, or trigger a manual check whenever you want.", locale: locale)
+         detail: localized("Keep NautPin current automatically, or trigger a manual check whenever you want.", locale: locale)
       ) {
          VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             SettingsToggleRow(
@@ -68,7 +68,7 @@ struct AboutSettingsView: View {
    }
 
    private var appInfoSection: some View {
-      SettingsCard(title: localized("About Pindrop", locale: locale), icon: "mic.fill") {
+      SettingsCard(title: localized("About NautPin", locale: locale), icon: "mic.fill") {
          VStack(spacing: AppTheme.Spacing.lg) {
             HStack(spacing: AppTheme.Spacing.xl) {
                appIcon

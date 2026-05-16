@@ -135,7 +135,7 @@ struct ModelsSettingsView: View {
                 .font(AppTypography.largeTitle)
                 .foregroundStyle(AppColors.textPrimary)
 
-            Text(localized("Manage local speech models, feature models, and the default engine Pindrop uses for transcription.", locale: locale))
+            Text(localized("Manage local speech models, feature models, and the default engine NautPin uses for transcription.", locale: locale))
                 .font(AppTypography.body)
                 .foregroundStyle(AppColors.textSecondary)
         }

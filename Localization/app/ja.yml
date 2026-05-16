@@ -29,7 +29,7 @@ add:
   to_existing: "既存に追加"
   trailing_space: "末尾のスペースを追加する"
   word_replacements_to_automatically_correct_c: "単語の置換を追加して、一般的な転写エラーを自動的に修正します。"
-  words_to_help_pindrop_recognize_them_properl: "Pindrop が正しく認識できるように単語を追加します"
+  words_to_help_pindrop_recognize_them_properl: "NautPin が正しく認識できるように単語を追加します"
   words_you_manually_correct_into_your_vocabul: "今後の文字起こしのために、手動で修正した単語を語彙に追加します。"
 ai:
   enhancement: "AIの強化"
@@ -82,7 +82,7 @@ automatic:
   updates_and_manual_update_checks: "自動更新と手動更新チェック"
 automatically:
   check_for_new_versions_in_the_back: "バックグラウンドで新しいバージョンを自動的にチェックします。"
-  start_pindrop_when_you_sign_in: "サインインすると Pindrop が自動的に起動します。"
+  start_pindrop_when_you_sign_in: "サインインすると NautPin が自動的に起動します。"
 available:
   models: "利用可能なモデル"
 avg:
@@ -124,7 +124,7 @@ choose:
   between_parakeet_cross_version_downloaded: "Parakeet（複数バージョン対応、モデルのダウンロードが必要）と Apple SpeechTranscriber（macOS 26 以降、OS に同梱）から選択します。"
   file: "ファイルを選択してください"
   how_dictated_text_lands_then_tune_the_fin: "口述テキストの挿入方法を選択し、最終的な挿入動作を調整します。"
-  how_pindrop_follows_system_appearance_the: "Pindrop がシステムの外観に従う方法を選択し、厳選された明るいパレットと暗いパレットを組み合わせます。"
+  how_pindrop_follows_system_appearance_the: "NautPin がシステムの外観に従う方法を選択し、厳選された明るいパレットと暗いパレットを組み合わせます。"
   how_to_import_the_dictionary_data: "辞書データのインポート方法を選択します"
   how_to_import_the_preset_data: "プリセットデータのインポート方法を選択します"
   languages_for_the_interface_and_for_dicta: "インターフェースとディクテーションの言語を選びます。「自動」はシステムに合わせます。"
@@ -132,7 +132,7 @@ choose:
   the_daytime_shell_used_in_light_mode: "ライトモードで使用するデイタイムシェルを選択します。"
   the_low_glare_shell_used_in_dark_mode: "ダークモードで使用される低光沢シェルを選択してください。"
   which_floating_indicator_style_appears_wh: "オーバーレイが有効なときに表示されるフローティング インジケーター スタイルを選択します。"
-  which_microphone_pindrop_should_use_for_d: "Pindrop がディクテーションに使用するマイクと、録音中のマイクの動作を選択します。"
+  which_microphone_pindrop_should_use_for_d: "NautPin がディクテーションに使用するマイクと、録音中のマイクの動作を選択します。"
   which_side_the_navigation_sidebar_appears: "ナビゲーションサイドバーを表示する側を選択してください。"
 clean:
   up_filler_words: "つなぎ言葉をクリーンアップする"
@@ -164,7 +164,7 @@ continue:
   with_default: "デフォルトで続行"
   without: "なしで続行"
 control:
-  how_pindrop_appears_in_macos_and_whether: "Pindrop が macOS でどのように表示されるか、およびデスクトップ セッションで開始されるかどうかを制御します。"
+  how_pindrop_appears_in_macos_and_whether: "NautPin が macOS でどのように表示されるか、およびデスクトップ セッションで開始されるかどうかを制御します。"
 controls:
   how_the_live_dictation_path_polishes_tr: "ライブディクテーション経路の整形方法を制御します。決定論的クリーナー（フィラー除去、大文字化、口頭句読点、数値正規化、分割語の結合）は常に実行され、このトグルは口述停止後に動作する任意の LLM 仕上げを制御します。"
 copied:
@@ -239,7 +239,7 @@ dismiss:
 display:
   name: "表示名"
   name_c7874aaa: "表示名"
-  pindrop_in_the_dock_instead_of_running_o: "メニュー バー アプリとしてのみ実行するのではなく、Dock に Pindrop を表示します。"
+  pindrop_in_the_dock_instead_of_running_o: "メニュー バー アプリとしてのみ実行するのではなく、Dock に NautPin を表示します。"
 dock:
   the_sidebar_to_the_left_or_right_edge_of_th: "サイドバーをウィンドウの左端または右端にドッキングします。"
 dot:
@@ -410,7 +410,7 @@ items:
 japanese:
   _self: "日本語"
 keep:
-  pindrop_current_automatically_or_trigger_a: "Pindrop を自動的に最新の状態に保つことも、必要に応じていつでも手動チェックをトリガーすることもできます。"
+  pindrop_current_automatically_or_trigger_a: "NautPin を自動的に最新の状態に保つことも、必要に応じていつでも手動チェックをトリガーすることもできます。"
 key:
   _self: "#%@"
   a979ef10: "+"
@@ -433,7 +433,7 @@ learn:
 left:
   _self: "左"
 let:
-  pindrop_quietly_learn_vocabulary_from_the_co: "Pindrop は、時間をかけて修正した単語を静かに学習させてください。"
+  pindrop_quietly_learn_vocabulary_from_the_co: "NautPin は、時間をかけて修正した単語を静かに学習させてください。"
 light:
   _self: "ライト"
   dark_and_curated_palette_presets: "明るい、暗い、厳選されたパレット プリセット"
@@ -473,7 +473,7 @@ local:
 low:
   latency_mode_less_accurate: "低遅延モード（精度が低下）"
 manage:
-  local_speech_models_feature_models_and_th: "ローカル音声モデル、特徴モデル、および Pindrop が文字起こしに使用するデフォルト エンジンを管理します。"
+  local_speech_models_feature_models_and_th: "ローカル音声モデル、特徴モデル、および NautPin が文字起こしに使用するデフォルト エンジンを管理します。"
   models: "モデルの管理"
   presets: "プリセットの管理"
   presets_ab87986d: "プリセットを管理..."
@@ -617,17 +617,17 @@ pin:
   to_screen_always_on_top: "画面にピン留めする (常に一番上)"
 pindrop:
   _self: "ピンドロップ"
-  dot: "Pindrop Dot"
+  dot: "NautPin Dot"
   is_ready_to_use_click_the_menu_bar_icon: |-
     ピンドロップを使用する準備ができました。
     メニューバーのアイコンをクリックして開始します。
-  is_ready_to_use_nclick_the_menu_bar_icon: "Pindrop を使用する準備ができました。nメニュー バーのアイコンをクリックして開始します。"
-  needs_a_few_permissions_to_work_nyour_pr: "Pindrop が動作するには、いくつかの権限が必要です。nあなたのプライバシーは常に尊重されます。"
+  is_ready_to_use_nclick_the_menu_bar_icon: "NautPin を使用する準備ができました。nメニュー バーのアイコンをクリックして開始します。"
+  needs_a_few_permissions_to_work_nyour_pr: "NautPin が動作するには、いくつかの権限が必要です。nあなたのプライバシーは常に尊重されます。"
   needs_a_few_permissions_to_work_your_pri: |-
     Pindrop が動作するには、いくつかの権限が必要です。
     あなたのプライバシーは常に尊重されます。
   needs_accessibility_permission_to_insert: "\"\" Pindrop では、カーソル位置にテキストを挿入するにはアクセシビリティ権限が必要です。                          権限を付与するには: 1. 下の「システム設定を開く」をクリックします。 2. + ボタンをクリックします。 3. Finder に表示されているアプリに移動します。 4. 権限を付与した後、Pindrop を再起動します。 この権限がないと、テキストはクリップボードにコピーされるだけです。             「」"
-  needs_microphone_access_to_record_and_tr: "Pindrop では、あなたの声を録音して転写するにはマイクへのアクセスが必要です。システム設定で許可を与えてください。"
+  needs_microphone_access_to_record_and_tr: "NautPin では、あなたの声を録音して転写するにはマイクへのアクセスが必要です。システム設定で許可を与えてください。"
   on_github: "GitHub のピンドロップ"
   pill: "ピンドロップピル"
   theme: "ピンドロップのテーマ"
@@ -650,7 +650,7 @@ preparing:
 preset:
   name: "プリセット名"
 press:
-  and_hold_to_dictate_in_any_app_pindrop_wil: "どのアプリでも押し続けると口述入力できます。 Pindrop はあなたのスピーチを文字に起こし、カーソルがある場所にテキストを挿入します。"
+  and_hold_to_dictate_in_any_app_pindrop_wil: "どのアプリでも押し続けると口述入力できます。 NautPin はあなたのスピーチを文字に起こし、カーソルがある場所にテキストを挿入します。"
   esc_to_cancel: "キャンセルするにはEscを押してください"
   keys: "キーを押してください..."
   once_to_start_again_to_stop: "一度押すと開始し、もう一度押すと停止します"
@@ -891,7 +891,7 @@ this:
 time:
   saved: "時間の節約"
 to:
-  dictate_and_let_pindrop_transcribe_for_you: "Pindrop に口述して文字起こししてもらう"
+  dictate_and_let_pindrop_transcribe_for_you: "NautPin に口述して文字起こししてもらう"
   start_talking: "話し始める"
 today:
   _self: "今日"
@@ -970,7 +970,7 @@ via:
 vibe:
   mode: "バイブモード"
   mode_captures_structured_ui_context_when_re: "Vibe モードでは、録音開始時に構造化された UI コンテキストをキャプチャするため、AI 拡張機能でアクティブなアプリの状態を参照として使用できます。"
-  mode_works_best_with_accessibility_permissi: "Vibe モードは、アクセシビリティ権限を使用すると最適に動作します。これがなければ、Pindrop は制限されたアプリのメタデータにフォールバックし、トランスクリプションは引き続き正常に機能します。"
+  mode_works_best_with_accessibility_permissi: "Vibe モードは、アクセシビリティ権限を使用すると最適に動作します。これがなければ、NautPin は制限されたアプリのメタデータにフォールバックし、トランスクリプションは引き続き正常に機能します。"
 view:
   _self: "ビュー"
   all: "すべて見る"
