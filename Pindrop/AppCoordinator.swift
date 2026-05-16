@@ -439,6 +439,13 @@ final class AppCoordinator {
         self.promptPresetStore = PromptPresetStore(modelContext: modelContext)
         self.powerModeManager = PowerModeManager()
         self.activeWindowService = ActiveWindowService(manager: self.powerModeManager)
+        // Wire Power Mode into SettingsStore so AIConfigurationV2 can layer per-profile
+        // prompt-preset / model-assignment overrides on top of the global assignment for
+        // .transcriptionEnhancement. Captured weakly to avoid a retain cycle.
+        let powerModeRef = self.powerModeManager
+        self.settingsStore.activePowerModeProvider = { [weak powerModeRef] in
+            powerModeRef?.activeConfiguration
+        }
         self.mentionRewriteService = MentionRewriteService()
         self.mediaPauseService = MediaPauseService()
         self.mediaIngestionService = MediaIngestionService()

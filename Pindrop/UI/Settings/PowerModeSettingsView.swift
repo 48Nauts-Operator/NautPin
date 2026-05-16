@@ -264,6 +264,7 @@ struct PowerModeConfigEditor: View {
    @State private var emoji: String
    @State private var appBundleIDs: String
    @State private var urlPatterns: String
+   @State private var promptPresetID: String
    @State private var isDefault: Bool
 
    private let originalID: UUID
@@ -285,6 +286,7 @@ struct PowerModeConfigEditor: View {
       _emoji = State(initialValue: config.emoji)
       _appBundleIDs = State(initialValue: config.appBundleIDs.joined(separator: "\n"))
       _urlPatterns = State(initialValue: config.urlPatterns.joined(separator: "\n"))
+      _promptPresetID = State(initialValue: config.promptPresetID ?? "")
       _isDefault = State(initialValue: config.isDefault)
    }
 
@@ -338,6 +340,16 @@ struct PowerModeConfigEditor: View {
             }
 
             Text(localized("Example: github.com, twitter.com — case-insensitive contains match", locale: locale))
+               .font(AppTypography.caption)
+               .foregroundStyle(AppColors.textTertiary)
+
+            labeledField(localized("Prompt preset (optional)", locale: locale)) {
+               TextField("", text: $promptPresetID, prompt: Text(localized("Leave empty to use the global cleanup default", locale: locale)))
+                  .textFieldStyle(.roundedBorder)
+                  .font(.system(.body, design: .monospaced))
+            }
+
+            Text(localized("Built-in IDs: clean · note · live-stream-refine — or paste a custom preset UUID", locale: locale))
                .font(AppTypography.caption)
                .foregroundStyle(AppColors.textTertiary)
 
@@ -407,12 +419,14 @@ struct PowerModeConfigEditor: View {
          .map { $0.trimmingCharacters(in: .whitespaces) }
          .filter { !$0.isEmpty }
 
+      let trimmedPresetID = promptPresetID.trimmingCharacters(in: .whitespacesAndNewlines)
       let result = PowerModeConfig(
          id: originalID,
          name: trimmedName,
          emoji: trimmedEmoji.isEmpty ? "✨" : trimmedEmoji,
          appBundleIDs: appsList,
          urlPatterns: urlsList,
+         promptPresetID: trimmedPresetID.isEmpty ? nil : trimmedPresetID,
          isDefault: isDefault
       )
 

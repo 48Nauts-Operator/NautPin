@@ -228,6 +228,15 @@ final class SettingsStore: ObservableObject {
       }
    }
 
+   // MARK: - Power Mode hook
+
+   /// Wired by `AppCoordinator` after both `SettingsStore` and `PowerModeManager` exist,
+   /// avoiding a construction-order coupling. Returns the currently-resolved Power Mode
+   /// profile (or `nil` when Power Mode isn't active / not configured). Consumed by
+   /// `resolveAssignment(for:)` to layer profile-level overrides on top of the global
+   /// AI Enhancement assignment for `.transcriptionEnhancement`.
+   var activePowerModeProvider: () -> PowerModeConfig? = { nil }
+
    // MARK: - Default Values (Single Source of Truth)
 
     enum Defaults {

@@ -163,7 +163,25 @@ extension SettingsStore {
    ///     Models is unavailable at runtime (availability is checked by the caller; this
    ///     resolver does not special-case OS version gating).
    func resolveAssignment(for purpose: EnhancementPurpose) -> ResolvedAssignment? {
-      guard let assignment = assignment(for: purpose) else { return nil }
+      guard var assignment = assignment(for: purpose) else { return nil }
+
+      // Power Mode override — applies to transcription cleanup only. A profile's
+      // `modelAssignment` swaps the entire assignment (provider + model + prompt);
+      // a profile's `promptPresetID` swaps just the preset (model stays). The
+      // model swap runs first so a profile that sets both still gets the preset
+      // layered on top of its chosen model.
+      if purpose == .transcriptionEnhancement,
+         let activeProfile = activePowerModeProvider() {
+         if let profileAssignment = activeProfile.modelAssignment {
+            assignment = profileAssignment
+         }
+         if let presetID = activeProfile.promptPresetID {
+            assignment.promptPresetID = presetID
+            // Clear any stale inline override so the profile's preset wins.
+            assignment.promptOverride = nil
+         }
+      }
+
       guard let provider = provider(withID: assignment.providerID) else { return nil }
 
       let key = loadProviderAPIKey(forProviderID: provider.id)
