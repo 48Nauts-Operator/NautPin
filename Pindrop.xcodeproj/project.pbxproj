@@ -1158,7 +1158,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.18.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tech.watzon.pindrop.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.48nauts.nautpin.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1183,16 +1183,16 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Pindrop/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Pindrop;
+				INFOPLIST_KEY_CFBundleDisplayName = NautPin;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Pindrop needs microphone access to transcribe your voice.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NautPin needs microphone access to transcribe your voice.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.18.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tech.watzon.pindrop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.48nauts.nautpin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1264,7 +1264,7 @@
 				DEVELOPMENT_TEAM = MB5789APU7;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tech.watzon.pindrop.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.48nauts.nautpin.uitests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1355,16 +1355,16 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Pindrop/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Pindrop;
+				INFOPLIST_KEY_CFBundleDisplayName = NautPin;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Pindrop needs microphone access to transcribe your voice.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NautPin needs microphone access to transcribe your voice.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.18.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tech.watzon.pindrop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.48nauts.nautpin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1379,7 +1379,7 @@
 				DEVELOPMENT_TEAM = MB5789APU7;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tech.watzon.pindrop.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.48nauts.nautpin.uitests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1400,7 +1400,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.18.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tech.watzon.pindrop.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.48nauts.nautpin.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;

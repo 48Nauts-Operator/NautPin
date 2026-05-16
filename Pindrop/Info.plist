@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>NautPin</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
@@ -29,13 +31,13 @@
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Pindrop needs microphone access to transcribe your voice.</string>
+	<string>NautPin needs microphone access to transcribe your voice.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Pindrop uses on-device speech recognition to transcribe your audio without sending data to any server.</string>
+	<string>NautPin uses on-device speech recognition to transcribe your audio without sending data to any server.</string>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://github.com/watzon/pindrop/releases/latest/download/appcast.xml</string>
+	<string>http://cosmos.tail138398.ts.net:3000/48Nauts/NautPin/releases/latest/download/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>TCU0MwULuIK6y0ubIossVr+61PGh/wHZfFrRFc9F2Is=</string>
 </dict>
