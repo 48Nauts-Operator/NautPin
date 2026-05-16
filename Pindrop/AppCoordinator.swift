@@ -283,6 +283,7 @@ final class AppCoordinator {
     let automaticDictionaryLearningService: AutomaticDictionaryLearningService
     let promptPresetStore: PromptPresetStore
     let powerModeManager: PowerModeManager
+    let voiceOutputService: VoiceOutputService
     let activeWindowService: ActiveWindowService
     let mentionRewriteService: MentionRewriteService
     let mediaPauseService: MediaPauseService
@@ -446,6 +447,7 @@ final class AppCoordinator {
         self.settingsStore.activePowerModeProvider = { [weak powerModeRef] in
             powerModeRef?.activeConfiguration
         }
+        self.voiceOutputService = VoiceOutputService()
         self.mentionRewriteService = MentionRewriteService()
         self.mediaPauseService = MediaPauseService()
         self.mediaIngestionService = MediaIngestionService()
@@ -480,6 +482,7 @@ final class AppCoordinator {
         self.mainWindowController = MainWindowController()
         self.mainWindowController.setModelContainer(modelContainer)
         self.mainWindowController.setPowerModeManager(powerModeManager)
+        self.mainWindowController.setVoiceOutputService(voiceOutputService)
         self.noteEditorWindowController = NoteEditorWindowController()
         self.noteEditorWindowController.setModelContainer(modelContainer)
         self.mainWindowController.configureMeetingCapture(

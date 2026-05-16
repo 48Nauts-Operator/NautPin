@@ -115,6 +115,7 @@ struct MainWindow: View {
     let mediaTranscriptionState: MediaTranscriptionFeatureState?
     let modelManager: ModelManager?
     let powerModeManager: PowerModeManager?
+    let voiceOutputService: VoiceOutputService?
     let onImportMediaFiles: (([URL], TranscriptionJobOptions) -> Void)?
     let onSubmitMediaLink: ((String, TranscriptionJobOptions) -> Void)?
     let onClearMediaQueue: (() -> Void)?
@@ -265,7 +266,8 @@ struct MainWindow: View {
             SettingsContainerView(
                 settings: settingsStore,
                 initialTab: selectedSettingsTab,
-                powerModeManager: powerModeManager
+                powerModeManager: powerModeManager,
+                voiceOutputService: voiceOutputService
             )
         }
     }
@@ -478,6 +480,7 @@ final class MainWindowController {
     private var mediaTranscriptionState: MediaTranscriptionFeatureState?
     private var modelManager: ModelManager?
     private var powerModeManager: PowerModeManager?
+    private var voiceOutputService: VoiceOutputService?
     private var settingsStore: SettingsStore?
     private var sidebarObserver: Any?
     var onImportMediaFiles: (([URL], TranscriptionJobOptions) -> Void)?
@@ -494,6 +497,10 @@ final class MainWindowController {
 
     func setPowerModeManager(_ manager: PowerModeManager) {
         self.powerModeManager = manager
+    }
+
+    func setVoiceOutputService(_ service: VoiceOutputService) {
+        self.voiceOutputService = service
     }
 
     func configureMeetingCapture(
@@ -563,6 +570,7 @@ final class MainWindowController {
                 mediaTranscriptionState: mediaTranscriptionState,
                 modelManager: modelManager,
                 powerModeManager: powerModeManager,
+                voiceOutputService: voiceOutputService,
                 onImportMediaFiles: onImportMediaFiles,
                 onSubmitMediaLink: onSubmitMediaLink,
                 onClearMediaQueue: onClearMediaQueue,
@@ -703,6 +711,7 @@ final class MainWindowController {
         mediaTranscriptionState: nil,
         modelManager: nil,
         powerModeManager: nil,
+        voiceOutputService: nil,
         onImportMediaFiles: nil,
         onSubmitMediaLink: nil,
         onClearMediaQueue: nil,
@@ -723,6 +732,7 @@ final class MainWindowController {
         mediaTranscriptionState: nil,
         modelManager: nil,
         powerModeManager: nil,
+        voiceOutputService: nil,
         onImportMediaFiles: nil,
         onSubmitMediaLink: nil,
         onClearMediaQueue: nil,

@@ -23,6 +23,8 @@
 		3BCA6A2D2FA53FA700ED8D53 /* PowerModeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCA6A282FA53FA700ED8D53 /* PowerModeConfig.swift */; };
 		3BCA6A2E2FA53FA700ED8D53 /* PowerModeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCA6A2F2FA53FA700ED8D53 /* PowerModeSettingsView.swift */; };
 		837D405A60544E29A1F4A114 /* PindropMigrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0952F1B9F38B45A88EA8158D /* PindropMigrationService.swift */; };
+		8F5E68CFF4A24EBEBBF027C5 /* VoiceOutputService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D914A6C17814BAAA465B3C8 /* VoiceOutputService.swift */; };
+		331BA5A2275845D0B8D75240 /* VoiceOutputSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB41CA3DC40E4FE2B6B71049 /* VoiceOutputSettingsView.swift */; };
 		440249066D0941BF82CA74EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440249056D0941BF82CA74EB /* Preview Assets.xcassets */; };
 		4C54BB46B4564F05906BBC7C /* ModelsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AABFF228E4861A399A74F /* ModelsSettingsView.swift */; };
 		4C6B0181BA512555942717CB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FB8BA663AAD1BE56BE198A /* AppCoordinator.swift */; };
@@ -220,6 +222,8 @@
 		3BCA6A292FA53FA700ED8D53 /* PowerModeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerModeManager.swift; sourceTree = "<group>"; };
 		3BCA6A2F2FA53FA700ED8D53 /* PowerModeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerModeSettingsView.swift; sourceTree = "<group>"; };
 		0952F1B9F38B45A88EA8158D /* PindropMigrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PindropMigrationService.swift; sourceTree = "<group>"; };
+		4D914A6C17814BAAA465B3C8 /* VoiceOutputService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceOutputService.swift; sourceTree = "<group>"; };
+		DB41CA3DC40E4FE2B6B71049 /* VoiceOutputSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceOutputSettingsView.swift; sourceTree = "<group>"; };
 		440249056D0941BF82CA74EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		44EA00B68B5647C5A7ED8537 /* AIEnhancementSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIEnhancementSettingsView.swift; sourceTree = "<group>"; };
 		49CB4FF0EA78C24EFBB3F08A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -497,6 +501,7 @@
 				a2189a034cf447e08e86f24b /* PermissionManager.swift */,
 				CB05E1BC11534652810B091F /* OutputManager.swift */,
 				0952F1B9F38B45A88EA8158D /* PindropMigrationService.swift */,
+				4D914A6C17814BAAA465B3C8 /* VoiceOutputService.swift */,
 				CDDC77E732664A859279FEC9 /* HistoryStore.swift */,
 				NOTESTORE1A2B3C4D5E6F71 /* NotesStore.swift */,
 				DICTSTORE2A2B3C4D5E6F71 /* DictionaryStore.swift */,
@@ -583,6 +588,7 @@
 				83556707A5B946DA8E8D1F06 /* AboutSettingsView.swift */,
 				MCPSETTVIEWFILE01A2B3C4D5E6F /* MCPSettingsView.swift */,
 				3BCA6A2F2FA53FA700ED8D53 /* PowerModeSettingsView.swift */,
+				DB41CA3DC40E4FE2B6B71049 /* VoiceOutputSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1030,6 +1036,7 @@
 				83556706A5B946DA8E8D1F05 /* AboutSettingsView.swift in Sources */,
 				9AD845AB6A464CB0A312F1F8 /* AIEnhancementSettingsView.swift in Sources */,
 				3BCA6A2E2FA53FA700ED8D53 /* PowerModeSettingsView.swift in Sources */,
+				331BA5A2275845D0B8D75240 /* VoiceOutputSettingsView.swift in Sources */,
 				A1B2C3D4E5F6789012345679 /* SettingsStore.swift in Sources */,
 				SETTV2EXTBUILD01A2B3C4D5 /* SettingsStore+AIConfigV2.swift in Sources */,
 				AICONFIGV2BUILD01A2B3C4D /* AIConfigurationV2.swift in Sources */,
@@ -1045,6 +1052,7 @@
 				3BCA6A2C2FA53FA700ED8D53 /* PowerModeManager.swift in Sources */,
 				3BCA6A2D2FA53FA700ED8D53 /* PowerModeConfig.swift in Sources */,
 				837D405A60544E29A1F4A114 /* PindropMigrationService.swift in Sources */,
+				8F5E68CFF4A24EBEBBF027C5 /* VoiceOutputService.swift in Sources */,
 				DETCLEANBUILD01A2B3C4D5E /* DeterministicTranscriptCleaner.swift in Sources */,
 				APPLEFMENHANCER02A2B3C4D /* AppleFoundationModelsEnhancer.swift in Sources */,
 				C75862009B5F6B105036E5B7 /* StatusBarController.swift in Sources */,
