@@ -184,7 +184,7 @@ final class AIModelService {
 
     private var cacheBaseURL: URL {
         fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            .appendingPathComponent("Pindrop", isDirectory: true)
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
             .appendingPathComponent("AIModels", isDirectory: true)
     }
 

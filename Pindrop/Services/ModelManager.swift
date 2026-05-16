@@ -604,7 +604,7 @@ class ModelManager {
     
     private var modelsBaseURL: URL {
         fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            .appendingPathComponent("Pindrop", isDirectory: true)
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
     }
 
     private var whisperKitModelsURL: URL {

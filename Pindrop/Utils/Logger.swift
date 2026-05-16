@@ -223,7 +223,7 @@ private final class LogFileSink {
     private init() {
         let supportURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
             ?? URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        let appSupportURL = supportURL.appendingPathComponent("Pindrop", isDirectory: true)
+        let appSupportURL = supportURL.appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
         self.logsDirectoryURL = appSupportURL.appendingPathComponent("Logs", isDirectory: true)
         self.sessionIdentifier = Self.sessionFormatter.string(from: Date())
     }

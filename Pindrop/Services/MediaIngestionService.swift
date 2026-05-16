@@ -430,7 +430,7 @@ final class ManagedMediaLibrary: MediaLibraryManaging {
 
     private static var baseURL: URL {
         FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            .appendingPathComponent("Pindrop", isDirectory: true)
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
             .appendingPathComponent("MediaLibrary", isDirectory: true)
     }
 }

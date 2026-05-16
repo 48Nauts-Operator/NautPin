@@ -76,6 +76,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
         
+        PindropMigrationService.runMigrationIfNeeded()
+
         Log.boot.info("Preparing SwiftData store location")
         do {
             try storeRepairService.prepareStoreLocation()
@@ -430,7 +432,7 @@ final class SwiftDataStoreRepairService {
 
     private func backupStoreArtifacts(for storeURL: URL) throws -> URL {
         let backupsRootURL = applicationSupportRootURL
-            .appendingPathComponent("Pindrop", isDirectory: true)
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
             .appendingPathComponent("DatabaseBackups", isDirectory: true)
         let backupDirectoryURL = backupsRootURL.appendingPathComponent(Self.repairTimestampString(), isDirectory: true)
 
@@ -573,7 +575,7 @@ final class SwiftDataStoreRepairService {
 
     private static func defaultStoreURL(applicationSupportRootURL: URL) -> URL {
         applicationSupportRootURL
-            .appendingPathComponent("Pindrop", isDirectory: true)
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
             .appendingPathComponent("default.store")
     }
 

@@ -976,7 +976,7 @@ class TranscriptionService {
 
     private func getDownloadBase() -> URL {
         FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-            .appendingPathComponent("Pindrop", isDirectory: true)
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
     }
 
     private func getStreamingModelBase() -> URL {
