@@ -114,6 +114,7 @@ struct MainWindow: View {
     let floatingIndicatorState: FloatingIndicatorState?
     let mediaTranscriptionState: MediaTranscriptionFeatureState?
     let modelManager: ModelManager?
+    let powerModeManager: PowerModeManager?
     let onImportMediaFiles: (([URL], TranscriptionJobOptions) -> Void)?
     let onSubmitMediaLink: ((String, TranscriptionJobOptions) -> Void)?
     let onClearMediaQueue: (() -> Void)?
@@ -261,7 +262,11 @@ struct MainWindow: View {
         case .dictionary:
             DictionaryView()
         case .settings:
-            SettingsContainerView(settings: settingsStore, initialTab: selectedSettingsTab)
+            SettingsContainerView(
+                settings: settingsStore,
+                initialTab: selectedSettingsTab,
+                powerModeManager: powerModeManager
+            )
         }
     }
     
@@ -472,6 +477,7 @@ final class MainWindowController {
     private var floatingIndicatorState: FloatingIndicatorState?
     private var mediaTranscriptionState: MediaTranscriptionFeatureState?
     private var modelManager: ModelManager?
+    private var powerModeManager: PowerModeManager?
     private var settingsStore: SettingsStore?
     private var sidebarObserver: Any?
     var onImportMediaFiles: (([URL], TranscriptionJobOptions) -> Void)?
@@ -484,6 +490,10 @@ final class MainWindowController {
 
     func setModelContainer(_ container: ModelContainer) {
         self.modelContainer = container
+    }
+
+    func setPowerModeManager(_ manager: PowerModeManager) {
+        self.powerModeManager = manager
     }
 
     func configureMeetingCapture(
@@ -552,6 +562,7 @@ final class MainWindowController {
                 floatingIndicatorState: floatingIndicatorState,
                 mediaTranscriptionState: mediaTranscriptionState,
                 modelManager: modelManager,
+                powerModeManager: powerModeManager,
                 onImportMediaFiles: onImportMediaFiles,
                 onSubmitMediaLink: onSubmitMediaLink,
                 onClearMediaQueue: onClearMediaQueue,
@@ -691,6 +702,7 @@ final class MainWindowController {
         floatingIndicatorState: nil,
         mediaTranscriptionState: nil,
         modelManager: nil,
+        powerModeManager: nil,
         onImportMediaFiles: nil,
         onSubmitMediaLink: nil,
         onClearMediaQueue: nil,
@@ -710,6 +722,7 @@ final class MainWindowController {
         floatingIndicatorState: nil,
         mediaTranscriptionState: nil,
         modelManager: nil,
+        powerModeManager: nil,
         onImportMediaFiles: nil,
         onSubmitMediaLink: nil,
         onClearMediaQueue: nil,

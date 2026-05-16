@@ -13,6 +13,7 @@ enum SettingsTab: String, CaseIterable, Identifiable {
     case theme = "Theme"
     case hotkeys = "Hotkeys"
     case ai = "AI Enhancement"
+    case powerMode = "Power Mode"
     case participants = "Participants"
     case mcp = "MCP Server"
     case about = "About"
@@ -25,6 +26,7 @@ enum SettingsTab: String, CaseIterable, Identifiable {
         case .theme: return localized("Theme", locale: locale)
         case .hotkeys: return localized("Hotkeys", locale: locale)
         case .ai: return localized("AI Enhancement", locale: locale)
+        case .powerMode: return localized("Power Mode", locale: locale)
         case .participants: return localized("Participants", locale: locale)
         case .mcp: return localized("MCP Server", locale: locale)
         case .about: return localized("About", locale: locale)
@@ -37,6 +39,7 @@ enum SettingsTab: String, CaseIterable, Identifiable {
         case .theme: return "paintbrush"
         case .hotkeys: return "keyboard"
         case .ai: return "sparkles"
+        case .powerMode: return "bolt.circle"
         case .participants: return "person.2"
         case .mcp: return "network"
         case .about: return "info.circle"
@@ -57,6 +60,8 @@ enum SettingsTab: String, CaseIterable, Identifiable {
             return localized("Configure keyboard shortcuts for recording and note capture", locale: locale)
         case .ai:
             return localized("Providers, prompts, and vibe mode controls", locale: locale)
+        case .powerMode:
+            return localized("App- and URL-aware profiles that swap your dictation behavior", locale: locale)
         case .participants:
             return localized("Learned speaker voices and participant profiles", locale: locale)
         case .mcp:
@@ -88,6 +93,11 @@ enum SettingsTab: String, CaseIterable, Identifiable {
             return [
                 "provider", "api key", "endpoint", "prompt", "preset", "vibe mode",
                 "clipboard context", "ui context", "model", "enhancement"
+            ]
+        case .powerMode:
+            return [
+                "power mode", "profile", "app", "url", "context", "auto", "switch",
+                "per-app", "per app", "slack", "browser", "code", "ide"
             ]
         case .participants:
             return [
@@ -151,10 +161,12 @@ struct SettingsContainerView: View {
     @FocusState private var isSearchFieldFocused: Bool
 
     var initialTab: SettingsTab = .general
+    var powerModeManager: PowerModeManager?
 
-    init(settings: SettingsStore, initialTab: SettingsTab = .general) {
+    init(settings: SettingsStore, initialTab: SettingsTab = .general, powerModeManager: PowerModeManager? = nil) {
         self.settings = settings
         self.initialTab = initialTab
+        self.powerModeManager = powerModeManager
         self._selectedTab = State(initialValue: initialTab)
         self._searchText = State(
             initialValue: AppTestMode.isRunningUITests
@@ -227,6 +239,12 @@ struct SettingsContainerView: View {
                         HotkeysSettingsView(settings: settings)
                     case .ai:
                         AIEnhancementSettingsView(settings: settings)
+                    case .powerMode:
+                        if let powerModeManager {
+                            PowerModeSettingsView(manager: powerModeManager)
+                        } else {
+                            PowerModeUnavailableView()
+                        }
                     case .participants:
                         ParticipantsSettingsView()
                     case .mcp:

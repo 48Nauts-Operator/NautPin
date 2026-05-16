@@ -282,6 +282,8 @@ final class AppCoordinator {
     let toastService: ToastService
     let automaticDictionaryLearningService: AutomaticDictionaryLearningService
     let promptPresetStore: PromptPresetStore
+    let powerModeManager: PowerModeManager
+    let activeWindowService: ActiveWindowService
     let mentionRewriteService: MentionRewriteService
     let mediaPauseService: MediaPauseService
     let mediaIngestionService: MediaIngestionService
@@ -435,6 +437,8 @@ final class AppCoordinator {
             toastService: toastService
         )
         self.promptPresetStore = PromptPresetStore(modelContext: modelContext)
+        self.powerModeManager = PowerModeManager()
+        self.activeWindowService = ActiveWindowService(manager: self.powerModeManager)
         self.mentionRewriteService = MentionRewriteService()
         self.mediaPauseService = MediaPauseService()
         self.mediaIngestionService = MediaIngestionService()
@@ -468,6 +472,7 @@ final class AppCoordinator {
         self.splashController = SplashWindowController(state: splashState)
         self.mainWindowController = MainWindowController()
         self.mainWindowController.setModelContainer(modelContainer)
+        self.mainWindowController.setPowerModeManager(powerModeManager)
         self.noteEditorWindowController = NoteEditorWindowController()
         self.noteEditorWindowController.setModelContainer(modelContainer)
         self.mainWindowController.configureMeetingCapture(
@@ -2268,6 +2273,7 @@ final class AppCoordinator {
     private func startRecording(source: RecordingTriggerSource) async throws {
         automaticDictionaryLearningService.cancelObservation()
         logRecordingStartAttempt(source: source)
+        activeWindowService.resolveCurrent()
 
         // If permissions were granted after launch, recreate global event taps
         // so escape-to-cancel and modifier tracking become available mid-session.
