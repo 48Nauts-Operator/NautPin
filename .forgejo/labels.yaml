@@ -1,0 +1,57 @@
+# 48Nauts standard label set. Edit here, re-apply via:
+#   ./scripts/apply-forgejo-labels.sh  (or the init-forgejo-repo skill)
+
+# Type
+- name: bug
+  color: "#d73a4a"
+  description: Something is broken
+- name: feature
+  color: "#0e8a16"
+  description: New capability
+- name: incident
+  color: "#b60205"
+  description: Production / shared infra broken
+- name: enhancement
+  color: "#a2eeef"
+  description: Improvement to an existing feature
+- name: documentation
+  color: "#0075ca"
+  description: Docs only
+- name: chore
+  color: "#cccccc"
+  description: Maintenance / housekeeping
+- name: refactor
+  color: "#bfdadc"
+  description: Internal restructure, no behavior change
+- name: ci
+  color: "#fbca04"
+  description: CI / build infrastructure
+- name: security
+  color: "#b60205"
+  description: Security-relevant
+- name: dependencies
+  color: "#0366d6"
+  description: Dependency updates
+
+# Priority
+- name: "priority/high"
+  color: "#b60205"
+- name: "priority/medium"
+  color: "#fbca04"
+- name: "priority/low"
+  color: "#0e8a16"
+
+# Status
+- name: needs-triage
+  color: "#ededed"
+  description: Awaiting initial review
+- name: blocked
+  color: "#000000"
+- name: in-progress
+  color: "#1d76db"
+
+# Community
+- name: good first issue
+  color: "#7057ff"
+- name: help wanted
+  color: "#008672"
