@@ -55,20 +55,13 @@ struct VoiceOutputSettingsView: View {
                .font(AppTypography.caption)
                .foregroundStyle(AppColors.textSecondary)
 
-            if service.state == .loadingKokoro {
-               HStack(spacing: AppTheme.Spacing.xs) {
-                  ProgressView().controlSize(.small)
-                  Text(localized("Loading Kokoro model…", locale: locale))
-                     .font(AppTypography.caption)
-                     .foregroundStyle(AppColors.textSecondary)
-               }
-               .padding(.vertical, 4)
-            }
-
             if service.kokoroVoiceNames.isEmpty {
                // Not yet loaded — show a single "warm up & list voices" button.
+               // See speakKokoro button below for the Task wrapper rationale.
                Button {
-                  service.loadKokoroIfNeeded()
+                  Task { @MainActor in
+                     _ = service.loadKokoroIfNeeded()
+                  }
                } label: {
                   HStack(spacing: 4) {
                      Image(systemName: "arrow.down.circle")
@@ -77,7 +70,6 @@ struct VoiceOutputSettingsView: View {
                }
                .buttonStyle(.bordered)
                .controlSize(.small)
-               .disabled(service.state == .loadingKokoro)
             } else {
                ForEach(service.kokoroVoiceNames, id: \.self) { voiceName in
                   kokoroVoiceRow(voiceName)
@@ -115,18 +107,24 @@ struct VoiceOutputSettingsView: View {
                .foregroundStyle(AppColors.textSecondary)
          }
          Spacer(minLength: AppTheme.Spacing.md)
+         // NOTE: action is wrapped in an explicit Task and the label avoids
+         // reading @Observable state — workaround for a macOS 26 / Swift 6
+         // runtime crash in MainActor.assumeIsolated when a @MainActor
+         // @Observable property is read inside a SwiftUI button label.
          Button {
-            service.speakKokoroSample(voiceName: voiceName)
+            let name = voiceName
+            Task { @MainActor in
+               service.speakKokoroSample(voiceName: name)
+            }
          } label: {
             HStack(spacing: 4) {
-               Image(systemName: service.state == .speaking ? "speaker.wave.2.fill" : "play.fill")
+               Image(systemName: "play.fill")
                Text(localized("Sample", locale: locale))
             }
             .frame(minWidth: 70)
          }
          .buttonStyle(.bordered)
          .controlSize(.small)
-         .disabled(service.state == .loadingKokoro)
       }
       .padding(.vertical, 4)
    }
@@ -169,11 +167,15 @@ struct VoiceOutputSettingsView: View {
                .foregroundStyle(AppColors.textSecondary)
          }
          Spacer(minLength: AppTheme.Spacing.md)
+         // Same Task + static-icon workaround as the Kokoro Sample button.
          Button {
-            service.speakSample(voice)
+            let v = voice
+            Task { @MainActor in
+               service.speakSample(v)
+            }
          } label: {
             HStack(spacing: 4) {
-               Image(systemName: service.state == .speaking ? "speaker.wave.2.fill" : "play.fill")
+               Image(systemName: "play.fill")
                Text(localized("Sample", locale: locale))
             }
             .frame(minWidth: 70)
