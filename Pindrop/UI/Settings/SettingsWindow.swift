@@ -15,6 +15,7 @@ enum SettingsTab: String, CaseIterable, Identifiable {
     case ai = "AI Enhancement"
     case powerMode = "Power Mode"
     case voiceOutput = "Voice Output"
+    case logbook = "Logbook"
     case participants = "Participants"
     case mcp = "MCP Server"
     case about = "About"
@@ -29,6 +30,7 @@ enum SettingsTab: String, CaseIterable, Identifiable {
         case .ai: return localized("AI Enhancement", locale: locale)
         case .powerMode: return localized("Power Mode", locale: locale)
         case .voiceOutput: return localized("Voice Output", locale: locale)
+        case .logbook: return localized("Logbook", locale: locale)
         case .participants: return localized("Participants", locale: locale)
         case .mcp: return localized("MCP Server", locale: locale)
         case .about: return localized("About", locale: locale)
@@ -43,6 +45,7 @@ enum SettingsTab: String, CaseIterable, Identifiable {
         case .ai: return "sparkles"
         case .powerMode: return "bolt.circle"
         case .voiceOutput: return "speaker.wave.2"
+        case .logbook: return "book.pages"
         case .participants: return "person.2"
         case .mcp: return "network"
         case .about: return "info.circle"
@@ -67,6 +70,8 @@ enum SettingsTab: String, CaseIterable, Identifiable {
             return localized("App- and URL-aware profiles that swap your dictation behavior", locale: locale)
         case .voiceOutput:
             return localized("Read transcripts aloud with on-device system voices (EN, DE, more)", locale: locale)
+        case .logbook:
+            return localized("Your voice in numbers — speaking pace, vocabulary, topic clusters, wellbeing signals", locale: locale)
         case .participants:
             return localized("Learned speaker voices and participant profiles", locale: locale)
         case .mcp:
@@ -108,6 +113,12 @@ enum SettingsTab: String, CaseIterable, Identifiable {
             return [
                 "voice", "output", "tts", "text to speech", "speech", "read aloud",
                 "narrate", "kokoro", "speak", "anna", "markus", "premium voice"
+            ]
+        case .logbook:
+            return [
+                "logbook", "stats", "analytics", "dashboard", "words", "wpm",
+                "speaking pace", "vocabulary", "streak", "topics", "wellbeing",
+                "stress", "patterns", "insights"
             ]
         case .participants:
             return [
@@ -263,6 +274,8 @@ struct SettingsContainerView: View {
                         } else {
                             VoiceOutputUnavailableView()
                         }
+                    case .logbook:
+                        LogbookView()
                     case .participants:
                         ParticipantsSettingsView()
                     case .mcp:

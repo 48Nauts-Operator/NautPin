@@ -15,6 +15,7 @@ enum MainNavItem: String, Identifiable {
     case home = "Home"
     case history = "History"
     case transcribe = "Transcribe"
+    case logbook = "Logbook"
     case models = "Models"
     case dictionary = "Dictionary"
     case settings = "Settings"
@@ -23,6 +24,7 @@ enum MainNavItem: String, Identifiable {
         .home,
         .history,
         .transcribe,
+        .logbook,
         .dictionary,
         .models
     ]
@@ -38,6 +40,7 @@ enum MainNavItem: String, Identifiable {
         case .home: return "house.fill"
         case .history: return "clock.fill"
         case .transcribe: return "waveform"
+        case .logbook: return "book.pages"
         case .models: return "cpu"
         case .dictionary: return "text.book.closed"
         case .settings: return "gearshape"
@@ -209,7 +212,7 @@ struct MainWindow: View {
     private var contentTitleBar: some View {
         HStack {
             Spacer()
-            Text("Pindrop")
+            Text("NautPin")
                 .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(AppColors.textTertiary)
             Spacer()
@@ -260,6 +263,12 @@ struct MainWindow: View {
             } else {
                 comingSoonView(for: selectedNav)
             }
+        case .logbook:
+            ScrollView {
+                LogbookView()
+                    .padding(AppTheme.Spacing.xxl)
+            }
+            .background(AppColors.contentBackground)
         case .dictionary:
             DictionaryView()
         case .settings:
@@ -330,7 +339,7 @@ private struct MainSidebar: View {
                 HStack(spacing: AppTheme.Spacing.md) {
                     appIconBadge(size: 42)
                     VStack(alignment: .leading, spacing: 3) {
-                        Text("Pindrop")
+                        Text("NautPin")
                             .font(.system(size: 15, weight: .semibold, design: .rounded))
                             .foregroundStyle(AppColors.textPrimary)
                         Text("v\(Bundle.main.appShortVersionString)")
@@ -549,6 +558,10 @@ final class MainWindowController {
         show(navigationItem: .models)
     }
 
+    func showLogbook() {
+        show(navigationItem: .logbook)
+    }
+
     func showSettings(tab: SettingsTab = .general) {
         show(navigationItem: .settings, settingsTab: tab)
     }
@@ -594,7 +607,7 @@ final class MainWindowController {
                 defer: false
             )
             window.contentViewController = hostingController
-            window.title = "Pindrop"
+            window.title = "NautPin"
             window.titleVisibility = .hidden
             window.titlebarAppearsTransparent = true
             window.titlebarSeparatorStyle = .none

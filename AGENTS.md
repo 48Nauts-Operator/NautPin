@@ -1,14 +1,32 @@
 # Repository Guidelines
 
-Last updated: 2026-03-24
+Last updated: 2026-05-17
 
 ## Project Snapshot
 
-- App: `Pindrop` (menu bar macOS app, `LSUIElement` behavior)
+- **App:** NautPin (fork of upstream `watzon/pindrop`). Menu bar macOS app, `LSUIElement` behavior.
+  - User-facing name: **NautPin** (via `CFBundleDisplayName` + `CFBundleName`)
+  - Bundle ID: `com.48nauts.nautpin`
+  - Xcode product / scheme / binary: still named `Pindrop` for historical continuity (rename pending; not user-visible)
+  - Folder `Pindrop/` is the app source tree
 - Stack: Swift 5.9+, SwiftUI, SwiftData, Swift Testing, XCTest UI tests
 - Platform target: macOS 14+
 - Main dependency path: `Pindrop.xcodeproj` + SwiftPM
 - Entry points: `Pindrop/PindropApp.swift`, `Pindrop/AppCoordinator.swift`
+- Active theme preset default: `nautpin` (neon-mint accent, defined in `Pindrop/UI/Theme/ThemeModels.swift`)
+
+## NautPin-specific additions (vs upstream Pindrop)
+
+- **Voice output via Kokoro:** `Pindrop/Services/VoiceOutputService.swift` is an HTTP client to a local [Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI) Docker container. Default endpoint reads from settings; dev default is `http://100.69.95.60:8880` (Tailscale IP of this Mac).
+- **Read selected text:** Global hotkey (`readSelectedTextHotkey` in `SettingsStore`, default `⌘⇧S`) reads frontmost-app highlighted text aloud via `VoiceOutputService.readSelectedTextAloud()`.
+- **Power Mode profiles:** `Pindrop/Services/PowerMode/*` — app- and URL-aware profiles that override the AI assignment (model + prompt preset).
+- **Logbook (personal voice analytics):** `Pindrop/Services/Logbook/*` and `Pindrop/UI/Logbook/LogbookView.swift`. Top-level nav item alongside History/Transcribe. Computes:
+  - Quantitative cards: WPM, words today/week/lifetime, sessions, streaks, vocab diversity, time-of-day heatmap, target-app split
+  - Speaking habits: pet phrases (unigrams + 2-3 word combos), sentence openers, question rate, day-of-week heatmap
+  - Topic clusters via local LLM (`LogbookTopicAnalyzer` — reads `logbookLLMURL` and `logbookLLMModel` from defaults; OpenAI-compatible chat endpoint)
+  - Wellbeing signals: text-based stress detection (filler density, sentence length, exclamations) vs 14-day baseline
+  - Language register donut: polite / neutral / sweary breakdown across last 30 days
+- **Local LLM provider:** AI Enhancement wired to a custom OpenAI-compatible provider. Current dev default: LM Studio on `http://127.0.0.1:1238/v1` with `gemma-4-e4b-it-obliterated`. Stored in `aiConfigProvidersJSON` + `aiConfigAssignmentsJSON`.
 
 ## Source Layout
 

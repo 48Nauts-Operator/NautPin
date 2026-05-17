@@ -1,0 +1,65 @@
+name: Mirror to GitHub
+
+# Mirrors this Forgejo repo to 48Nauts-Operator/NautPin on GitHub.
+#
+# Triggers:
+#   - Manual: anyone with repo access can fire it from the Forgejo Actions UI.
+#   - Tag push: any tag starting with `v` (e.g. v1.0.0) automatically mirrors.
+#     Commits to main do NOT auto-mirror — keep WIP private until you cut a tag.
+#
+# Required secret (set in Forgejo → Repo Settings → Actions → Secrets):
+#   GH_MIRROR_TOKEN — a GitHub personal access token with `repo` scope, owned by
+#                     an account that has push access to 48Nauts-Operator/NautPin.
+
+on:
+  workflow_dispatch:
+    inputs:
+      include_tags:
+        description: "Also push all local tags"
+        required: false
+        default: "true"
+  push:
+    tags:
+      - "v*"
+
+env:
+  GITHUB_REMOTE: "https://x-access-token:${{ secrets.GH_MIRROR_TOKEN }}@github.com/48Nauts-Operator/NautPin.git"
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Verify token is set
+        run: |
+          if [ -z "${{ secrets.GH_MIRROR_TOKEN }}" ]; then
+            echo "GH_MIRROR_TOKEN secret is not set."
+            echo "Set it in Forgejo → Repo Settings → Actions → Secrets."
+            exit 1
+          fi
+          echo "Token present."
+
+      - name: Add GitHub remote
+        run: |
+          git remote remove gh 2>/dev/null || true
+          git remote add gh "$GITHUB_REMOTE"
+
+      - name: Push main to GitHub
+        run: |
+          git push gh HEAD:main --force-with-lease
+
+      - name: Push tags to GitHub
+        if: ${{ github.event_name == 'push' || github.event.inputs.include_tags == 'true' }}
+        run: |
+          git push gh --tags
+
+      - name: Summary
+        run: |
+          echo "::notice::Mirrored to https://github.com/48Nauts-Operator/NautPin"
+          echo "Trigger: ${{ github.event_name }}"
+          echo "Ref:     ${{ github.ref }}"

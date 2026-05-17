@@ -98,9 +98,37 @@ struct PindropThemePreset: Hashable, Identifiable {
 }
 
 enum PindropThemePresetCatalog {
-    static let defaultPresetID = "pindrop"
+    static let defaultPresetID = "nautpin"
 
     static let presets: [PindropThemePreset] = [
+        PindropThemePreset(
+            id: "nautpin",
+            title: "NautPin",
+            summary: "Electric neon-mint accent over deep matte surfaces — the 48Nauts house theme.",
+            badgeText: "Np",
+            badgeBackgroundHex: "#0B1612",
+            badgeForegroundHex: "#3FFFCB",
+            lightTheme: PindropThemeProfile(
+                accentHex: "#00C896",
+                backgroundHex: "#F2F8F5",
+                foregroundHex: "#0E1614",
+                contrast: 50,
+                successHex: "#1AA77D",
+                warningHex: "#B7752A",
+                dangerHex: "#C7524F",
+                processingHex: "#3B82F6"
+            ),
+            darkTheme: PindropThemeProfile(
+                accentHex: "#3FFFCB",
+                backgroundHex: "#0B1612",
+                foregroundHex: "#E8FFF5",
+                contrast: 70,
+                successHex: "#5FE0A8",
+                warningHex: "#F5A623",
+                dangerHex: "#EF5F5A",
+                processingHex: "#7FA7FF"
+            )
+        ),
         PindropThemePreset(
             id: "pindrop",
             title: "Pindrop",

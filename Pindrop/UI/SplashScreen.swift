@@ -91,7 +91,7 @@ struct SplashScreen: View {
                     )
                     
                     // App name
-                    Text("Pindrop")
+                    Text("NautPin")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
                         .foregroundColor(.primary)
                     

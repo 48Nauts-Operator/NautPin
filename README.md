@@ -1,459 +1,232 @@
-# Pindrop 🎤
+# NautPin 🪐
 
-> The only 100% open source, truly Mac-native AI dictation app
+> A fully private, fully local voice stack for macOS. Faster than Wispr Flow. Free forever.
 
-[![GitHub stars](https://img.shields.io/github/stars/watzon/pindrop?style=flat-square)](https://github.com/watzon/pindrop/stargazers)
-[![GitHub license](https://img.shields.io/github/license/watzon/pindrop?style=flat-square)](LICENSE)
+[![Source on Forgejo](https://img.shields.io/badge/source-Forgejo-3FFFCB?style=flat-square)](http://cosmos.tail138398.ts.net:3000/48Nauts/NautPin)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![macOS](https://img.shields.io/badge/macOS-14.0+-blue?style=flat-square&logo=apple)](https://www.apple.com/macos/)
 [![Swift](https://img.shields.io/badge/Swift-5.9+-orange?style=flat-square&logo=swift)](https://swift.org/)
+[![Fork of](https://img.shields.io/badge/fork_of-watzon%2Fpindrop-808080?style=flat-square)](https://github.com/watzon/pindrop)
 
-![Pindrop Screenshot](assets/images/screenshot.png)
+**NautPin** is a macOS menu-bar app that takes voice dictation seriously and refuses to give your audio to the cloud. Dictate into any app with hotkey-driven speech-to-text. Get your transcripts cleaned up by a local LLM. Have responses read back to you in a Kokoro voice. See yourself in the **Logbook** — words per minute, vocabulary, topic clusters, stress signals, language register, sentence-opener tics. All on this Mac. None of it on the internet.
 
-**Pindrop** is a menu bar dictation app for macOS that turns your speech into text—completely offline, completely private. Built with pure Swift/SwiftUI, packaged with Xcode + SwiftPM, and powered by WhisperKit for optimal Apple Silicon performance.
+It is a fork of Chris Watson's excellent [Pindrop](https://github.com/watzon/pindrop), with these meaningful additions:
 
-**[Download Latest Release](https://github.com/watzon/pindrop/releases)** · **[Documentation](#documentation)** · **[Contributing](#contributing)** · **[Community](#community)**
-
----
-
-## Why Pindrop?
-
-While other dictation apps compromise on privacy, performance, or platform fidelity, Pindrop is designed specifically for Mac users who refuse to compromise.
-
-| Pillar                         | What It Means                                                              |
-| ------------------------------ | -------------------------------------------------------------------------- |
-| 🍎 **Mac-Native**              | Pure Swift/SwiftUI—not a web wrapper. Feels like Apple built it.           |
-| 🔒 **Privacy-First**           | 100% local transcription. Your voice never leaves your Mac.                |
-| ⚡ **Apple Silicon Optimized** | WhisperKit + Core ML = 2-3x faster than generic Whisper on M-series chips. |
-| 🏆 **100% Open Source**        | No freemium tiers, no "Pro" features, no lock-in. Ever.                    |
+| Addition | What it does |
+|---|---|
+| **Kokoro voice output** | HTTP integration with [Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI) — open-weights TTS that sounds dramatically better than `say` |
+| **Local LLM cleanup** | Configurable OpenAI-compatible endpoint, so [LM Studio](https://lmstudio.ai) / Ollama / etc. handle transcript cleanup with no cloud calls |
+| **Power Mode profiles** | Per-app and per-URL profiles that swap your prompt preset and AI model based on what app you're dictating into |
+| **Logbook** | Personal voice analytics dashboard: WPM, vocabulary diversity, pet phrases, sentence openers, language register, stress signals, LLM-driven topic clusters |
+| **Read selected text** | Global hotkey that pipes any highlighted text to Kokoro and speaks it aloud |
+| **48Nauts identity** | Neon-mint house theme, NautPin branding throughout, side-by-side installable alongside upstream Pindrop |
 
 ---
 
-## Comparison
+## Why this exists
 
-| Feature             | Pindrop                    | Handy                 | OpenWhispr                     |
-| ------------------- | -------------------------- | --------------------- | ------------------------------ |
-| **Platform**        | macOS only                 | Windows, macOS, Linux | Windows, macOS, Linux          |
-| **Framework**       | Swift/SwiftUI (native)     | Tauri (Rust + Web)    | Tauri (Rust + Web)             |
-| **ML Engine**       | WhisperKit (Apple Core ML) | Generic Whisper       | Generic Whisper                |
-| **Apple Silicon**   | Native optimization        | Emulated              | Emulated                       |
-| **Source Code**     | 100% open source           | 100% open source      | Freemium (paid "Lazy Edition") |
-| **Battery Impact**  | Minimal (native)           | Higher (web runtime)  | Higher (web runtime)           |
-| **Menu Bar Design** | First-class native         | Web-based UI          | Web-based UI                   |
+Every paid voice product sends your audio across the public internet to someone else's servers. Your voice is biometric — you can't change it, and once it's logged it's logged. Wispr Flow. Whisper Flow. ChatGPT voice mode. Apple's "enhanced" dictation. All of them.
 
-**The bottom line:** If you want the best dictation experience on a Mac—maximum speed, minimal battery drain, and true native feel—Pindrop is the only choice.
+NautPin's wager is that the components to do this on your own Mac already exist, they're free, and they're good enough that the cloud versions stop feeling necessary. WhisperKit for speech-to-text, Kokoro for text-to-speech, LM Studio or Ollama for cleanup, and Power Mode profiles to make it context-aware. The result is faster than the paid versions, costs nothing per month, and nothing ever leaves the machine.
+
+Full write-up: see the companion blog post under `marketing/` in our content pipeline.
+
+---
+
+## The voice loop
+
+```
+You press a hotkey, talk
+  ↓
+NautPin captures the mic → WhisperKit (on-device) transcribes
+  ↓
+Local LLM cleans up the transcript
+  ↓
+Text is typed at your cursor in whatever app is focused
+  ↓
+(Optional) Highlight any text + press the read-aloud hotkey
+  ↓
+Kokoro speaks it back over your speakers
+```
+
+Combined with the Claude Code Stop-hook we publish separately, this becomes a hands-free conversation loop with any AI assistant — speech in, speech out, none of it crossing the public internet.
 
 ---
 
 ## Features
 
-- **100% Local Transcription** — Runs entirely on your Mac using OpenAI's Whisper model via WhisperKit. Your voice never leaves your computer.
-- **Multiple Transcription Engines** — Choose between WhisperKit (Core ML optimized) and Parakeet, with streaming transcription support for real-time results.
-- **Global Hotkeys** — Toggle mode (press to start, press to stop) or push-to-talk. Works from anywhere in macOS.
-- **Smart Output** — Text is automatically copied to your clipboard and optionally inserted directly at your cursor.
-- **Notes System** — Full note-taking with pinning, tagging, and AI-powered title generation. Organize and revisit your transcriptions as structured notes.
-- **Transcription History** — All your dictations are saved locally with full search. Export to JSON, CSV, or plain text.
-- **Multiple Model Sizes** — Choose from Tiny (fastest) to Large (most accurate) depending on your needs.
-- **AI Enhancement (Optional)** — Clean up transcriptions using any OpenAI-compatible API—completely optional and off by default.
-- **Custom Dictionary** — Define custom word replacements and vocabulary to improve transcription accuracy for names, jargon, and specialized terms.
-- **Media Controls** — Automatic media pausing and system audio muting during recording so your transcription stays clean.
-- **Auto-Updates** — Sparkle-based automatic update system keeps Pindrop up to date with zero effort.
-- **Beautiful macOS Design** — Native SwiftUI interface that feels at home on your Mac.
+**Transcription**
+- 100% on-device via WhisperKit (Whisper variants) or FluidAudio (Parakeet variants)
+- Multiple model sizes from `whisper-base.en` (~140 MB) up to `parakeet-tdt-0.6b-v3-european` (~600 MB, multilingual: EN, DE, ES, FR, IT, NL, PT, TR)
+- Global hotkeys: toggle, push-to-talk, copy-last, quick-capture, read-selected
+- Custom dictionary for names, jargon, technical vocabulary
+- Direct text insertion at cursor (when Accessibility granted) or clipboard fallback
+
+**Cleanup**
+- Optional AI enhancement via OpenAI-compatible endpoint (LM Studio, Ollama, or any cloud provider)
+- Apple Foundation Models support for fully on-device cleanup
+- Custom prompt presets per use case
+- Streaming refinement with incremental updates
+
+**Voice output (Kokoro)**
+- 50+ voices via local Kokoro-FastAPI container, multilingual
+- Configurable per-language defaults
+- Global hotkey to read highlighted text aloud
+- Sub-second latency on Apple Silicon
+
+**Power Mode**
+- Profiles match by app bundle ID and URL pattern
+- Override the AI model and prompt preset per profile
+- Active profile shown in the menu bar
+- Useful for "Slack DE casual," "Terminal terse," "Email formal," etc.
+
+**Logbook (NautPin-exclusive)**
+- KPIs: words today/week/lifetime, WPM (avg and median), session counts, vocab diversity, streaks
+- Time-of-day and day-of-week heatmaps
+- Top target-app distribution
+- Pet phrases (1-3 word combos) and sentence openers
+- Question-vs-statement rate
+- LLM-driven topic clusters from the past week's transcripts
+- Wellbeing baseline (text-signal stress detection: filler density, sentence length, exclamations)
+- Language register donut chart (polite / neutral / sweary)
+
+**Built on**
+- Swift 5.9+, SwiftUI, SwiftData, AVFoundation
+- WhisperKit (Argmax) for on-device Whisper
+- FluidAudio for Parakeet
+- Kokoro-FastAPI (Docker) for TTS
+- Sparkle for updates
+- Carbon hotkey APIs for global shortcuts
 
 ---
-
-## Built With
-
-- **[Swift](https://swift.org/)** — Apple's modern, fast, and safe programming language
-- **[SwiftUI](https://developer.apple.com/swiftui/)** — Declarative UI framework for truly native Mac apps
-- **[WhisperKit](https://www.argmaxinc.com/whisperkit)** — High-performance Core ML implementation of OpenAI Whisper by Argmax, Inc.
-- **[SwiftData](https://developer.apple.com/documentation/swiftdata)** — Modern data persistence framework
-- **[FluidAudio](https://github.com/FluidInference/FluidAudio)** — Native macOS speech model support for Parakeet
-- **[Sparkle](https://sparkle-project.org/)** — Native macOS update framework
-
-Pindrop is developed as a native macOS app with Xcode, SwiftPM, and SwiftUI. Normal development stays entirely within the Apple toolchain.
 
 ## Requirements
 
-- **macOS 14.0 (Sonoma) or later**
-- **Apple Silicon (M1/M2/M3/M4)** recommended for optimal performance
-- **Microphone access** (required for recording)
-- **Accessibility permission** (optional, enables direct text insertion; clipboard works without it)
-
-## Installation
-
-Pindrop releases are now signed with the project's Apple Developer identity. After the app is notarized and stapled, macOS should open it normally:
-
-1. Download `Pindrop.dmg` from the [releases page](https://github.com/watzon/pindrop/releases)
-2. Open the DMG and drag Pindrop to Applications
-3. Launch Pindrop from Applications
-4. If you downloaded a build that has not been notarized yet, macOS may still warn on first launch:
-   - Right-click Pindrop → Open, or
-   - Open System Settings → Privacy & Security and use "Open Anyway"
-5. After notarization, Pindrop should launch without the old self-signed workaround
-
-**For maintainers:** the default local release flow now exports a signed app bundle before packaging the DMG. `just dmg-self-signed` remains available only as a fallback when Apple signing is unavailable.
-
-## Screenshots
-
-*Coming soon: Notes & History dashboard, AI Enhancement settings, Recording indicator*
-
-## Building from Source
-
-Since this is an open-source project, you can also build it yourself. Don't worry—it's straightforward.
-
-### Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/watzon/pindrop.git
-cd pindrop
-```
-
-### Step 2: Open in Xcode
-
-```bash
-open Pindrop.xcodeproj
-```
-
-Or simply double-click `Pindrop.xcodeproj` in Finder.
-
-### Step 3: Build and Run
-
-1. In Xcode, select a scheme from the toolbar (Pindrop should be selected by default)
-2. Press `Cmd+R` or click the Run button
-3. The app will compile and launch
-
-After the first build, Pindrop will appear in your menu bar (look for the microphone icon). The app runs exclusively in the menu bar—no dock icon.
-
-### Using the Build System (Recommended)
-
-This project includes a `justfile` for common build tasks. Install `just` if you haven't already:
-
-```bash
-brew install just
-```
-
-**Common commands:**
-
-```bash
-just build              # Build for development (Debug, signed)
-just build-unsigned     # Build for development without signing
-just build-release      # Build for release
-just export-app         # Export a signed app for distribution
-just dmg                # Export signed app + create DMG
-just test               # Run tests
-just dmg-self-signed    # Fallback self-signed DMG
-just clean              # Clean build artifacts
-just --list             # Show all available commands
-```
-
-**Release commands (maintainers):**
-
-```bash
-just release-notes 1.9.0  # Create draft release notes file at release-notes/v1.9.0.md
-just release 1.9.0  # Local manual release (tests, signed DMG, notarize/staple, appcast, tag, push tag, GitHub release)
-```
-
-### Manual Build (Alternative)
-
-To create a distributable build manually:
-
-```bash
-xcodebuild -scheme Pindrop -configuration Release build
-```
-
-The compiled app will be in `DerivedData/Build/Products/Release/Pindrop.app`.
-
-### Exporting a Signed App
-
-To export a Developer ID-signed app bundle:
-
-```bash
-just export-app
-```
-
-### Creating a DMG
-
-To create a distributable signed DMG:
-
-```bash
-just dmg
-```
-
-This requires `create-dmg`:
-
-```bash
-brew install create-dmg
-```
-
-The DMG will be created in `dist/Pindrop.dmg`.
-
-### Creating a Release
-
-Releases are published manually from a local machine using `just` + `gh`.
-Use either the one-command flow or the explicit step-by-step flow.
-
-```bash
-# One command (recommended)
-just release 1.9.0
-```
-
-Equivalent explicit steps:
-
-```bash
-# 0. Create and edit contextual release notes
-just release-notes 1.9.0
-
-# 1. Ensure tests pass
-just test
-
-# 2. Build signed release DMG
-just dmg
-
-# 3. Generate appcast.xml for the current version
-just appcast dist/Pindrop.dmg
-
-# 4. Create and push tag
-git tag -a v1.9.0 -m "Release v1.9.0"
-git push origin v1.9.0
-
-# 5. Create GitHub release with notes + attach DMG + appcast.xml
-gh release create v1.9.0 dist/Pindrop.dmg appcast.xml --title "Pindrop v1.9.0" --notes-file release-notes/v1.9.0.md
-```
-
-## First Launch
-
-When you first open Pindrop, you'll see an onboarding flow:
-
-1. **Grant Microphone Permission** — Required for recording dictations
-2. **Download a Model** — Start with "Tiny" for the fastest experience (about 75MB)
-3. **Set Up Your Hotkey** — Default is Option+Space for toggle mode
-4. **You're Ready** — Press your hotkey and start dictating
-
-## Usage
-
-### Recording Modes
-
-**Toggle Mode** (default: `Option+Space`)
-
-- Press once to start recording (menu bar icon turns red)
-- Press again to stop and transcribe
-- Your transcribed text appears in your clipboard immediately
-
-**Push-to-Talk**
-
-- Hold your hotkey to record
-- Release to stop and transcribe
-- Configure a different hotkey in Settings → Hotkeys
-
-### Output
-
-Transcribed text is always copied to your clipboard. If you've granted Accessibility permission, it's also inserted directly at your cursor in the active application.
-
-### History
-
-Access all your past transcriptions:
-
-- Click the menu bar icon → History (or press `Cmd+H`)
-- Search through any transcription
-- Copy individual entries or export to JSON/CSV/plain text
-
-## Settings
-
-### General
-
-- **Output Mode**: Clipboard only, or clipboard + direct insertion
-- **Language**: English (more languages coming in future updates)
-
-### Hotkeys
-
-- Configure your toggle hotkey and push-to-talk hotkey
-- Press the "Record New Hotkey" button and press your desired keys
-
-### Models
-
-| Model  | Size    | Speed   | Accuracy |
-| ------ | ------- | ------- | -------- |
-| Tiny   | ~75 MB  | Fastest | Good     |
-| Base   | ~150 MB | Fast    | Good     |
-| Small  | ~500 MB | Medium  | Better   |
-| Medium | ~1.5 GB | Slower  | High     |
-| Large  | ~3 GB   | Slowest | Highest  |
-
-Start with Tiny or Base for daily use. Switch to Medium or Large when you need maximum accuracy.
-
-### AI Enhancement
-
-- Toggle AI-powered text cleanup on/off
-- Enter any OpenAI-compatible API endpoint
-- Your API key is stored securely in the macOS Keychain—not in UserDefaults
-
-## Troubleshooting
-
-### App doesn't appear in menu bar
-
-Pindrop is a menu bar-only app—it intentionally has no dock icon. Look for the microphone icon in the top-right corner of your menu bar.
-
-### Microphone permission denied
-
-1. Open **System Settings → Privacy & Security → Microphone**
-2. Enable permission for Pindrop
-3. Restart the app
-
-### Direct text insertion not working
-
-1. Open **System Settings → Privacy & Security → Accessibility**
-2. Click "+" and add Pindrop
-3. Restart the app
-4. Clipboard output still works without this permission
-
-### Transcription is slow
-
-- Use a smaller model (Tiny or Base)
-- Make sure you're on Apple Silicon (Intel Macs are supported but slower)
-- Close other resource-intensive applications
-
-### Model download fails
-
-- Check your internet connection
-- Ensure you have enough disk space (75MB–3GB depending on model)
-- Try downloading again from Settings → Models
-
-### Hotkey doesn't work
-
-- Check for conflicts with other apps
-- Try a different key combination
-- Click the menu bar icon first to ensure the app has focus
-
-## Architecture
-
-```
-Pindrop/
-├── Pindrop/                     # Main app bundle
-│   ├── PindropApp.swift         # App entry point + lifecycle
-│   ├── AppCoordinator.swift     # Central service coordination
-│   ├── Services/
-│   │   ├── AudioRecorder.swift          # AVAudioEngine recording
-│   │   ├── AudioDeviceManager.swift     # Audio device selection
-│   │   ├── TranscriptionService.swift   # Transcription orchestration
-│   │   ├── Transcription/               # Transcription engine architecture
-│   │   │   ├── TranscriptionEngine.swift        # Engine protocol
-│   │   │   ├── StreamingTranscriptionEngine.swift # Streaming protocol
-│   │   │   ├── WhisperKitEngine.swift           # WhisperKit backend
-│   │   │   ├── ParakeetEngine.swift             # Parakeet backend
-│   │   │   ├── AudioEngineCapabilities.swift    # Engine capability detection
-│   │   │   ├── VoiceActivityDetector.swift      # VAD support
-│   │   │   ├── SpeakerDiarizer.swift            # Speaker identification
-│   │   │   └── TextToSpeechEngine.swift         # TTS support
-│   │   ├── ModelManager.swift           # Model downloads
-│   │   ├── HotkeyManager.swift          # Global shortcuts
-│   │   ├── OutputManager.swift          # Clipboard + text insertion
-│   │   ├── HistoryStore.swift           # SwiftData persistence
-│   │   ├── NotesStore.swift             # Note-taking system
-│   │   ├── SettingsStore.swift          # Settings + Keychain
-│   │   ├── PermissionManager.swift      # Permissions handling
-│   │   ├── AIEnhancementService.swift   # Optional AI cleanup
-│   │   ├── AIModelService.swift         # AI model management
-│   │   ├── MediaPauseService.swift      # Media pause during recording
-│   │   ├── UpdateService.swift          # Sparkle auto-updates
-│   │   ├── LaunchAtLoginManager.swift   # Login item management
-│   │   ├── PromptPresetStore.swift      # AI prompt presets
-│   │   ├── DictionaryStore.swift        # Custom dictionary
-│   │   ├── ContextEngineService.swift   # Context engine
-│   │   ├── ContextCaptureService.swift  # Context capture
-│   │   ├── ContextEngineContracts.swift # Context engine protocols
-│   │   ├── AppContextAdapter.swift      # App context bridging
-│   │   ├── MentionFormatter.swift       # @mention formatting
-│   │   ├── MentionRewriteService.swift  # Mention rewriting
-│   │   ├── PathMentionResolver.swift    # Path mention resolution
-│   │   └── WorkspaceFileIndexService.swift # Workspace file indexing
-│   ├── Models/
-│   │   ├── TranscriptionRecord.swift
-│   │   ├── TranscriptionRecordSchema.swift
-│   │   ├── Note.swift
-│   │   ├── NoteSchema.swift
-│   │   ├── PromptPreset.swift
-│   │   ├── WordReplacement.swift
-│   │   ├── VocabularyWord.swift
-│   │   ├── FeatureModelType.swift
-│   │   └── FloatingIndicatorType.swift
-│   ├── UI/
-│   │   ├── Main/
-│   │   │   ├── MainWindow.swift
-│   │   │   ├── DashboardView.swift
-│   │   │   ├── HistoryView.swift
-│   │   │   ├── DictionaryView.swift
-│   │   │   └── NotesView.swift
-│   │   ├── Settings/
-│   │   │   ├── SettingsWindow.swift
-│   │   │   ├── GeneralSettingsView.swift
-│   │   │   ├── HotkeysSettingsView.swift
-│   │   │   ├── ModelsSettingsView.swift
-│   │   │   ├── AIEnhancementSettingsView.swift
-│   │   │   ├── UpdateSettingsView.swift
-│   │   │   ├── PresetManagementSheet.swift
-│   │   │   └── AboutSettingsView.swift
-│   │   ├── Onboarding/
-│   │   │   ├── OnboardingWindow.swift
-│   │   │   ├── OnboardingWindowController.swift
-│   │   │   ├── WelcomeStepView.swift
-│   │   │   ├── PermissionsStepView.swift
-│   │   │   ├── ModelSelectionStepView.swift
-│   │   │   ├── ModelDownloadStepView.swift
-│   │   │   ├── HotkeySetupStepView.swift
-│   │   │   ├── AIEnhancementStepView.swift
-│   │   │   └── ReadyStepView.swift
-│   │   ├── Theme/
-│   │   │   └── Theme.swift
-│   │   ├── Components/
-│   │   │   ├── CopyButton.swift
-│   │   │   ├── SearchableDropdown.swift
-│   │   │   ├── MarkdownEditor.swift
-│   │   │   └── NoteCardView.swift
-│   │   ├── StatusBarController.swift   # Menu bar icon
-│   │   ├── FloatingIndicator.swift     # Recording indicator
-│   │   └── SplashScreen.swift
-│   └── Utils/
-│       ├── Logger.swift           # Logging wrapper
-│       ├── AlertManager.swift     # Alert handling
-│       ├── ModelCapabilities.swift # Model feature detection
-│       ├── ImageResizer.swift     # Image utilities
-│       └── Icons.swift            # Icon assets
-├── PindropTests/                  # XCTest suite
-└── Pindrop.xcodeproj              # Xcode project
-```
-
-## Running Tests
-
-```bash
-xcodebuild test -scheme Pindrop -destination 'platform=macOS'
-```
-
-## Community
-
-Join the conversation and get help:
-
-- **[GitHub Discussions](https://github.com/watzon/pindrop/discussions)** — Ask questions, share ideas, and connect with other users
-- **[GitHub Issues](https://github.com/watzon/pindrop/issues)** — Report bugs or request features
-
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to get started.
-
-Whether you're fixing a bug, adding a feature, or improving documentation, your help makes Pindrop better for everyone.
-
-## License
-
-MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- [WhisperKit](https://github.com/argmaxinc/WhisperKit) — The Swift implementation that makes this possible
-- [OpenAI Whisper](https://github.com/openai/whisper) — The original speech recognition model
+- macOS 14.0 (Sonoma) or later
+- Apple Silicon (M1 or newer) strongly recommended
+- Optional: Docker Desktop (for running Kokoro locally)
+- Optional: LM Studio or Ollama (for local LLM cleanup)
+- Microphone permission (required for recording)
+- Accessibility permission (optional, enables direct text insertion)
 
 ---
 
-**Note**: This project is currently open source and free to build yourself. Pre-built binaries may be available for purchase in the future.
+## Installation
 
-## Star History
+### Pre-built DMG (recommended)
+1. Download `NautPin.dmg` from the [releases page](https://github.com/48Nauts-Operator/NautPin/releases)
+2. Open the DMG and drag NautPin to `/Applications`
+3. Launch NautPin
+4. Grant microphone and accessibility permissions when prompted
 
-[![Star History Chart](https://api.star-history.com/svg?repos=watzon/pindrop&type=date&legend=top-left)](https://www.star-history.com/#watzon/pindrop&type=date&legend=top-left)
+### Build from source
+```bash
+git clone http://cosmos.tail138398.ts.net:3000/48Nauts/NautPin.git
+cd NautPin
+just build
+cp -R DerivedData/Build/Products/Debug/Pindrop.app /Applications/NautPin.app
+```
+
+(The bundle is still named `Pindrop.app` internally; the user-facing identity is NautPin via `CFBundleDisplayName` and `CFBundleName`.)
+
+### Optional: Kokoro voice output
+```bash
+docker run -d --name kokoro --restart unless-stopped \
+  -p 8880:8880 \
+  ghcr.io/remsky/kokoro-fastapi-cpu:latest
+```
+
+Verify: `curl http://127.0.0.1:8880/v1/audio/voices` should list 50+ voices.
+
+Then in NautPin → Settings → Voice Output, set the Kokoro server URL and default voice.
+
+### Optional: Local LLM for cleanup
+Install [LM Studio](https://lmstudio.ai), load a model (e.g. `gemma-4-e4b-it-obliterated` or `qwen2.5-7b-instruct`), and start the developer-mode API server. Then in NautPin → Settings → AI Enhancement, add a custom OpenAI-compatible provider pointing at `http://127.0.0.1:1234/v1` (or whichever port).
+
+---
+
+## Quick start
+
+1. Press your toggle hotkey (default `Option+Space`)
+2. Speak
+3. Press the hotkey again
+4. Cleaned text appears at your cursor
+5. Open Logbook (menu bar → Open Logbook, or `⌘L`) to see yourself
+
+---
+
+## Building
+
+This project uses [`just`](https://github.com/casey/just) for build automation. Install with `brew install just`.
+
+```bash
+just build                 # Debug build (signed)
+just build-unsigned        # Debug build (unsigned)
+just build-release         # Release build
+just dmg                   # Signed DMG for distribution
+just dmg-self-signed       # Self-signed DMG (fallback)
+just test                  # Run tests
+just clean                 # Clean build artifacts
+just --list                # All available commands
+```
+
+See [BUILD.md](BUILD.md) for full build documentation.
+
+---
+
+## Releasing
+
+NautPin releases are published manually from a local machine. See [RELEASING.md](RELEASING.md) for the full flow.
+
+```bash
+just release 1.0.0
+```
+
+This runs the test suite, builds a signed and notarized DMG, generates the Sparkle appcast, creates a tag, pushes, and publishes a release on Forgejo. A separate workflow mirrors the tagged release to GitHub.
+
+---
+
+## Repository layout
+
+| Path | What's there |
+|---|---|
+| `Pindrop/` | App source (Swift). Folder is named `Pindrop/` for historical reasons; the product is NautPin. |
+| `Pindrop/Services/` | AudioRecorder, TranscriptionService, AI enhancement, Power Mode, Voice Output, Logbook analytics |
+| `Pindrop/UI/` | SwiftUI views — Main window, Settings, Logbook, theme system, status bar |
+| `Pindrop/UI/Logbook/` | Personal voice-stats dashboard |
+| `Pindrop/Models/` | SwiftData models — TranscriptionRecord and friends |
+| `Pindrop/Localization/` | xcstrings catalogs (EN, DE, more) |
+| `Localization/` | YAML-first source of truth for the localization pipeline |
+| `.forgejo/workflows/` | Forgejo Actions — CI, GitHub mirror |
+| `justfile` | Build/release recipes |
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). The short version: open an issue first if it's non-trivial, follow the existing patterns, run `just build && just test` before opening a PR.
+
+---
+
+## Acknowledgments
+
+NautPin would not exist without [Chris Watson's Pindrop](https://github.com/watzon/pindrop). The dictation core, the menu-bar architecture, the AI Enhancement plumbing, and the bulk of the SwiftUI surface are upstream's work. Our additions sit on top of his foundation.
+
+Other open-source projects this depends on:
+
+- [WhisperKit](https://github.com/argmaxinc/WhisperKit) — Apple-optimized Whisper inference
+- [FluidAudio](https://github.com/FluidInference/FluidAudio) — Parakeet on Apple Silicon
+- [Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI) — Dockerized TTS server (used over HTTP, not bundled)
+- [Sparkle](https://sparkle-project.org/) — Native macOS update framework
+
+---
+
+## License
+
+MIT, inherited from upstream Pindrop. See [LICENSE](LICENSE).
+
+NautPin-specific additions are also MIT-licensed. Contributions are welcome under the same terms.
+
+---
+
+*Made with stubborn local-first conviction by [48Nauts](https://48nauts.com).*

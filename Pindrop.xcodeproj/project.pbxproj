@@ -190,6 +190,9 @@
 		WHISPERENG04A2B3C4D5E6F /* WhisperKitEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = WHISPERENG01A2B3C4D5E6F /* WhisperKitEngineTests.swift */; };
 		WKSPIDX02A2B3C4D5E6F /* WorkspaceFileIndexService.swift in Sources */ = {isa = PBXBuildFile; fileRef = WKSPIDX01A2B3C4D5E6F /* WorkspaceFileIndexService.swift */; };
 		WORDRPLACEA1B2C3D4 /* WordReplacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = WORDRPLACEA1B2C3D4E5 /* WordReplacement.swift */; };
+		3B6F0E0A77BD451182366812 /* LogbookAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6091F335BA43C8BC0B5817 /* LogbookAnalyticsService.swift */; };
+		C2DA5A15E72348D5B4AE2066 /* LogbookTopicAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409AAA03A3B44667B2A64482 /* LogbookTopicAnalyzer.swift */; };
+		48E67047EC554F549F6BAB8D /* LogbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD9933867234BE491D59D9E /* LogbookView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -395,6 +398,9 @@
 		a2189a034cf447e08e86f24b /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		bf7758dd063c42db8315390e /* TranscriptionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionServiceTests.swift; sourceTree = "<group>"; };
 		f5b1372d4c0e4e96a1ed0b59 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		6C6091F335BA43C8BC0B5817 /* LogbookAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LogbookAnalyticsService.swift"; path = "Logbook/LogbookAnalyticsService.swift"; sourceTree = "<group>"; };
+		409AAA03A3B44667B2A64482 /* LogbookTopicAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LogbookTopicAnalyzer.swift"; path = "Logbook/LogbookTopicAnalyzer.swift"; sourceTree = "<group>"; };
+		CAD9933867234BE491D59D9E /* LogbookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "LogbookView.swift"; path = "Logbook/LogbookView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +478,7 @@
 		643083A84C484508864DA167 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CAD9933867234BE491D59D9E /* LogbookView.swift */,
 				THEMEGROUP1A2B3C4D5E6F /* Theme */,
 				NOTEEDITGRP1A2B3C4D5E6F /* NoteEditor */,
 				MAINGROUP1A2B3C4D5E6F7 /* Main */,
@@ -493,6 +500,8 @@
 		81f50d309b6a44df90efbd5f /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				6C6091F335BA43C8BC0B5817 /* LogbookAnalyticsService.swift */,
+				409AAA03A3B44667B2A64482 /* LogbookTopicAnalyzer.swift */,
 				3BCA6A2A2FA53FA700ED8D53 /* PowerMode */,
 				f5b1372d4c0e4e96a1ed0b59 /* AudioRecorder.swift */,
 				B1C2D3E4F5A60718293A4B5C /* AudioDeviceManager.swift */,
@@ -999,6 +1008,9 @@
 		6E3989E80A1A4BF5BEC7A015 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
+				3B6F0E0A77BD451182366812 /* LogbookAnalyticsService.swift in Sources */,
+				C2DA5A15E72348D5B4AE2066 /* LogbookTopicAnalyzer.swift in Sources */,
+				48E67047EC554F549F6BAB8D /* LogbookView.swift in Sources */,
 				PRESETMANGSHEETBUILD /* PresetManagementSheet.swift in Sources */,
 				1A2B3C4D5E6F708192A3B4C5 /* AppLocalization.swift in Sources */,
 				GENLOCMETA01A2B3C4D5E6F1 /* LocalizationMetadata.swift in Sources */,

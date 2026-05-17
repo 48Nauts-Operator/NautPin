@@ -45,6 +45,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
     private var toggleFloatingIndicatorItem: NSMenuItem?
     private var launchAtLoginItem: NSMenuItem?
     private var openHistoryItem: NSMenuItem?
+    private var openLogbookItem: NSMenuItem?
 
     private var modelMenu: NSMenu?
     private var currentModelItem: NSMenuItem?
@@ -187,7 +188,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         button.image = getBaseIcon()
         button.image?.isTemplate = true
 
-        button.toolTip = "Pindrop"
+        button.toolTip = "NautPin"
     }
 
     private func setupMenu() {
@@ -340,6 +341,15 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         openHistoryItem?.target = self
         openHistoryItem?.image = NSImage(systemSymbolName: "clock.arrow.circlepath", accessibilityDescription: nil)
         menu.addItem(openHistoryItem!)
+
+        openLogbookItem = NSMenuItem(
+            title: localized("Open Logbook", locale: locale),
+            action: #selector(openLogbook),
+            keyEquivalent: "l"
+        )
+        openLogbookItem?.target = self
+        openLogbookItem?.image = NSImage(systemSymbolName: "book.pages", accessibilityDescription: nil)
+        menu.addItem(openLogbookItem!)
 
         let settingsItem = NSMenuItem(
             title: localized("Settings...", locale: locale),
@@ -856,6 +866,10 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         onOpenHistory?()
     }
 
+    @objc private func openLogbook() {
+        mainWindowController?.showLogbook()
+    }
+
 
     @objc private func reportIssue() {
         onReportIssue?()
@@ -923,7 +937,7 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         }
 
         guard let customIcon = NSImage(named: "PindropIcon") else {
-            return NSImage(systemSymbolName: "mic.fill", accessibilityDescription: "Pindrop")
+            return NSImage(systemSymbolName: "mic.fill", accessibilityDescription: "NautPin")
         }
 
         let targetSize: CGFloat = 18

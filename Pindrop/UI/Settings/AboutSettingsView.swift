@@ -78,7 +78,7 @@ struct AboutSettingsView: View {
                   .clipShape(RoundedRectangle(cornerRadius: AppTheme.Radius.lg))
 
                VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
-                  Text("Pindrop")
+                  Text("NautPin")
                      .font(AppTypography.title)
                      .foregroundStyle(AppColors.textPrimary)
 
