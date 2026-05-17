@@ -17,7 +17,7 @@ import SwiftUI
 import AVFoundation
 
 struct VoiceOutputSettingsView: View {
-   let service: VoiceOutputService
+   @ObservedObject var service: VoiceOutputService
    @Environment(\.locale) private var locale
 
    var body: some View {
@@ -60,7 +60,7 @@ struct VoiceOutputSettingsView: View {
                // See speakKokoro button below for the Task wrapper rationale.
                Button {
                   Task { @MainActor in
-                     _ = service.loadKokoroIfNeeded()
+                     _ = service.loadKokoroVoicesIfNeeded()
                   }
                } label: {
                   HStack(spacing: 4) {

@@ -4,29 +4,33 @@
 //
 //  Created on 2026-05-17.
 //
-//  Voice output (text-to-speech) with two engines side by side:
+//  Two voice-output engines, side by side:
 //
-//    • KokoroSwift (mlalma/kokoro-ios) — neural TTS for English. 28 voices.
-//      Model + voices bundled in app Resources/Kokoro/. ~3× realtime on Apple
-//      Silicon after a one-time warm-up.
-//    • AVSpeechSynthesizer — Apple's on-device system voices. Covers German
-//      (Anna, Markus, etc.) and falls back here for any non-English voice
-//      or before Kokoro is loaded.
+//    • Kokoro (English + many other languages) — streams PCM from a remote
+//      Kokoro-FastAPI server over HTTP. NO in-process KokoroSwift / MLX —
+//      that path crashes on macOS 26 / Swift 6 SDK with a runtime ABI bug
+//      in MainActor.assumeIsolated when invoked from a SwiftUI Button
+//      gesture. The HTTP architecture is what the user's working iOS app
+//      (Bucki, /Users/cand0rian/DevHub_Studio/factory/03-iOS/Bucki) uses
+//      and it sidesteps the crash entirely.
+//    • AVSpeechSynthesizer — Apple's on-device system voices. Used for
+//      German (Anna, Markus, etc.) since the Kokoro voice pack is
+//      English-focused. Also the offline fallback when the server is
+//      unreachable.
 //
-//  Engine dispatch is by chosen voice, not by language sniffing — the UI lists
-//  both Kokoro and Apple voices and the user picks. The sample helper still
-//  uses the language sniff for "pick a sensible default."
+//  Implementation borrows heavily from Bucki/Bucki/Services/TTSService.swift.
 //
 
 import Foundation
 import AVFoundation
-import KokoroSwift
-import MLX
-import MLXUtilsLibrary
+import Combine
 
+// NOTE: Using legacy ObservableObject + @Published instead of @Observable.
+// The new @Observable macro's AttributeGraph integration triggers a runtime
+// crash on macOS 26 / Swift 6 SDK when SwiftUI button gestures access
+// observable state — keep this until Apple ships a fix.
 @MainActor
-@Observable
-final class VoiceOutputService {
+final class VoiceOutputService: ObservableObject {
 
     enum State: Equatable {
         case idle
@@ -34,11 +38,8 @@ final class VoiceOutputService {
         case loadingKokoro
     }
 
-    /// Bridges AVSpeechSynthesizer's NSObject-based delegate API into our @Observable
-    /// service without making the service itself inherit NSObject. The combo
-    /// `@MainActor @Observable final class … : NSObject` is known to corrupt
-    /// AttributeGraph state on macOS 26 / Swift 6 SDK (crashes in
-    /// `MainActor.assumeIsolated` during SwiftUI gesture dispatch).
+    /// Bridges AVSpeechSynthesizer's NSObject-based delegate API into our
+    /// service without making the service itself inherit NSObject.
     private final class SynthesizerDelegate: NSObject, AVSpeechSynthesizerDelegate {
         weak var owner: VoiceOutputService?
 
@@ -57,275 +58,300 @@ final class VoiceOutputService {
         }
     }
 
-    /// Identifies a voice across both engines.
-    enum Voice: Hashable {
-        /// Kokoro voice (key into the voices.npz bundle — e.g. "af_sarah", "bm_george").
-        case kokoro(String, KokoroSwift.Language)
-        /// Apple system voice.
-        case apple(AVSpeechSynthesisVoice)
+    @Published private(set) var state: State = .idle
+    @Published private(set) var currentText: String?
 
-        var displayName: String {
-            switch self {
-            case .kokoro(let id, _): return Self.kokoroDisplayName(for: id)
-            case .apple(let v):      return v.name
-            }
-        }
+    /// Voices returned by the Kokoro server's `/v1/audio/voices` endpoint,
+    /// sorted alphabetically. Empty until `loadKokoroVoicesIfNeeded()`
+    /// succeeds.
+    @Published private(set) var kokoroVoiceNames: [String] = []
 
-        var languageCode: String {
-            switch self {
-            case .kokoro(_, let lang): return lang == .enGB ? "en-GB" : "en-US"
-            case .apple(let v):        return v.language
-            }
-        }
+    /// Kokoro-FastAPI server base URL. Defaults to the Tailscale IP that
+    /// the user's Bucki app already points at. Configurable via Settings.
+    @Published var kokoroServerURL: String = "http://100.69.95.60:8880"
 
-        var engineLabel: String {
-            switch self {
-            case .kokoro: return "Kokoro"
-            case .apple:  return "Apple"
-            }
-        }
-
-        private static func kokoroDisplayName(for id: String) -> String {
-            // af_sarah → "Sarah (en-US ♀)"; bm_george → "George (en-GB ♂)"; etc.
-            guard id.count > 3 else { return id }
-            let region = id.first == "a" ? "en-US" : (id.first == "b" ? "en-GB" : "en")
-            let gender = id.dropFirst().first == "f" ? "♀" : (id.dropFirst().first == "m" ? "♂" : "")
-            let name = id.split(separator: "_").last.map(String.init)?.capitalized ?? id
-            return "\(name) (\(region) \(gender))".trimmingCharacters(in: .whitespaces)
-        }
-    }
-
-    private(set) var state: State = .idle
-    private(set) var currentText: String?
+    @Published private(set) var kokoroServerError: String?
 
     private let synthesizer = AVSpeechSynthesizer()
     private let synthesizerDelegate = SynthesizerDelegate()
 
-    // Kokoro lazy state — model takes ~1-2s to load, only pay it on first English use.
-    private var kokoroTTS: KokoroTTS?
-    private var kokoroVoices: [String: MLXArray]?
-    /// Names sorted alphabetically for stable UI ordering, populated after first load.
-    private(set) var kokoroVoiceNames: [String] = []
-
-    // Playback for Kokoro PCM output. AVAudioEngine + a player node lets us
-    // schedule the [Float] buffer KokoroTTS returns without writing a temp file.
+    // Kokoro PCM playback pipeline. 24 kHz mono, signed 16-bit LE — what
+    // the Kokoro-FastAPI server returns with `response_format: "pcm"`.
+    private static let kokoroSampleRate: Double = 24000
     private let audioEngine = AVAudioEngine()
     private let kokoroPlayerNode = AVAudioPlayerNode()
-    private var audioEngineStarted = false
+    private var audioEngineConfigured = false
+    private var playerNodePlaying = false
+    private var kokoroPlayerFormat: AVAudioFormat?
+    private var currentStreamSession: KokoroStreamSession?
 
     init() {
         synthesizerDelegate.owner = self
         synthesizer.delegate = synthesizerDelegate
-        audioEngine.attach(kokoroPlayerNode)
-        audioEngine.connect(kokoroPlayerNode, to: audioEngine.mainMixerNode, format: nil)
     }
 
-    // MARK: - Voices
+    // MARK: - Kokoro voice catalog
 
-    /// All installed system voices, sorted by language then quality (premium first).
+    /// Fetches the voice list from `<kokoroServerURL>/v1/audio/voices`.
+    /// Idempotent: skips if already loaded. ~50ms on Tailnet.
+    func loadKokoroVoicesIfNeeded() {
+        guard kokoroVoiceNames.isEmpty, state != .loadingKokoro else { return }
+
+        guard let url = URL(string: "\(kokoroServerURL)/v1/audio/voices") else {
+            kokoroServerError = "Invalid server URL"
+            return
+        }
+
+        state = .loadingKokoro
+        kokoroServerError = nil
+        Log.app.info("Fetching Kokoro voices from \(url.absoluteString)")
+
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 10
+
+        URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                self.state = .idle
+                if let error {
+                    self.kokoroServerError = "Server unreachable: \(error.localizedDescription)"
+                    Log.app.error("Kokoro voices fetch failed: \(error.localizedDescription)")
+                    return
+                }
+                guard let data,
+                      let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                      let voices = json["voices"] as? [String] else {
+                    self.kokoroServerError = "Unexpected /v1/audio/voices response"
+                    Log.app.error("Kokoro voices: unexpected response body")
+                    return
+                }
+                self.kokoroVoiceNames = voices.sorted()
+                Log.app.info("Loaded \(voices.count) Kokoro voices")
+            }
+        }.resume()
+    }
+
+    // MARK: - Speak via Kokoro server
+
+    /// Streams Kokoro TTS for `text` using `voiceName` and plays it
+    /// chunk-by-chunk. First audible sample lands ~300-600ms after the
+    /// call (Tailnet latency + server time-to-first-byte + audio engine
+    /// scheduling).
+    func speakKokoro(_ text: String, voiceName: String, speed: Float = 1.0) {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+
+        // Cancel any in-flight playback (Kokoro or Apple).
+        stop()
+
+        do {
+            try prepareKokoroPlaybackEngine()
+        } catch {
+            Log.app.error("Kokoro playback engine prepare failed: \(error.localizedDescription)")
+            return
+        }
+
+        guard let url = URL(string: "\(kokoroServerURL)/v1/audio/speech") else {
+            kokoroServerError = "Invalid server URL"
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/octet-stream", forHTTPHeaderField: "Accept")
+        request.timeoutInterval = 60
+
+        let body: [String: Any] = [
+            "input": trimmed,
+            "voice": voiceName,
+            "model": "kokoro",
+            "response_format": "pcm",
+            "speed": speed,
+            "stream": true,
+        ]
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        } catch {
+            Log.app.error("Kokoro speech JSON encode failed: \(error.localizedDescription)")
+            return
+        }
+
+        currentText = trimmed
+        state = .speaking
+        kokoroServerError = nil
+        Log.app.info("VoiceOutput.kokoro speak voice=\(voiceName) chars=\(trimmed.count)")
+
+        let session = KokoroStreamSession(
+            request: request,
+            onResponse: { status in
+                Log.app.info("Kokoro stream HTTP \(status)")
+            },
+            onChunk: { [weak self] data in
+                Task { @MainActor [weak self] in
+                    self?.handleKokoroChunk(data)
+                }
+            },
+            onComplete: { [weak self] error in
+                Task { @MainActor [weak self] in
+                    self?.handleKokoroStreamComplete(error: error)
+                }
+            }
+        )
+        currentStreamSession = session
+        session.start()
+    }
+
+    /// Speak a short sample for the Settings preview button.
+    func speakKokoroSample(voiceName: String) {
+        let region = voiceName.first
+        let sample: String
+        switch region {
+        case "b": sample = "Hello, I'm NautPin. I'll happily read your transcripts aloud."
+        case "e": sample = "Hola, soy NautPin y transcribo para ti."
+        case "f": sample = "Bonjour, je suis NautPin et je transcris pour vous."
+        case "h": sample = "नमस्ते, मैं NautPin हूँ।"
+        case "i": sample = "Ciao, sono NautPin e trascrivo per te."
+        case "j": sample = "こんにちは、私はNautPinです。"
+        case "p": sample = "Olá, eu sou NautPin e transcrevo para você."
+        case "z": sample = "你好，我是NautPin。"
+        default:  sample = "Hi, I'm NautPin, and I'll read your transcripts aloud whenever you want."
+        }
+        speakKokoro(sample, voiceName: voiceName)
+    }
+
+    private func handleKokoroChunk(_ data: Data) {
+        currentStreamSession?.appendAndSchedule(data) { [weak self] aligned in
+            self?.schedulePCM(aligned)
+        }
+    }
+
+    private func handleKokoroStreamComplete(error: Error?) {
+        currentStreamSession?.flush { [weak self] tail in
+            self?.schedulePCM(tail)
+        }
+        if let error {
+            Log.app.error("Kokoro stream error: \(error.localizedDescription)")
+            kokoroServerError = error.localizedDescription
+            state = .idle
+            currentText = nil
+            return
+        }
+        Log.app.info("Kokoro stream complete")
+        scheduleEndMarker { [weak self] in
+            Task { @MainActor [weak self] in
+                self?.state = .idle
+                self?.currentText = nil
+            }
+        }
+    }
+
+    // MARK: - AVAudioEngine playback (Bucki pattern)
+
+    private func prepareKokoroPlaybackEngine() throws {
+        if kokoroPlayerFormat == nil {
+            kokoroPlayerFormat = AVAudioFormat(
+                standardFormatWithSampleRate: Self.kokoroSampleRate,
+                channels: 1
+            )
+        }
+        guard let format = kokoroPlayerFormat else { throw VoiceOutputError.playbackFailed }
+
+        if !audioEngineConfigured {
+            audioEngine.attach(kokoroPlayerNode)
+            audioEngine.connect(kokoroPlayerNode, to: audioEngine.mainMixerNode, format: format)
+            audioEngineConfigured = true
+            Log.app.info("AudioEngine configured @ \(Self.kokoroSampleRate) Hz")
+        }
+
+        if !audioEngine.isRunning {
+            try audioEngine.start()
+            Log.app.info("AudioEngine started")
+        }
+    }
+
+    private func schedulePCM(_ int16Bytes: Data) {
+        guard let format = kokoroPlayerFormat else { return }
+        let frameCount = AVAudioFrameCount(int16Bytes.count / 2)
+        guard frameCount > 0,
+              let pcmBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
+            Log.app.error("schedulePCM: buffer alloc failed for \(int16Bytes.count) B")
+            return
+        }
+        pcmBuffer.frameLength = frameCount
+
+        int16Bytes.withUnsafeBytes { raw in
+            guard let dst = pcmBuffer.floatChannelData?[0] else { return }
+            let src = raw.bindMemory(to: Int16.self)
+            let scale = 1.0 / Float(Int16.max)
+            for i in 0..<Int(frameCount) {
+                dst[i] = Float(Int16(littleEndian: src[i])) * scale
+            }
+        }
+
+        kokoroPlayerNode.scheduleBuffer(pcmBuffer, completionHandler: nil)
+
+        if !playerNodePlaying {
+            kokoroPlayerNode.play()
+            playerNodePlaying = true
+        }
+    }
+
+    private func scheduleEndMarker(_ onFinished: @escaping () -> Void) {
+        guard let format = kokoroPlayerFormat,
+              let marker = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1) else {
+            onFinished(); return
+        }
+        marker.frameLength = 1
+        if let ch = marker.floatChannelData?[0] { ch[0] = 0 }
+        kokoroPlayerNode.scheduleBuffer(marker, completionCallbackType: .dataPlayedBack) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.playerNodePlaying = false
+                onFinished()
+            }
+        }
+    }
+
+    // MARK: - Apple AVSpeechSynthesizer (used for German + fallback)
+
     var availableVoices: [AVSpeechSynthesisVoice] {
         AVSpeechSynthesisVoice.speechVoices().sorted { lhs, rhs in
             if lhs.language != rhs.language {
                 return lhs.language < rhs.language
             }
             if lhs.quality.rawValue != rhs.quality.rawValue {
-                return lhs.quality.rawValue > rhs.quality.rawValue  // premium first
+                return lhs.quality.rawValue > rhs.quality.rawValue
             }
             return lhs.name < rhs.name
         }
     }
 
-    /// Voices matching a BCP-47 language prefix (e.g. "en", "de").
     func voices(forLanguagePrefix prefix: String) -> [AVSpeechSynthesisVoice] {
         availableVoices.filter { $0.language.hasPrefix(prefix) }
     }
 
-    /// Best default voice for a given language, preferring premium / enhanced quality.
     func defaultVoice(forLanguagePrefix prefix: String) -> AVSpeechSynthesisVoice? {
         voices(forLanguagePrefix: prefix).first
     }
 
-    // MARK: - Playback
-
-    // MARK: - Kokoro
-
-    /// 24kHz mono Float — Kokoro's output format.
-    private static let kokoroSampleRate: Double = 24000
-
-    /// Load Kokoro model + voices from the app bundle. Idempotent.
-    /// Heavy: ~1-2s on Apple Silicon for first call. Subsequent calls are no-ops.
-    @discardableResult
-    func loadKokoroIfNeeded() -> Bool {
-        guard kokoroTTS == nil else { return true }
-
-        guard let modelURL = Bundle.main.url(forResource: "kokoro-v1_0", withExtension: "safetensors"),
-              let voicesURL = Bundle.main.url(forResource: "voices", withExtension: "npz") else {
-            Log.app.error("Kokoro assets missing from app bundle — run `just fetch-kokoro` then rebuild")
-            return false
-        }
-
-        state = .loadingKokoro
-        Log.app.info("Loading Kokoro model from \(modelURL.lastPathComponent) (this may take 1-2s)")
-        let started = CFAbsoluteTimeGetCurrent()
-
-        let tts = KokoroTTS(modelPath: modelURL, g2p: .misaki)
-        guard let voices = NpyzReader.read(fileFromPath: voicesURL) else {
-            Log.app.error("Failed to read voice styles from voices.npz")
-            state = .idle
-            return false
-        }
-
-        self.kokoroTTS = tts
-        self.kokoroVoices = voices
-        self.kokoroVoiceNames = voices.keys.sorted()
-        state = .idle
-
-        let elapsed = CFAbsoluteTimeGetCurrent() - started
-        Log.app.info("Kokoro loaded: \(voices.count) voices, \(String(format: "%.2fs", elapsed))")
-        return true
-    }
-
-    /// Speak text using a Kokoro voice. Returns immediately; playback runs on the audio engine.
-    func speakKokoro(_ text: String, voiceName: String, language: KokoroSwift.Language = .enUS) {
-        guard loadKokoroIfNeeded(),
-              let tts = kokoroTTS,
-              let voiceStyle = kokoroVoices?[voiceName] else {
-            Log.app.error("Kokoro speak failed: model not loaded or voice '\(voiceName)' not found")
-            return
-        }
-        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
-
-        // Cancel any in-flight playback (Apple or Kokoro).
-        stop()
-
-        currentText = trimmed
-        state = .speaking
-        Log.app.info("VoiceOutput.kokoro speak voice=\(voiceName) chars=\(trimmed.count)")
-
-        // Synthesis is CPU-bound; run off-main so the UI stays responsive.
-        let synthesisStart = CFAbsoluteTimeGetCurrent()
-        Task.detached(priority: .userInitiated) {
-            do {
-                let (samples, _) = try tts.generateAudio(voice: voiceStyle, language: language, text: trimmed)
-                let elapsed = CFAbsoluteTimeGetCurrent() - synthesisStart
-                let audioDuration = Double(samples.count) / Self.kokoroSampleRate
-                Log.app.info("Kokoro synth: \(samples.count) samples, \(String(format: "%.2fs", audioDuration)) audio in \(String(format: "%.2fs", elapsed)) wall (\(String(format: "%.1fx", audioDuration/elapsed)) realtime)")
-                await MainActor.run {
-                    self.playKokoroSamples(samples)
-                }
-            } catch {
-                Log.app.error("Kokoro synthesis failed: \(error.localizedDescription)")
-                await MainActor.run {
-                    self.state = .idle
-                    self.currentText = nil
-                }
-            }
-        }
-    }
-
-    /// Schedule a [Float] PCM buffer (24kHz mono) on the player node and start it.
-    private func playKokoroSamples(_ samples: [Float]) {
-        guard !samples.isEmpty else {
-            state = .idle
-            currentText = nil
-            return
-        }
-
-        guard let format = AVAudioFormat(commonFormat: .pcmFormatFloat32,
-                                          sampleRate: Self.kokoroSampleRate,
-                                          channels: 1,
-                                          interleaved: false) else {
-            Log.app.error("Could not construct AVAudioFormat for Kokoro output")
-            state = .idle
-            currentText = nil
-            return
-        }
-
-        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(samples.count)) else {
-            Log.app.error("Could not allocate AVAudioPCMBuffer")
-            state = .idle
-            currentText = nil
-            return
-        }
-        buffer.frameLength = AVAudioFrameCount(samples.count)
-        if let channelData = buffer.floatChannelData?[0] {
-            samples.withUnsafeBufferPointer { src in
-                channelData.update(from: src.baseAddress!, count: samples.count)
-            }
-        }
-
-        if !audioEngineStarted {
-            do {
-                try audioEngine.start()
-                audioEngineStarted = true
-            } catch {
-                Log.app.error("AudioEngine failed to start: \(error.localizedDescription)")
-                state = .idle
-                currentText = nil
-                return
-            }
-        }
-
-        kokoroPlayerNode.scheduleBuffer(buffer, completionCallbackType: .dataPlayedBack) { [weak self] _ in
-            Task { @MainActor in
-                self?.state = .idle
-                self?.currentText = nil
-            }
-        }
-        kokoroPlayerNode.play()
-    }
-
-    // MARK: - Apple AVSpeechSynthesizer
-
     func speak(_ text: String, voice: AVSpeechSynthesisVoice? = nil, rate: Float? = nil) {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
-
-        // Cancel any in-flight utterance so a second "Speak" press replaces, not queues.
-        if synthesizer.isSpeaking {
-            synthesizer.stopSpeaking(at: .immediate)
-        }
+        stop()
 
         let utterance = AVSpeechUtterance(string: trimmed)
         if let voice {
             utterance.voice = voice
-        } else if let detected = detectLanguagePrefix(in: trimmed),
-                  let resolved = defaultVoice(forLanguagePrefix: detected) {
-            utterance.voice = resolved
         }
         if let rate {
             utterance.rate = max(AVSpeechUtteranceMinimumSpeechRate,
                                  min(AVSpeechUtteranceMaximumSpeechRate, rate))
         }
-
         currentText = trimmed
         state = .speaking
-        Log.app.info("VoiceOutput speak voice=\(utterance.voice?.identifier ?? "default") chars=\(trimmed.count)")
+        Log.app.info("VoiceOutput.apple speak voice=\(utterance.voice?.identifier ?? "default") chars=\(trimmed.count)")
         synthesizer.speak(utterance)
     }
 
-    func stop() {
-        if synthesizer.isSpeaking {
-            synthesizer.stopSpeaking(at: .immediate)
-        }
-        if kokoroPlayerNode.isPlaying {
-            kokoroPlayerNode.stop()
-            state = .idle
-            currentText = nil
-        }
-    }
-
-    /// Speak a Kokoro sample for the Settings preview button.
-    func speakKokoroSample(voiceName: String) {
-        let language: KokoroSwift.Language = voiceName.hasPrefix("b") ? .enGB : .enUS
-        let sample = language == .enGB
-            ? "Hello, I'm NautPin, and I'll happily read your transcripts aloud."
-            : "Hi, I'm NautPin, and I'll read your transcripts aloud whenever you want."
-        speakKokoro(sample, voiceName: voiceName, language: language)
-    }
-
-    /// Speak a short sample in the given voice, useful for the Settings preview button.
     func speakSample(_ voice: AVSpeechSynthesisVoice) {
         let prefix = String(voice.language.prefix(2)).lowercased()
         let sample: String
@@ -335,25 +361,132 @@ final class VoiceOutputService {
         case "es": sample = "Hola, soy NautPin y transcribo para ti."
         case "it": sample = "Ciao, sono NautPin e trascrivo per te."
         case "nl": sample = "Hallo, ik ben NautPin en transcribeer voor je."
-        case "pt": sample = "Olá, eu sou NautPin e transcrevo para você."
-        case "ja": sample = "こんにちは、私はNautPinです。"
-        case "zh": sample = "你好，我是NautPin。"
-        default: sample = "Hello, I'm NautPin and I transcribe for you."
+        default:   sample = "Hello, I'm NautPin and I transcribe for you."
         }
         speak(sample, voice: voice)
     }
 
-    // MARK: - Heuristic language detection
+    // MARK: - Stop (both engines)
 
-    /// Crude language sniff for picking a default voice when no explicit voice is set.
-    /// Looks at a handful of high-signal cues for German vs English — sufficient for the
-    /// EN+DE primary use case. Returns "en" as the fallback.
-    private func detectLanguagePrefix(in text: String) -> String? {
-        let lower = text.lowercased()
-        let germanCues = [" der ", " die ", " das ", " und ", " ist ", " nicht ",
-                          " ich ", " mit ", " für ", "ä", "ö", "ü", "ß", " sind ", " wir "]
-        let germanHits = germanCues.reduce(0) { acc, cue in acc + (lower.contains(cue) ? 1 : 0) }
-        return germanHits >= 2 ? "de" : "en"
+    func stop() {
+        if synthesizer.isSpeaking {
+            synthesizer.stopSpeaking(at: .immediate)
+        }
+        currentStreamSession?.cancel()
+        currentStreamSession = nil
+        if playerNodePlaying {
+            kokoroPlayerNode.stop()
+            playerNodePlaying = false
+        }
+        state = .idle
+        currentText = nil
+    }
+}
+
+// MARK: - Error type
+
+enum VoiceOutputError: LocalizedError {
+    case playbackFailed
+    case serverUnreachable(String)
+
+    var errorDescription: String? {
+        switch self {
+        case .playbackFailed: return "Audio playback failed"
+        case .serverUnreachable(let detail): return "Kokoro server unreachable: \(detail)"
+        }
+    }
+}
+
+// MARK: - Streaming session (ported from Bucki)
+
+private final class KokoroStreamSession: NSObject, URLSessionDataDelegate, @unchecked Sendable {
+    private let request: URLRequest
+    private let onResponse: @Sendable (Int) -> Void
+    private let onChunk: @Sendable (Data) -> Void
+    private let onComplete: @Sendable (Error?) -> Void
+
+    private var session: URLSession?
+    private var task: URLSessionDataTask?
+    private var cancelled = false
+    private var leftover = Data()
+
+    init(request: URLRequest,
+         onResponse: @escaping @Sendable (Int) -> Void,
+         onChunk: @escaping @Sendable (Data) -> Void,
+         onComplete: @escaping @Sendable (Error?) -> Void) {
+        self.request = request
+        self.onResponse = onResponse
+        self.onChunk = onChunk
+        self.onComplete = onComplete
+        super.init()
     }
 
+    func start() {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 60
+        config.waitsForConnectivity = false
+        let session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        self.session = session
+        let task = session.dataTask(with: request)
+        self.task = task
+        task.resume()
+    }
+
+    func cancel() {
+        cancelled = true
+        task?.cancel()
+        session?.invalidateAndCancel()
+    }
+
+    /// Buffer and schedule even-byte-aligned PCM chunks. Odd trailing
+    /// bytes (rare but possible at chunk boundaries) carry over to the
+    /// next call to avoid mis-aligned Int16 decoding.
+    func appendAndSchedule(_ data: Data, schedule: (Data) -> Void) {
+        if cancelled { return }
+        var combined = leftover
+        combined.append(data)
+        let usable = combined.count - (combined.count % 2)
+        if usable > 0 {
+            schedule(combined.prefix(usable))
+        }
+        leftover = combined.suffix(combined.count - usable)
+    }
+
+    func flush(schedule: (Data) -> Void) {
+        let aligned = leftover.count - (leftover.count % 2)
+        if aligned > 0 {
+            schedule(leftover.prefix(aligned))
+        }
+        leftover.removeAll()
+    }
+
+    // MARK: - URLSessionDataDelegate
+
+    func urlSession(_ session: URLSession,
+                    dataTask: URLSessionDataTask,
+                    didReceive response: URLResponse,
+                    completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        let status = (response as? HTTPURLResponse)?.statusCode ?? -1
+        onResponse(status)
+        if !(200...299).contains(status) {
+            completionHandler(.cancel)
+            return
+        }
+        completionHandler(.allow)
+    }
+
+    func urlSession(_ session: URLSession,
+                    dataTask: URLSessionDataTask,
+                    didReceive data: Data) {
+        if cancelled { return }
+        onChunk(data)
+    }
+
+    func urlSession(_ session: URLSession,
+                    task: URLSessionTask,
+                    didCompleteWithError error: Error?) {
+        defer { session.finishTasksAndInvalidate() }
+        if cancelled { return }
+        onComplete(error)
+    }
 }

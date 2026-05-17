@@ -86,15 +86,35 @@ enum PindropMigrationService {
             Log.boot.info("Pindrop→NautPin migration: no upstream Application Support folder at \(source.path)")
             return false
         }
-        guard !fileManager.fileExists(atPath: destination.path) else {
-            Log.boot.info("Pindrop→NautPin migration: NautPin folder already exists at \(destination.path); leaving as-is")
+
+        // Check for the SwiftData store specifically — not the bare folder.
+        // `Log.bootstrap()` creates `~/Library/Application Support/NautPin/Logs/`
+        // early in applicationDidFinishLaunching, which used to make this guard
+        // skip the migration. Now we only skip if the actual data store exists.
+        let destinationStore = destination.appendingPathComponent("default.store")
+        if fileManager.fileExists(atPath: destinationStore.path) {
+            Log.boot.info("Pindrop→NautPin migration: NautPin already has a default.store at \(destinationStore.path); leaving as-is")
             return false
         }
 
+        // Walk the upstream tree and copy each entry into the destination.
+        // Existing entries (e.g. Logs/ created by Log.bootstrap) are skipped.
         do {
-            try fileManager.copyItem(at: source, to: destination)
-            Log.boot.info("Pindrop→NautPin migration: copied \(source.lastPathComponent) → \(destination.lastPathComponent)")
-            return true
+            try fileManager.createDirectory(at: destination, withIntermediateDirectories: true)
+            let entries = try fileManager.contentsOfDirectory(atPath: source.path)
+            var copied = 0
+            for entry in entries {
+                let src = source.appendingPathComponent(entry)
+                let dst = destination.appendingPathComponent(entry)
+                guard !fileManager.fileExists(atPath: dst.path) else {
+                    Log.boot.info("Pindrop→NautPin migration: \(entry) already in destination; skipping")
+                    continue
+                }
+                try fileManager.copyItem(at: src, to: dst)
+                copied += 1
+            }
+            Log.boot.info("Pindrop→NautPin migration: copied \(copied)/\(entries.count) entries from \(source.lastPathComponent) to \(destination.lastPathComponent)")
+            return copied > 0
         } catch {
             Log.boot.error("Pindrop→NautPin migration: failed to copy Application Support folder: \(error.localizedDescription)")
             return false

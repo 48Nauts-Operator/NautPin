@@ -67,8 +67,3 @@ package.json
 
 # Local test recordings / captures
 video/
-
-# Kokoro TTS weights — too big for direct git commit, run scripts/fetch-kokoro.sh
-# (or curl from Pindrop/Resources/Kokoro/README.md) on a fresh checkout
-Pindrop/Resources/Kokoro/kokoro-v1_0.safetensors
-Pindrop/Resources/Kokoro/voices.npz
