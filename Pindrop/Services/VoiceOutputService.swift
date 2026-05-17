@@ -26,12 +26,35 @@ import MLXUtilsLibrary
 
 @MainActor
 @Observable
-final class VoiceOutputService: NSObject, AVSpeechSynthesizerDelegate {
+final class VoiceOutputService {
 
     enum State: Equatable {
         case idle
         case speaking
         case loadingKokoro
+    }
+
+    /// Bridges AVSpeechSynthesizer's NSObject-based delegate API into our @Observable
+    /// service without making the service itself inherit NSObject. The combo
+    /// `@MainActor @Observable final class … : NSObject` is known to corrupt
+    /// AttributeGraph state on macOS 26 / Swift 6 SDK (crashes in
+    /// `MainActor.assumeIsolated` during SwiftUI gesture dispatch).
+    private final class SynthesizerDelegate: NSObject, AVSpeechSynthesizerDelegate {
+        weak var owner: VoiceOutputService?
+
+        nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+            Task { @MainActor [weak owner] in
+                owner?.state = .idle
+                owner?.currentText = nil
+            }
+        }
+
+        nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+            Task { @MainActor [weak owner] in
+                owner?.state = .idle
+                owner?.currentText = nil
+            }
+        }
     }
 
     /// Identifies a voice across both engines.
@@ -76,6 +99,7 @@ final class VoiceOutputService: NSObject, AVSpeechSynthesizerDelegate {
     private(set) var currentText: String?
 
     private let synthesizer = AVSpeechSynthesizer()
+    private let synthesizerDelegate = SynthesizerDelegate()
 
     // Kokoro lazy state — model takes ~1-2s to load, only pay it on first English use.
     private var kokoroTTS: KokoroTTS?
@@ -89,9 +113,9 @@ final class VoiceOutputService: NSObject, AVSpeechSynthesizerDelegate {
     private let kokoroPlayerNode = AVAudioPlayerNode()
     private var audioEngineStarted = false
 
-    override init() {
-        super.init()
-        synthesizer.delegate = self
+    init() {
+        synthesizerDelegate.owner = self
+        synthesizer.delegate = synthesizerDelegate
         audioEngine.attach(kokoroPlayerNode)
         audioEngine.connect(kokoroPlayerNode, to: audioEngine.mainMixerNode, format: nil)
     }
@@ -332,19 +356,4 @@ final class VoiceOutputService: NSObject, AVSpeechSynthesizerDelegate {
         return germanHits >= 2 ? "de" : "en"
     }
 
-    // MARK: - AVSpeechSynthesizerDelegate
-
-    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        Task { @MainActor in
-            self.state = .idle
-            self.currentText = nil
-        }
-    }
-
-    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
-        Task { @MainActor in
-            self.state = .idle
-            self.currentText = nil
-        }
-    }
 }
