@@ -23,6 +23,7 @@ struct VoiceOutputSettingsView: View {
    var body: some View {
       VStack(alignment: .leading, spacing: AppTheme.Spacing.xl) {
          introCard
+         kokoroCard
          voicesCard
       }
    }
@@ -42,6 +43,92 @@ struct VoiceOutputSettingsView: View {
          }
          .frame(maxWidth: .infinity, alignment: .leading)
       }
+   }
+
+   private var kokoroCard: some View {
+      SettingsCard(
+         title: localized("Kokoro (neural English voices)", locale: locale),
+         icon: "waveform"
+      ) {
+         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
+            Text(localized("Kokoro-82M runs locally on Apple Silicon via MLX. 28 English voices (en-US + en-GB), bundled in the app. First sample takes ~1-2s to warm up; subsequent samples are ~3× realtime.", locale: locale))
+               .font(AppTypography.caption)
+               .foregroundStyle(AppColors.textSecondary)
+
+            if service.state == .loadingKokoro {
+               HStack(spacing: AppTheme.Spacing.xs) {
+                  ProgressView().controlSize(.small)
+                  Text(localized("Loading Kokoro model…", locale: locale))
+                     .font(AppTypography.caption)
+                     .foregroundStyle(AppColors.textSecondary)
+               }
+               .padding(.vertical, 4)
+            }
+
+            if service.kokoroVoiceNames.isEmpty {
+               // Not yet loaded — show a single "warm up & list voices" button.
+               Button {
+                  service.loadKokoroIfNeeded()
+               } label: {
+                  HStack(spacing: 4) {
+                     Image(systemName: "arrow.down.circle")
+                     Text(localized("Load Kokoro (one-time warm-up)", locale: locale))
+                  }
+               }
+               .buttonStyle(.bordered)
+               .controlSize(.small)
+               .disabled(service.state == .loadingKokoro)
+            } else {
+               ForEach(service.kokoroVoiceNames, id: \.self) { voiceName in
+                  kokoroVoiceRow(voiceName)
+                  if voiceName != service.kokoroVoiceNames.last {
+                     Divider().background(AppColors.divider)
+                  }
+               }
+            }
+         }
+         .frame(maxWidth: .infinity, alignment: .leading)
+      }
+   }
+
+   private func kokoroVoiceRow(_ voiceName: String) -> some View {
+      let region = voiceName.first == "a" ? "en-US"
+                 : voiceName.first == "b" ? "en-GB" : "?"
+      let gender = voiceName.dropFirst().first == "f" ? "♀"
+                 : voiceName.dropFirst().first == "m" ? "♂" : ""
+      let displayName = voiceName.split(separator: "_").last.map(String.init)?.capitalized ?? voiceName
+
+      return HStack(spacing: AppTheme.Spacing.md) {
+         VStack(alignment: .leading, spacing: 2) {
+            HStack(spacing: AppTheme.Spacing.xs) {
+               Text("\(displayName) \(gender)")
+                  .font(AppTypography.body)
+                  .foregroundStyle(AppColors.textPrimary)
+               Text("Kokoro")
+                  .font(AppTypography.caption.bold())
+                  .foregroundStyle(AppColors.surfaceBackground)
+                  .padding(.horizontal, 6).padding(.vertical, 2)
+                  .background(Color.blue.opacity(0.7), in: RoundedRectangle(cornerRadius: AppTheme.Radius.sm))
+            }
+            Text("\(region) · \(voiceName)")
+               .font(AppTypography.caption)
+               .foregroundStyle(AppColors.textSecondary)
+         }
+         Spacer(minLength: AppTheme.Spacing.md)
+         Button {
+            service.speakKokoroSample(voiceName: voiceName)
+         } label: {
+            HStack(spacing: 4) {
+               Image(systemName: service.state == .speaking ? "speaker.wave.2.fill" : "play.fill")
+               Text(localized("Sample", locale: locale))
+            }
+            .frame(minWidth: 70)
+         }
+         .buttonStyle(.bordered)
+         .controlSize(.small)
+         .disabled(service.state == .loadingKokoro)
+      }
+      .padding(.vertical, 4)
    }
 
    private var voicesCard: some View {

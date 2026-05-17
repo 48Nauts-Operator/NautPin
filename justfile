@@ -25,6 +25,21 @@ clean:
     rm -rf DerivedData
     @echo "✅ Clean complete"
 
+# Fetch Kokoro TTS bundled assets (one-time, gitignored — see Pindrop/Resources/Kokoro/README.md)
+fetch-kokoro:
+    @echo "📥 Downloading Kokoro model weights (~312 MB)..."
+    @mkdir -p Pindrop/Resources/Kokoro
+    @if [ ! -f Pindrop/Resources/Kokoro/kokoro-v1_0.safetensors ]; then \
+        curl -L --progress-bar -o Pindrop/Resources/Kokoro/kokoro-v1_0.safetensors \
+            "https://huggingface.co/prince-canuma/Kokoro-82M/resolve/main/kokoro-v1_0.safetensors"; \
+    else echo "  ✓ kokoro-v1_0.safetensors already present"; fi
+    @echo "📥 Downloading Kokoro voice styles (~14 MB)..."
+    @if [ ! -f Pindrop/Resources/Kokoro/voices.npz ]; then \
+        curl -L --progress-bar -o Pindrop/Resources/Kokoro/voices.npz \
+            "https://raw.githubusercontent.com/mlalma/KokoroTestApp/main/Resources/voices.npz"; \
+    else echo "  ✓ voices.npz already present"; fi
+    @echo "✅ Kokoro assets ready"
+
 # Build for development (Debug, Xcode-managed signing)
 build:
     @echo "🔨 Building {{app_name}} (Debug)..."
