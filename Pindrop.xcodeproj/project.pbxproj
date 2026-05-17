@@ -164,6 +164,7 @@
 		SETTV2EXTBUILD01A2B3C4D5 /* SettingsStore+AIConfigV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = SETTV2EXTFILE01A2B3C4D5E /* SettingsStore+AIConfigV2.swift */; };
 		SPARKLEBUILD01A2B3C4D5E6F /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = SPARKLEDEP01A2B3C4D5E6F /* Sparkle */; };
 		AFD72961310E4E3E9BB0C4B3 /* KokoroSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C2F593592FA4D71A4593A14 /* KokoroSwift */; };
+		A1CE5193B1264C6EACBB9528 /* KokoroSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2C2F593592FA4D71A4593A14 /* KokoroSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2234B21546324A49A6465EDC /* MLX in Frameworks */ = {isa = PBXBuildFile; productRef = EA54CA0D4EB1457F9D7CE47B /* MLX */; };
 		08D8B9F04F99443691D79AA6 /* MLXUtilsLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 03FA7FE6F0FA4D7F86172F7C /* MLXUtilsLibrary */; };
 		SPKDIARIZ02A2B3C4D5E6F /* SpeakerDiarizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = SPKDIARIZ01A2B3C4D5E6F /* SpeakerDiarizer.swift */; };
@@ -403,6 +404,20 @@
 		bf7758dd063c42db8315390e /* TranscriptionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionServiceTests.swift; sourceTree = "<group>"; };
 		f5b1372d4c0e4e96a1ed0b59 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C9A7830168A442CDB4C935F1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A1CE5193B1264C6EACBB9528 /* KokoroSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		37A010B78338464E90A60BD4 /* Frameworks */ = {
@@ -841,6 +856,7 @@
 				6E3989E80A1A4BF5BEC7A015 /* Sources */,
 				37A010B78338464E90A60BD4 /* Frameworks */,
 				C9D46B9D12B748D9BBCFE2A3 /* Resources */,
+				C9A7830168A442CDB4C935F1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
