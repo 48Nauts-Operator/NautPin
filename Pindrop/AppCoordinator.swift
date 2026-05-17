@@ -448,6 +448,13 @@ final class AppCoordinator {
             powerModeRef?.activeConfiguration
         }
         self.voiceOutputService = VoiceOutputService()
+        // Tell VoiceOutputService where to read the user's default voices from.
+        // Captured weakly to avoid a retain cycle through SettingsStore.
+        let voiceSettingsRef = self.settingsStore
+        self.voiceOutputService.defaultVoicesProvider = { [weak voiceSettingsRef] in
+            (kokoro: voiceSettingsRef?.kokoroDefaultVoice ?? "bf_emma",
+             appleDE: voiceSettingsRef?.appleDefaultVoiceIDDE ?? "")
+        }
         self.mentionRewriteService = MentionRewriteService()
         self.mediaPauseService = MediaPauseService()
         self.mediaIngestionService = MediaIngestionService()
@@ -1168,6 +1175,40 @@ final class AppCoordinator {
 
                 if !didRegister {
                     handleHotkeyRegistrationFailure(displayName: "Toggle Recording", hotkeyString: settingsStore.toggleHotkey)
+                }
+            }
+        }
+
+        if !settingsStore.readSelectedTextHotkey.isEmpty,
+           let binding = validatedHotkeyBinding(
+               displayName: "Read Selected Text",
+               hotkeyString: settingsStore.readSelectedTextHotkey,
+               keyCodeValue: settingsStore.readSelectedTextHotkeyCode,
+               modifiersValue: settingsStore.readSelectedTextHotkeyModifiers
+           ) {
+            if canRegisterHotkey(
+                identifier: "read-selected-text",
+                displayName: "Read Selected Text",
+                hotkeyString: settingsStore.readSelectedTextHotkey,
+                keyCode: binding.keyCode,
+                modifiers: binding.modifiers,
+                registrationState: &registrationState
+            ) {
+                let didRegister = hotkeyManager.registerHotkey(
+                    keyCode: binding.keyCode,
+                    modifiers: binding.modifiers,
+                    identifier: "read-selected-text",
+                    mode: .toggle,
+                    onKeyDown: { [weak self] in
+                        Task { @MainActor in
+                            self?.voiceOutputService.readSelectedTextAloud()
+                        }
+                    },
+                    onKeyUp: nil
+                )
+
+                if !didRegister {
+                    handleHotkeyRegistrationFailure(displayName: "Read Selected Text", hotkeyString: settingsStore.readSelectedTextHotkey)
                 }
             }
         }

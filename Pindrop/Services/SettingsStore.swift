@@ -241,6 +241,8 @@ final class SettingsStore: ObservableObject {
 
     enum Defaults {
        static let selectedModel = "openai_whisper-base"
+       static let kokoroDefaultVoice = "bf_emma"
+       static let appleDefaultVoiceIDDE = ""
         static let outputMode = "clipboard"
         static let selectedAppLocale = AppLocale.automatic.rawValue
         static let selectedLanguage = AppLanguage.automatic.rawValue
@@ -296,6 +298,12 @@ final class SettingsStore: ObservableObject {
          static let quickCaptureToggleHotkey = ""
          static let quickCaptureToggleHotkeyCode = 0
          static let quickCaptureToggleHotkeyModifiers = 0
+
+         // Read selected text aloud (Kokoro / Apple via VoiceOutputService).
+         // Default: ⌥⇧S — modifiers 0xA00 = shiftKey (0x200) | optionKey (0x800), keyCode 1 = 'S'.
+         static let readSelectedTextHotkey = "⌥⇧S"
+         static let readSelectedTextHotkeyCode = 1
+         static let readSelectedTextHotkeyModifiers = 0xA00
       }
    }
 
@@ -303,6 +311,15 @@ final class SettingsStore: ObservableObject {
 
    @AppStorage("selectedModel", store: SettingsStoreRuntime.appStorageStore) var selectedModel:
       String = Defaults.selectedModel
+   /// Default Kokoro voice name (key into the server's /v1/audio/voices catalog) used by
+   /// Read-aloud and other surfaces that need a voice without explicit selection. Defaults
+   /// to `bf_emma` (en-GB female) per user preference.
+   @AppStorage("kokoroDefaultVoice", store: SettingsStoreRuntime.appStorageStore)
+   var kokoroDefaultVoice: String = Defaults.kokoroDefaultVoice
+   /// Default Apple AVSpeechSynthesisVoice identifier used when reading German text.
+   /// Empty string means "let the system pick" (usually first available de-DE voice).
+   @AppStorage("appleDefaultVoiceIDDE", store: SettingsStoreRuntime.appStorageStore)
+   var appleDefaultVoiceIDDE: String = Defaults.appleDefaultVoiceIDDE
    @AppStorage("toggleHotkey", store: SettingsStoreRuntime.appStorageStore) var toggleHotkey:
       String = Defaults.Hotkeys.toggleHotkey
    @AppStorage("toggleHotkeyCode", store: SettingsStoreRuntime.appStorageStore)
@@ -333,6 +350,12 @@ final class SettingsStore: ObservableObject {
    var quickCaptureToggleHotkeyCode: Int = Defaults.Hotkeys.quickCaptureToggleHotkeyCode
    @AppStorage("quickCaptureToggleHotkeyModifiers", store: SettingsStoreRuntime.appStorageStore)
    var quickCaptureToggleHotkeyModifiers: Int = Defaults.Hotkeys.quickCaptureToggleHotkeyModifiers
+   @AppStorage("readSelectedTextHotkey", store: SettingsStoreRuntime.appStorageStore)
+   var readSelectedTextHotkey: String = Defaults.Hotkeys.readSelectedTextHotkey
+   @AppStorage("readSelectedTextHotkeyCode", store: SettingsStoreRuntime.appStorageStore)
+   var readSelectedTextHotkeyCode: Int = Defaults.Hotkeys.readSelectedTextHotkeyCode
+   @AppStorage("readSelectedTextHotkeyModifiers", store: SettingsStoreRuntime.appStorageStore)
+   var readSelectedTextHotkeyModifiers: Int = Defaults.Hotkeys.readSelectedTextHotkeyModifiers
     @AppStorage("outputMode", store: SettingsStoreRuntime.appStorageStore) var outputMode: String =
         Defaults.outputMode
      @AppStorage("selectedAppLocale", store: SettingsStoreRuntime.appStorageStore)

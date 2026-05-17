@@ -24,6 +24,7 @@
 import Foundation
 import AVFoundation
 import Combine
+import ApplicationServices
 
 // NOTE: Using legacy ObservableObject + @Published instead of @Observable.
 // The new @Observable macro's AttributeGraph integration triggers a runtime
@@ -71,6 +72,13 @@ final class VoiceOutputService: ObservableObject {
     @Published var kokoroServerURL: String = "http://100.69.95.60:8880"
 
     @Published private(set) var kokoroServerError: String?
+
+    /// Supplies the user's default voice preferences. Wired by AppCoordinator
+    /// from SettingsStore after both objects exist, same pattern as
+    /// `activePowerModeProvider`. Default returns fixed fallbacks so the
+    /// service still works in previews / tests where SettingsStore isn't
+    /// injected.
+    var defaultVoicesProvider: () -> (kokoro: String, appleDE: String) = { ("bf_emma", "") }
 
     private let synthesizer = AVSpeechSynthesizer()
     private let synthesizerDelegate = SynthesizerDelegate()
@@ -364,6 +372,87 @@ final class VoiceOutputService: ObservableObject {
         default:   sample = "Hello, I'm NautPin and I transcribe for you."
         }
         speak(sample, voice: voice)
+    }
+
+    // MARK: - Read aloud (auto-route by detected language)
+
+    /// Speaks arbitrary text using the user's configured default voices.
+    /// German text routes through Apple AVSpeechSynthesizer (Anna et al.);
+    /// everything else routes through Kokoro on the remote server.
+    /// Used by the global "read selected text" hotkey and any other
+    /// surface that needs read-aloud without explicit voice selection.
+    func readAloud(_ text: String) {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+
+        let (kokoroVoice, appleDEVoiceID) = defaultVoicesProvider()
+        let lang = Self.detectLanguagePrefix(in: trimmed)
+
+        Log.app.info("readAloud lang=\(lang) chars=\(trimmed.count)")
+
+        if lang == "de" {
+            let voice: AVSpeechSynthesisVoice? = appleDEVoiceID.isEmpty
+                ? defaultVoice(forLanguagePrefix: "de")
+                : (AVSpeechSynthesisVoice(identifier: appleDEVoiceID) ?? defaultVoice(forLanguagePrefix: "de"))
+            speak(trimmed, voice: voice)
+        } else {
+            speakKokoro(trimmed, voiceName: kokoroVoice)
+        }
+    }
+
+    /// Crude language sniff. EN/DE are the only two routed differently
+    /// today (Kokoro server has no DE voices). Defaults to English on
+    /// ambiguous text.
+    nonisolated static func detectLanguagePrefix(in text: String) -> String {
+        let lower = text.lowercased()
+        let germanCues = [" der ", " die ", " das ", " und ", " ist ", " nicht ",
+                          " ich ", " mit ", " für ", "ä", "ö", "ü", "ß", " sind ", " wir ",
+                          " hat ", " haben ", " war ", " kann ", " auch "]
+        let hits = germanCues.reduce(0) { acc, cue in acc + (lower.contains(cue) ? 1 : 0) }
+        return hits >= 2 ? "de" : "en"
+    }
+
+    // MARK: - Selected-text reader (Accessibility API)
+
+    /// Fetches the currently-selected text from the focused UI element of
+    /// the frontmost app. Returns nil if nothing is selected, if the
+    /// element doesn't support `kAXSelectedTextAttribute`, or if the app
+    /// lacks Accessibility permission. The user granted Accessibility for
+    /// dictation insert; the same grant covers this read.
+    nonisolated static func selectedTextFromFrontmostApp() -> String? {
+        let systemWide = AXUIElementCreateSystemWide()
+
+        var focusedRef: CFTypeRef?
+        let focusedResult = AXUIElementCopyAttributeValue(
+            systemWide,
+            kAXFocusedUIElementAttribute as CFString,
+            &focusedRef
+        )
+        guard focusedResult == .success, let focused = focusedRef else { return nil }
+        let element = unsafeBitCast(focused, to: AXUIElement.self)
+
+        var selectedRef: CFTypeRef?
+        let selectedResult = AXUIElementCopyAttributeValue(
+            element,
+            kAXSelectedTextAttribute as CFString,
+            &selectedRef
+        )
+        guard selectedResult == .success,
+              let str = selectedRef as? String,
+              !str.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return nil
+        }
+        return str
+    }
+
+    /// One-shot: grab selected text from the frontmost app and read it
+    /// aloud. Called by the global hotkey handler.
+    func readSelectedTextAloud() {
+        guard let selected = Self.selectedTextFromFrontmostApp() else {
+            Log.app.info("readSelectedTextAloud: no selected text in frontmost app")
+            return
+        }
+        readAloud(selected)
     }
 
     // MARK: - Stop (both engines)
