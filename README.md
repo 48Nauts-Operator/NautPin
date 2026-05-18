@@ -10,6 +10,8 @@
 
 **NautPin** is a macOS menu-bar app that takes voice dictation seriously and refuses to give your audio to the cloud. Dictate into any app with hotkey-driven speech-to-text. Get your transcripts cleaned up by a local LLM. Have responses read back to you in a Kokoro voice. See yourself in the **Logbook** — words per minute, vocabulary, topic clusters, stress signals, language register, sentence-opener tics. All on this Mac. None of it on the internet.
 
+![NautPin Logbook — personal voice analytics with neon-mint theme](assets/images/nautpin_stats.png)
+
 It is a fork of Chris Watson's excellent [Pindrop](https://github.com/watzon/pindrop), with these meaningful additions:
 
 | Addition | What it does |
@@ -142,6 +144,8 @@ Then in NautPin → Settings → Voice Output, set the Kokoro server URL and def
 
 ### Optional: Local LLM for cleanup
 Install [LM Studio](https://lmstudio.ai), load a model (e.g. `gemma-4-e4b-it-obliterated` or `qwen2.5-7b-instruct`), and start the developer-mode API server. Then in NautPin → Settings → AI Enhancement, add a custom OpenAI-compatible provider pointing at `http://127.0.0.1:1234/v1` (or whichever port).
+
+![NautPin AI Enhancement settings showing local LM Studio provider alongside Apple Intelligence](assets/images/nautpin_settings_local-ai.png)
 
 ---
 
