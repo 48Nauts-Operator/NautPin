@@ -51,24 +51,28 @@ final class GemmaLiteRTLMEnhancer {
     /// caller falls back to `enhance(...)` (full rewrite) if that happens.
     func refineAsEdits(transcript: String, systemPrompt: String) async throws -> [TranscriptEdit] {
         guard !transcript.isEmpty else { return [] }
-        guard let engine = GemmaLiteRTLMEngine.sharedEngine else {
+        // Prefer the dedicated 12B text model when loaded — better cleanup quality.
+        // Fall back to the E4B audio model (also a competent text LLM) otherwise.
+        guard let engine = GemmaLiteRTLMEngine.sharedTextEngine else {
             throw EnhancerError.engineNotLoaded
         }
 
         let editPrompt = """
-        You are a transcript cleanup assistant. Output a JSON array of find/replace edits to apply to the transcript.
+        You are a CONSERVATIVE transcript cleanup assistant. Your job is to remove ONLY clear disfluencies. You MUST preserve the speaker's meaning, tone, sentence type (declarative/question/exclamation), and word choice exactly.
 
-        Each edit has the shape: {"find": "<exact substring to locate>", "replace": "<new text, or empty string to delete>"}
+        Output a JSON array of find/replace edits. Each edit: {"find": "<exact substring>", "replace": "<replacement, or empty string to delete>"}
 
-        Rules — follow strictly:
-        1. "find" must be an EXACT substring of the transcript: case-sensitive, including spaces and punctuation. Verbatim copy.
-        2. Include enough context in "find" so the substring is UNIQUE in the transcript. Ambiguous matches are dropped.
-        3. Focus on: removing filler words (um, uh, like, you know), removing false starts and repetitions, fixing obvious grammar slips. Do NOT rewrite for style.
-        4. Do NOT introduce information that isn't in the transcript.
-        5. Output ONLY the JSON array, no commentary, no code fences, no preamble.
-        6. If the transcript is already clean, output an empty array: []
+        STRICT RULES — violating any of these means the edit is wrong:
+        1. "find" must be an EXACT substring of the transcript — case-sensitive, including spaces and punctuation. Copy verbatim.
+        2. "find" must be UNIQUE in the transcript. Include surrounding context so it can only match once. Ambiguous edits are dropped.
+        3. NEVER change a declarative sentence to a question or vice versa. NEVER add or remove a "?". NEVER negate or affirm a sentence the speaker did not. (Example: do NOT change "It works" to "It does not work", or "I think so" to "I don't think so".)
+        4. NEVER introduce words, phrases, names, numbers, or topics that are not already present in the transcript.
+        5. ONLY edit: filler words ("um", "uh", "ähm", "like", "you know" — when used as filler, not as meaningful words), false starts ("I was going to- I went"), unintentional repetitions ("the the cat" → "the cat"), and obvious typo-grade misspellings.
+        6. Output AT MOST 20 edits total. If there are more disfluencies, pick the 20 most obvious. Long transcripts get fewer, more targeted edits — not more edits.
+        7. If the transcript is already clean enough, output [] — an empty array. That's a valid answer.
+        8. Output ONLY the JSON array. No commentary, no code fences, no preamble, no trailing notes.
 
-        Transcript to clean:
+        Transcript:
         \(transcript)
         """
 
@@ -120,7 +124,8 @@ final class GemmaLiteRTLMEnhancer {
 
     func enhance(text: String, systemPrompt: String) async throws -> String {
         guard !text.isEmpty else { return text }
-        guard let engine = GemmaLiteRTLMEngine.sharedEngine else {
+        // Same preference order as refineAsEdits: 12B if loaded, else E4B.
+        guard let engine = GemmaLiteRTLMEngine.sharedTextEngine else {
             throw EnhancerError.engineNotLoaded
         }
 
