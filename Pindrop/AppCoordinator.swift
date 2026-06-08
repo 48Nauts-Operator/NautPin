@@ -686,6 +686,17 @@ final class AppCoordinator {
         }
         observeSettings()
         setupNotifications()
+
+        // Live cleanup streaming: route the in-process Gemma enhancer's per-token
+        // output into the floating indicator so the user watches cleanup happen
+        // live — same UX shape as Google AI Edge Eloquent's notch text fill.
+        // The enhancer is @MainActor so the callback fires on the main actor;
+        // no Task wrap needed. updatePartialText is internally throttled to
+        // ~10 Hz so the per-token call rate doesn't storm SwiftUI invalidation.
+        aiEnhancementService.gemmaEnhancer.onPartial = { [weak self] text in
+            self?.floatingIndicatorState.updatePartialText(text)
+        }
+
         Log.boot.info("AppCoordinator init finished enableSystemHooks=\(self.enableSystemHooks)")
     }
     

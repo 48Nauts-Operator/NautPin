@@ -969,6 +969,8 @@ class TranscriptionService {
             return ParakeetEngine()
         case .appleSpeech:
             return AppleSpeechEngine()
+        case .gemma:
+            return GemmaLiteRTLMEngine()
         default:
             throw TranscriptionError.modelLoadFailed("Provider \(provider.rawValue) not supported locally")
         }

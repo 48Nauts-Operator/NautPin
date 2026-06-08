@@ -14,6 +14,7 @@ enum AIProvider: String, CaseIterable, Identifiable {
    case anthropic = "Anthropic"
    case openrouter = "OpenRouter"
    case apple = "Apple"
+   case gemma = "Gemma"
    case custom = "Custom"
 
    var id: String { rawValue }
@@ -22,6 +23,8 @@ enum AIProvider: String, CaseIterable, Identifiable {
       switch self {
       case .apple:
          return "Apple Intelligence"
+      case .gemma:
+         return "Gemma (Local, In-Process)"
       case .custom:
          return "Custom/Local"
       default:
@@ -36,6 +39,7 @@ enum AIProvider: String, CaseIterable, Identifiable {
       case .anthropic: return .anthropic
       case .openrouter: return .openrouter
       case .apple: return .sparkles
+      case .gemma: return .sparkles
       case .custom: return .server
       }
    }
@@ -47,6 +51,7 @@ enum AIProvider: String, CaseIterable, Identifiable {
       case .anthropic: return "https://api.anthropic.com/v1/messages"
       case .openrouter: return "https://openrouter.ai/api/v1/chat/completions"
       case .apple: return ""
+      case .gemma: return ""
       case .custom: return ""
       }
    }
@@ -58,6 +63,7 @@ enum AIProvider: String, CaseIterable, Identifiable {
       case .anthropic: return "sk-ant-..."
       case .openrouter: return "sk-or-..."
       case .apple: return "Not required"
+      case .gemma: return "Not required"
       case .custom: return "Enter API key"
       }
    }
@@ -65,14 +71,14 @@ enum AIProvider: String, CaseIterable, Identifiable {
    /// Whether this provider requires API credentials (key + endpoint) to operate.
    var requiresAPICredentials: Bool {
       switch self {
-      case .apple: return false
+      case .apple, .gemma: return false
       default: return true
       }
    }
 
    var isImplemented: Bool {
       switch self {
-      case .openai, .openrouter, .custom, .anthropic, .apple: return true
+      case .openai, .openrouter, .custom, .anthropic, .apple, .gemma: return true
       default: return false
       }
    }
@@ -973,6 +979,7 @@ struct AIEnhancementStepView: View {
              case .google: return "Google"
              case .openrouter: return "OpenRouter"
              case .apple: return "Apple Intelligence"
+             case .gemma: return "Gemma (Local, In-Process)"
              case .custom:
                 switch customKind ?? .custom {
                 case .ollama: return "Ollama"

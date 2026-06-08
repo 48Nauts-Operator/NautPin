@@ -67,3 +67,6 @@ package.json
 
 # Local test recordings / captures
 video/
+
+# Local-vendored SPM packages (LiteRT-LM workaround for upstream LFS issues)
+vendor/

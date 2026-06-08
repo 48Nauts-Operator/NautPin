@@ -13,8 +13,34 @@
     "· " : {
 
     },
+    "“%@…”" : {
+
+    },
+    "(%lld of %lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "(%1$lld of %2$lld)"
+          }
+        }
+      }
+    },
+    "(%lld)" : {
+
+    },
     "#%@" : {
 
+    },
+    "%@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
     },
     "%@ / %@" : {
       "localizations" : {
@@ -54656,6 +54682,9 @@
         }
       }
     },
+    "Kokoro" : {
+
+    },
     "korean" : {
       "comment" : "korean",
       "extractionState" : "manual",
@@ -65794,6 +65823,12 @@
           }
         }
       }
+    },
+    "NautPin" : {
+
+    },
+    "Neutral" : {
+
     },
     "new_folder" : {
       "comment" : "new_folder",
@@ -81374,9 +81409,6 @@
         }
       }
     },
-    "Pindrop" : {
-
-    },
     "Pindrop on GitHub" : {
 
     },
@@ -84263,6 +84295,9 @@
         }
       }
     },
+    "Polite" : {
+
+    },
     "portuguese_brazil" : {
       "comment" : "portuguese_brazil",
       "extractionState" : "manual",
@@ -84646,6 +84681,9 @@
           }
         }
       }
+    },
+    "Premium" : {
+
     },
     "preparing_model" : {
       "comment" : "preparing_model",
@@ -111940,6 +111978,9 @@
           }
         }
       }
+    },
+    "Sweary" : {
+
     },
     "switch_to_model" : {
       "comment" : "switch_to_model",

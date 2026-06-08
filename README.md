@@ -40,9 +40,9 @@ Full write-up: see the companion blog post under `marketing/` in our content pip
 ```
 You press a hotkey, talk
   ↓
-NautPin captures the mic → WhisperKit (on-device) transcribes
+NautPin captures the mic → Gemma 4 / WhisperKit / Parakeet / Apple Speech (on-device) transcribes
   ↓
-Local LLM cleans up the transcript
+Local LLM cleans up the transcript (in-process Gemma 4, Apple Foundation Models, LM Studio, Ollama, or any OpenAI-compatible endpoint)
   ↓
 Text is typed at your cursor in whatever app is focused
   ↓
@@ -53,20 +53,37 @@ Kokoro speaks it back over your speakers
 
 Combined with the Claude Code Stop-hook we publish separately, this becomes a hands-free conversation loop with any AI assistant — speech in, speech out, none of it crossing the public internet.
 
+### Gemma 4 in-process pipeline (new)
+
+NautPin now ships an **end-to-end in-process Gemma 4 pipeline** via Google's LiteRT-LM Swift package — the same architecture Google AI Edge Eloquent uses:
+
+- **Speech-to-text**: Gemma 4 E4B audio-multimodal model (3.4 GB, auto-downloaded from `huggingface.co/litert-community/gemma-4-E4B-it-litert-lm`). Encoder-free: raw 16 kHz PCM → cleaned text in a single forward pass on Apple Silicon GPU.
+- **Cleanup / AI Enhancement**: the same loaded Gemma engine, accessed in-process. **No LM Studio HTTP hop, no external dependency.**
+- **Edit-list cleanup**: cleanup emits a small JSON list of find/replace edits instead of re-emitting the entire rewritten transcript. ~10× faster on long dictations (no more linear scaling with output length).
+- **Live notch text**: cleanup tokens stream into the menu-bar indicator as they decode (10 Hz throttled so SwiftUI doesn't storm).
+
+Select **Gemma 4 E4B (Audio, Local)** in Settings → Models to enable. The model auto-downloads on first selection. LM Studio is still supported but no longer required for fully-local cleanup.
+
+> **Note on the Gemma 4 12B vs E4B confusion:** Google markets the 12B as their "encoder-free multimodal" Gemma, but the publicly-distributed 12B weights on HuggingFace are text-only — we tested directly, and the model says *"I can't hear anything, I'm a text-based AI."* The E4B is the only publicly downloadable Gemma 4 variant with the audio path actually baked in. Eloquent ships an additional Google-internal audio variant alongside the 12B; we use the public E4B instead. Hardware: ~7 GB GPU memory, ~3-5 GB disk for caches.
+
 ---
 
 ## Features
 
 **Transcription**
-- 100% on-device via WhisperKit (Whisper variants) or FluidAudio (Parakeet variants)
-- Multiple model sizes from `whisper-base.en` (~140 MB) up to `parakeet-tdt-0.6b-v3-european` (~600 MB, multilingual: EN, DE, ES, FR, IT, NL, PT, TR)
+- 100% on-device. Engines:
+  - **Gemma 4 E4B (Audio, Local)** — encoder-free audio-multimodal via LiteRT-LM, 3.4 GB. Recommended default for fully-local end-to-end Gemma.
+  - **WhisperKit** — Whisper variants from `whisper-base.en` (~140 MB) up to `whisper-large-v3-turbo`
+  - **FluidAudio / Parakeet** — including `parakeet-tdt-0.6b-v3-european` (~600 MB, multilingual: EN, DE, ES, FR, IT, NL, PT, TR)
+  - **Apple Speech** — zero-download, uses system models
 - Global hotkeys: toggle, push-to-talk, copy-last, quick-capture, read-selected
 - Custom dictionary for names, jargon, technical vocabulary
 - Direct text insertion at cursor (when Accessibility granted) or clipboard fallback
 
 **Cleanup**
-- Optional AI enhancement via OpenAI-compatible endpoint (LM Studio, Ollama, or any cloud provider)
-- Apple Foundation Models support for fully on-device cleanup
+- **Gemma 4 (Local, In-Process)** — runs in the same process as the STT engine via LiteRT-LM. No HTTP, no external server, no LM Studio dependency. Edit-list cleanup format (~10× faster than full-rewrite on long inputs).
+- Apple Foundation Models — fully on-device on macOS 26+
+- Optional: LM Studio, Ollama, or any OpenAI-compatible endpoint (cloud or local)
 - Custom prompt presets per use case
 - Streaming refinement with incremental updates
 
@@ -94,6 +111,7 @@ Combined with the Claude Code Stop-hook we publish separately, this becomes a ha
 
 **Built on**
 - Swift 5.9+, SwiftUI, SwiftData, AVFoundation
+- **LiteRT-LM** (Google AI Edge) for Gemma 4 in-process inference
 - WhisperKit (Argmax) for on-device Whisper
 - FluidAudio for Parakeet
 - Kokoro-FastAPI (Docker) for TTS
@@ -125,11 +143,17 @@ Combined with the Claude Code Stop-hook we publish separately, this becomes a ha
 ```bash
 git clone http://cosmos.tail138398.ts.net:3000/48Nauts/NautPin.git
 cd NautPin
-just build
-cp -R DerivedData/Build/Products/Debug/Pindrop.app /Applications/NautPin.app
+
+# Vendor LiteRT-LM locally (upstream Git LFS has broken Android blobs; we skip LFS smudge to clone the Swift package source)
+mkdir -p vendor
+GIT_LFS_SKIP_SMUDGE=1 git clone --branch v0.13.1 --depth 1 https://github.com/google-ai-edge/LiteRT-LM.git vendor/LiteRT-LM
+
+# Then open Pindrop.xcodeproj in Xcode once to let SwiftPM resolve the local LiteRT-LM package, OR build via:
+just build-release
+cp -R DerivedData/Build/Products/Release/Pindrop.app /Applications/NautPin.app
 ```
 
-(The bundle is still named `Pindrop.app` internally; the user-facing identity is NautPin via `CFBundleDisplayName` and `CFBundleName`.)
+(The bundle is still named `Pindrop.app` internally; the user-facing identity is NautPin via `CFBundleDisplayName` and `CFBundleName`. The LiteRT-LM dependency is referenced from `vendor/LiteRT-LM` via `XCLocalSwiftPackageReference` in the project — this workaround can be removed once Google fixes the broken LFS objects in their public repo.)
 
 ### Optional: Kokoro voice output
 ```bash

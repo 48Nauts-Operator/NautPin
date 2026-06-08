@@ -189,10 +189,11 @@ extension SettingsStore {
          loadProviderEndpoint(forProviderID: provider.id)
          ?? defaultEndpoint(for: provider)
 
-      // Gate on required creds. Apple never requires a key. Custom Ollama/LM Studio don't.
+      // Gate on required creds. Apple and Gemma (in-process) never require a key.
+      // Custom Ollama/LM Studio don't either.
       let requiresKey: Bool
       switch provider.kind {
-      case .apple:
+      case .apple, .gemma:
          requiresKey = false
       case .custom:
          requiresKey = (provider.customKind ?? .custom).requiresAPIKey
@@ -226,7 +227,7 @@ extension SettingsStore {
    /// Default endpoint for a provider when no per-provider override is stored.
    private func defaultEndpoint(for provider: ProviderConfig) -> String? {
       switch provider.kind {
-      case .apple:
+      case .apple, .gemma:
          return nil
       case .custom:
          let value = (provider.customKind ?? .custom).defaultEndpoint
@@ -286,6 +287,11 @@ extension SettingsStore {
       // 1. Apple is always available.
       _ = ensureProvider(kind: .apple, displayName: "Apple Intelligence")
 
+      // 1b. Gemma (in-process, via LiteRT-LM) is always available — uses the same
+      // engine that's loaded by GemmaLiteRTLMEngine when the user selects Gemma as
+      // their transcription model. No HTTP, no LM Studio dependency.
+      _ = ensureProvider(kind: .gemma, displayName: "Gemma (Local, In-Process)")
+
       // 2. The active legacy provider — always emitted so the legacy assignment is preserved.
       let activeProviderConfig = ensureProvider(
          kind: activeLegacyKind,
@@ -296,8 +302,8 @@ extension SettingsStore {
       // 3. Every populated legacy key slot → a provider entry.
       for kind in AIProvider.allCases {
          switch kind {
-         case .apple:
-            continue  // already emitted
+         case .apple, .gemma:
+            continue  // already emitted (in-process providers — no legacy creds)
          case .custom:
             for custom in CustomProviderType.allCases {
                if loadAPIKey(for: .custom, customLocalProvider: custom) != nil {
@@ -341,8 +347,8 @@ extension SettingsStore {
       // 5. Copy secrets into UUID-keyed Keychain slots.
       for config in newProviders {
          switch config.kind {
-         case .apple:
-            continue
+         case .apple, .gemma:
+            continue  // in-process providers — no API keys to migrate
          case .custom:
             let custom = config.customKind ?? .custom
             if let legacyKey = loadAPIKey(for: .custom, customLocalProvider: custom) {
@@ -413,6 +419,7 @@ extension SettingsStore {
       case .google: return "Google"
       case .openrouter: return "OpenRouter"
       case .apple: return "Apple Intelligence"
+      case .gemma: return "Gemma (Local, In-Process)"
       case .custom:
          switch customKind ?? .custom {
          case .ollama: return "Ollama"

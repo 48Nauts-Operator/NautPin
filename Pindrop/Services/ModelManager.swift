@@ -13,6 +13,7 @@ import FluidAudio
 @Observable
 class ModelManager {
     nonisolated static let englishRecommendedModelNames = [
+        "gemma-4-12b-it-litert-lm",
         "apple_speech_on_device",
         "openai_whisper-base.en",
         "openai_whisper-small.en",
@@ -22,6 +23,7 @@ class ModelManager {
     ]
 
     nonisolated static let multilingualRecommendedModelNames = [
+        "gemma-4-12b-it-litert-lm",
         "apple_speech_on_device",
         "openai_whisper-base",
         "openai_whisper-small",
@@ -38,13 +40,14 @@ class ModelManager {
         case whisperKit = "WhisperKit"
         case parakeet = "Parakeet"
         case appleSpeech = "Apple Speech"
+        case gemma = "Gemma"
         case openAI = "OpenAI"
         case elevenLabs = "ElevenLabs"
         case groq = "Groq"
 
         var isLocal: Bool {
             switch self {
-            case .whisperKit, .parakeet, .appleSpeech: return true
+            case .whisperKit, .parakeet, .appleSpeech, .gemma: return true
             case .openAI, .elevenLabs, .groq: return false
             }
         }
@@ -54,6 +57,7 @@ class ModelManager {
             case .whisperKit: return "waveform"
             case .parakeet: return "bird"
             case .appleSpeech: return "apple.logo"
+            case .gemma: return "sparkles.rectangle.stack"
             case .openAI: return "sparkles"
             case .elevenLabs: return "waveform.circle"
             case .groq: return "bolt"
@@ -70,6 +74,7 @@ class ModelManager {
         case englishOnly
         case fullMultilingual
         case parakeetV3European
+        case gemma4Multilingual
 
         enum BadgeTone: Sendable {
             case normal
@@ -97,6 +102,13 @@ class ModelManager {
                 case .simplifiedChinese, .japanese, .korean:
                     return false
                 }
+            case .gemma4Multilingual:
+                switch language {
+                case .automatic, .english, .german, .spanish, .french, .italian, .portugueseBrazil, .japanese, .simplifiedChinese:
+                    return true
+                case .dutch, .turkish, .korean:
+                    return false
+                }
             }
         }
 
@@ -108,6 +120,8 @@ class ModelManager {
                 return "Multilingual"
             case .parakeetV3European:
                 return "European multilingual"
+            case .gemma4Multilingual:
+                return "Multilingual"
             }
         }
 
@@ -115,7 +129,7 @@ class ModelManager {
             switch self {
             case .englishOnly:
                 return "textformat"
-            case .fullMultilingual, .parakeetV3European:
+            case .fullMultilingual, .parakeetV3European, .gemma4Multilingual:
                 return "globe"
             }
         }
@@ -522,7 +536,24 @@ class ModelManager {
             provider: .parakeet,
             availability: .comingSoon
         ),
-        
+
+        // Gemma 4 E4B audio-multimodal via LiteRT-LM — raw audio in, text out, in a
+        // single forward pass. Sourced from huggingface.co/litert-community/gemma-4-E4B-it-litert-lm.
+        // Note: the HF 12B variant is text-only despite Google's "multimodal" marketing;
+        // the E4B is the actually-audio-capable public release. Tracks: Forgejo issue #8.
+        WhisperModel(
+            name: "gemma-4-12b-it-litert-lm",
+            displayName: "Gemma 4 E4B (Audio, Local)",
+            sizeInMB: 3400,
+            description: "Encoder-free audio + text in a single in-process forward pass. Public Gemma 4 E4B from HuggingFace; same model family as Google AI Edge Eloquent.",
+            speedRating: 8.5,
+            accuracyRating: 9.5,
+            language: .multilingual,
+            languageSupport: .gemma4Multilingual,
+            provider: .gemma,
+            availability: .available
+        ),
+
         // Coming Soon - Cloud Providers
         WhisperModel(
             name: "openai_whisper-1",
@@ -635,6 +666,12 @@ class ModelManager {
         case .appleSpeech:
             // Apple Speech uses system models; no local path to manage.
             return nil
+        case .gemma:
+            // LiteRT-LM .litertlm files live under NautPin's Application Support / AIModels.
+            return fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+                .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
+                .appendingPathComponent("AIModels", isDirectory: true)
+                .appendingPathComponent(model.name, isDirectory: true)
         case .openAI, .elevenLabs, .groq:
             return nil
         }
@@ -675,7 +712,7 @@ class ModelManager {
                 let contents = try fileManager.contentsOfDirectory(atPath: parakeetModelsURL.path)
                 for folder in contents {
                     if folder.hasPrefix(".") { continue }
-                    
+
                     let folderPath = parakeetModelsURL.appendingPathComponent(folder).path
                     var isDirectory: ObjCBool = false
                     if fileManager.fileExists(atPath: folderPath, isDirectory: &isDirectory), isDirectory.boolValue {
@@ -690,7 +727,30 @@ class ModelManager {
                 Log.model.error("Failed to list Parakeet models: \(error)")
             }
         }
-        
+
+        // Gemma / LiteRT-LM models: scan AIModels/<name>/ for any *.litertlm file.
+        // A symlinked .litertlm (e.g. pointing at Eloquent's copy) counts as downloaded.
+        let aiModelsURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
+            .appendingPathComponent("AIModels", isDirectory: true)
+        if fileManager.fileExists(atPath: aiModelsURL.path) {
+            do {
+                let folders = try fileManager.contentsOfDirectory(atPath: aiModelsURL.path)
+                for folder in folders where !folder.hasPrefix(".") {
+                    let folderURL = aiModelsURL.appendingPathComponent(folder, isDirectory: true)
+                    var isDirectory: ObjCBool = false
+                    guard fileManager.fileExists(atPath: folderURL.path, isDirectory: &isDirectory),
+                          isDirectory.boolValue else { continue }
+                    let inside = (try? fileManager.contentsOfDirectory(atPath: folderURL.path)) ?? []
+                    if inside.contains(where: { $0.hasSuffix(".litertlm") }) {
+                        downloaded.insert(folder)
+                    }
+                }
+            } catch {
+                Log.model.error("Failed to list AIModels: \(error)")
+            }
+        }
+
         if downloaded != downloadedModelNames {
             Log.model.debug("Found \(downloaded.count) downloaded models: \(downloaded)")
         }
@@ -804,12 +864,77 @@ class ModelManager {
         
         if model.provider == .parakeet {
             try await downloadParakeetModel(named: modelName, onProgress: onProgress)
+        } else if model.provider == .gemma {
+            try await downloadGemmaModel(named: modelName, onProgress: onProgress)
         } else {
             try await downloadWhisperKitModel(named: modelName, onProgress: onProgress)
         }
         Log.boot.info("ModelManager.downloadModel finished OK name=\(modelName) wallClock=\(String(format: "%.2fs", CFAbsoluteTimeGetCurrent() - downloadWallClock))")
     }
     
+    /// Download the Gemma 4 E4B audio-multimodal model from HuggingFace.
+    /// Source: huggingface.co/litert-community/gemma-4-E4B-it-litert-lm (~3.4 GB).
+    /// Same pattern LM Studio uses — HF is the model distribution backbone, we're just
+    /// pulling a .litertlm file instead of a .gguf.
+    ///
+    /// If a .litertlm file is already present (e.g. user pre-staged from another source
+    /// or a prior partial download finished), we no-op and report complete.
+    private func downloadGemmaModel(
+        named modelName: String,
+        onProgress: ((DownloadSnapshot) -> Void)? = nil
+    ) async throws {
+        let targetDir = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
+            .appendingPathComponent("AIModels", isDirectory: true)
+            .appendingPathComponent(modelName, isDirectory: true)
+
+        // Already downloaded? Skip.
+        let existing = (try? fileManager.contentsOfDirectory(atPath: targetDir.path)) ?? []
+        if existing.contains(where: { $0.hasSuffix(".litertlm") }) {
+            Log.boot.info("Gemma model \(modelName) already present at \(targetDir.path), skipping download")
+            updateDownloadSnapshot(Self.completedDownloadSnapshot(modelName: modelName), onProgress: onProgress)
+            await refreshDownloadedModels()
+            return
+        }
+
+        try fileManager.createDirectory(at: targetDir, withIntermediateDirectories: true)
+        let destURL = targetDir.appendingPathComponent("gemma-4-E4B-it.litertlm")
+        let sourceURL = URL(string: "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/resolve/main/gemma-4-E4B-it.litertlm")!
+
+        Log.boot.info("Gemma download begin from=\(sourceURL.absoluteString) to=\(destURL.path)")
+        let downloadStart = CFAbsoluteTimeGetCurrent()
+
+        // Mark as in-progress. Without a delegate-based progress callback we can't
+        // report fraction during download; we show indeterminate-style progress at 50%
+        // and complete at 100% once the file is on disk. Follow-up: wire a
+        // URLSessionDownloadDelegate for streamed progress.
+        updateDownloadSnapshot(
+            DownloadSnapshot(modelName: modelName, progress: 0.05, phase: .downloading(completedFiles: nil, totalFiles: nil)),
+            onProgress: onProgress
+        )
+
+        let (tempURL, response) = try await URLSession.shared.download(from: sourceURL)
+
+        if let http = response as? HTTPURLResponse, http.statusCode != 200 {
+            try? fileManager.removeItem(at: tempURL)
+            throw ModelError.downloadFailed("HuggingFace returned HTTP \(http.statusCode) for \(sourceURL.absoluteString)")
+        }
+
+        // Move the downloaded temp file into the AIModels dir.
+        if fileManager.fileExists(atPath: destURL.path) {
+            try fileManager.removeItem(at: destURL)
+        }
+        try fileManager.moveItem(at: tempURL, to: destURL)
+
+        let elapsed = CFAbsoluteTimeGetCurrent() - downloadStart
+        let sizeMB = (try? fileManager.attributesOfItem(atPath: destURL.path)[.size] as? Int)
+            .flatMap { Double($0) / 1_000_000 } ?? 0
+        Log.boot.info("Gemma download finished size=\(String(format: "%.0f", sizeMB))MB elapsed=\(String(format: "%.1fs", elapsed))")
+
+        updateDownloadSnapshot(Self.completedDownloadSnapshot(modelName: modelName), onProgress: onProgress)
+        await refreshDownloadedModels()
+    }
+
     private func downloadWhisperKitModel(
         named modelName: String,
         onProgress: ((DownloadSnapshot) -> Void)? = nil

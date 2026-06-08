@@ -385,6 +385,42 @@ final class FloatingIndicatorState: ObservableObject {
     @Published var pushToTalkHotkey = ""
     @Published var recentCompletion: CompletionKind?
 
+    /// Live cleanup text streamed from the in-process Gemma enhancer. Updated
+    /// token-by-token as `Conversation.sendMessageStream` decodes. Cleared when
+    /// the next recording starts. Visible in the notch indicator during the
+    /// "isProcessing" phase — same UX shape as Google AI Edge Eloquent.
+    @Published var partialText: String = ""
+
+    /// Throttle published partialText updates. Gemma fires onPartial per decoded
+    /// token (often >100 Hz on long inputs), each firing @Published invalidates
+    /// every view observing the state, dashboard included — that caused a "Very
+    /// High" energy hit and main-thread thrashing. We coalesce to ~10 Hz, always
+    /// keep the latest text, and force-publish the final value.
+    private var lastPartialPublishTimestamp: TimeInterval = 0
+    private static let partialPublishMinInterval: TimeInterval = 0.1
+
+    func updatePartialText(_ text: String) {
+        let now = Date().timeIntervalSinceReferenceDate
+        // If empty or first update, publish immediately.
+        if text.isEmpty || partialText.isEmpty {
+            partialText = text
+            lastPartialPublishTimestamp = now
+            return
+        }
+        // Drop intermediate updates that arrive within the throttle window.
+        // The caller can fire as fast as it wants; only ~10 fps reach SwiftUI.
+        guard now - lastPartialPublishTimestamp >= Self.partialPublishMinInterval else {
+            return
+        }
+        partialText = text
+        lastPartialPublishTimestamp = now
+    }
+
+    func clearPartialText() {
+        partialText = ""
+        lastPartialPublishTimestamp = 0
+    }
+
     private var recordingStartTime: Date?
     private var durationTimer: Timer?
     private var escapePrimedResetTask: Task<Void, Never>?
@@ -395,6 +431,7 @@ final class FloatingIndicatorState: ObservableObject {
         isProcessing = false
         recordingStartTime = Date()
         recordingDuration = 0
+        partialText = ""
         startDurationTimer()
     }
 
@@ -409,6 +446,7 @@ final class FloatingIndicatorState: ObservableObject {
         isProcessing = false
         recordingDuration = 0
         audioLevel = 0
+        partialText = ""
         clearEscapePrimed()
         stopDurationTimer()
     }

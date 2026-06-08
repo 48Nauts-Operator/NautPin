@@ -338,17 +338,48 @@ struct NotchIndicatorView: View {
     }
     
     var body: some View {
-        HStack(spacing: 0) {
-            leftSide
-            centerSection
-                .frame(width: notchWidth)
-            rightSide
+        Group {
+            if !state.partialText.isEmpty {
+                streamingTextLayout
+            } else {
+                HStack(spacing: 0) {
+                    leftSide
+                    centerSection
+                        .frame(width: notchWidth)
+                    rightSide
+                }
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black)
         .clipShape(NotchShape(cornerRadius: NotchPanelMetrics.cornerRadius))
         .ignoresSafeArea()
         .themeRefresh()
+    }
+
+    /// Full-width streaming text layout — replaces the notch carve + side panels
+    /// while live cleanup tokens are arriving. Same idea as Eloquent's wide bubble:
+    /// the entire indicator is one horizontal text strip with a small status dot
+    /// on the left. Text grows from the right, oldest scrolls off the left.
+    private var streamingTextLayout: some View {
+        HStack(spacing: 8) {
+            if state.isProcessing {
+                IndicatorProcessingView(dotCount: 3, dotDiameter: 3, spacing: 2)
+                    .frame(width: 18)
+            } else {
+                Circle()
+                    .fill(AppColors.overlayRecording)
+                    .frame(width: 6, height: 6)
+            }
+            Text(state.partialText)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundStyle(AppColors.overlayTextPrimary)
+                .lineLimit(1)
+                .truncationMode(.head)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .padding(.horizontal, NotchPanelMetrics.sidePadding)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     private var leftSide: some View {

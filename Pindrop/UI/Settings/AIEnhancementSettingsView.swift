@@ -228,6 +228,7 @@ struct AIEnhancementSettingsView: View {
       case .google: return localized("Google", locale: locale)
       case .openrouter: return localized("OpenRouter", locale: locale)
       case .apple: return localized("Apple Intelligence", locale: locale)
+      case .gemma: return localized("Gemma (Local, In-Process)", locale: locale)
       case .custom:
          switch provider.customKind ?? .custom {
          case .ollama: return localized("Ollama", locale: locale)
@@ -470,6 +471,7 @@ struct AIEnhancementSettingsView: View {
 
    private func defaultModelID(for provider: ProviderConfig) -> String {
       if provider.kind == .apple { return "apple_intelligence" }
+      if provider.kind == .gemma { return "gemma-litert-lm" }
       if let cached = modelListCache[provider.id]?.first {
          return cached.id
       }
@@ -479,6 +481,7 @@ struct AIEnhancementSettingsView: View {
       case .anthropic: return "claude-haiku-4-5"
       case .google: return ""
       case .apple: return "apple_intelligence"
+      case .gemma: return "gemma-litert-lm"
       case .custom: return ""
       }
    }
@@ -504,6 +507,12 @@ struct AIEnhancementSettingsView: View {
       if let provider {
          if provider.kind == .apple {
             Text(localized("Apple Foundation Models (on-device)", locale: locale))
+               .font(AppTypography.body)
+               .foregroundStyle(AppColors.textSecondary)
+               .frame(maxWidth: .infinity, alignment: .leading)
+               .aiSettingsInputChrome()
+         } else if provider.kind == .gemma {
+            Text(localized("Gemma 4 (LiteRT-LM, in-process)", locale: locale))
                .font(AppTypography.body)
                .foregroundStyle(AppColors.textSecondary)
                .frame(maxWidth: .infinity, alignment: .leading)
@@ -1093,6 +1102,7 @@ private struct ProviderEditSheet: View {
    @State private var loadedModelCount: Int?
 
    private var isApple: Bool { initial.kind == .apple }
+   private var isGemma: Bool { initial.kind == .gemma }
    private var isCustom: Bool { initial.kind == .custom }
 
    var body: some View {
@@ -1291,7 +1301,7 @@ private struct ProviderEditSheet: View {
    private var canSave: Bool {
       let nameOK = !initial.displayName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
       if !nameOK { return false }
-      if isApple { return true }
+      if isApple || isGemma { return true }
       if isCustom {
          if initial.customKind.requiresAPIKey
             && initial.apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -1308,7 +1318,7 @@ private struct ProviderEditSheet: View {
 
    private var canLoadModels: Bool {
       switch initial.kind {
-      case .anthropic, .apple:
+      case .anthropic, .apple, .gemma:
          return false
       case .openai:
          return !initial.apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -1395,6 +1405,7 @@ private struct ProviderEditSheet: View {
       case .google: return localized("Google", locale: locale)
       case .openrouter: return localized("OpenRouter", locale: locale)
       case .apple: return localized("Apple Intelligence", locale: locale)
+      case .gemma: return localized("Gemma (Local, In-Process)", locale: locale)
       case .custom: return localized("Custom / Local", locale: locale)
       }
    }
@@ -1414,6 +1425,7 @@ private struct ProviderEditSheet: View {
       case .google: return "Google"
       case .openrouter: return "OpenRouter"
       case .apple: return "Apple Intelligence"
+      case .gemma: return "Gemma (Local, In-Process)"
       case .custom:
          switch customKind {
          case .ollama: return "Ollama"

@@ -888,6 +888,14 @@ final class AIEnhancementService {
     // Boxed storage for the @available(macOS 26, *) AppleFoundationModelsEnhancer.
     // Accessed only through the typed computed property below.
     private var _appleEnhancerStorage: Any?
+    private var _gemmaEnhancerStorage: GemmaLiteRTLMEnhancer?
+
+    var gemmaEnhancer: GemmaLiteRTLMEnhancer {
+        if let existing = _gemmaEnhancerStorage { return existing }
+        let enhancer = GemmaLiteRTLMEnhancer()
+        _gemmaEnhancerStorage = enhancer
+        return enhancer
+    }
 
 #if canImport(FoundationModels)
     @available(macOS 26, *)
@@ -935,6 +943,25 @@ final class AIEnhancementService {
 #else
             throw EnhancementError.apiError("Apple Intelligence is not supported on this device.")
 #endif
+        }
+
+        // Gemma via LiteRT-LM: edit-list cleanup on the RAW transcript (no wrapper).
+        // The edit-list path applies find/replace edits to the input verbatim, so any
+        // <enhancement_input>/<transcription> wrapping would survive into the output.
+        // The full-rewrite fallback uses the wrapped payload because that path expects
+        // the LLM to strip the wrapper as part of rewriting.
+        if provider == .gemma {
+            do {
+                let edits = try await gemmaEnhancer.refineAsEdits(
+                    transcript: text,
+                    systemPrompt: customPrompt
+                )
+                let report = TranscriptEditApplier.apply(edits: edits, to: text)
+                return report.resultingText
+            } catch {
+                Log.aiEnhancement.warning("Gemma edit-list cleanup failed, falling back to full rewrite: \(error.localizedDescription)")
+                return try await gemmaEnhancer.enhance(text: text, systemPrompt: customPrompt)
+            }
         }
 
         guard let url = URL(string: apiEndpoint) else {
@@ -1006,6 +1033,33 @@ final class AIEnhancementService {
 #else
             throw EnhancementError.apiError("Apple Intelligence is not supported on this device.")
 #endif
+        }
+
+        // Gemma via LiteRT-LM: edit-list on the RAW transcript (the wrapper would
+        // survive into output otherwise). Context-aware system prompt is still
+        // passed for cleanup guidance, but the transcript itself stays unwrapped.
+        // Full-rewrite fallback uses the wrapped payload (its path expects the LLM
+        // to strip the wrapping during the rewrite).
+        if provider == .gemma {
+            let contextAwarePrompt = AIEnhancementService.buildContextAwareSystemPrompt(
+                basePrompt: customPrompt, context: context
+            )
+            do {
+                let edits = try await gemmaEnhancer.refineAsEdits(
+                    transcript: text,
+                    systemPrompt: contextAwarePrompt
+                )
+                let report = TranscriptEditApplier.apply(edits: edits, to: text)
+                return report.resultingText
+            } catch {
+                Log.aiEnhancement.warning("Gemma edit-list cleanup failed, falling back to full rewrite: \(error.localizedDescription)")
+                let userPayload = AIEnhancementService.buildTranscriptionEnhancementInput(
+                    transcription: text,
+                    clipboardText: context.clipboardText,
+                    context: context
+                )
+                return try await gemmaEnhancer.enhance(text: userPayload, systemPrompt: contextAwarePrompt)
+            }
         }
 
         guard let url = URL(string: apiEndpoint) else {

@@ -193,6 +193,18 @@
         }
       }
     },
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "NautPin"
+          }
+        }
+      }
+    },
     "cfbundlename" : {
       "comment" : "cfbundlename",
       "extractionState" : "manual",
@@ -392,7 +404,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pindrop"
+            "value" : "NautPin"
           }
         }
       }
@@ -992,7 +1004,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pindrop needs microphone access to transcribe your voice."
+            "value" : "NautPin needs microphone access to transcribe your voice."
           }
         }
       }
@@ -1196,7 +1208,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pindrop uses on-device speech recognition to transcribe your audio without sending data to any server."
+            "value" : "NautPin uses on-device speech recognition to transcribe your audio without sending data to any server."
           }
         }
       }
