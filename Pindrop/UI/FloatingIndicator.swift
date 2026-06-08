@@ -9,6 +9,16 @@ import SwiftUI
 import AppKit
 
 private enum NotchPanelMetrics {
+    /// Minimum panel height when streaming text is being shown. Lets the live
+    /// transcription wrap to multiple lines. Tuned to match Google AI Edge
+    /// Eloquent's flow-bar proportions.
+    static let streamingPanelHeight: CGFloat = 140
+    /// Height of the standard recording/timer row inside the taller panel. Pins
+    /// the original notch-style chrome to the top portion so the empty space
+    /// below isn't visible — matches the user's existing mental model when
+    /// no streaming text is showing.
+    static let standardRowHeight: CGFloat = 38
+
     static let fallbackNotchWidth: CGFloat = 186
     static let minimumNotchWidth: CGFloat = 150
     static let baseSideWidth: CGFloat = 102
@@ -158,9 +168,14 @@ final class FloatingIndicatorController: FloatingIndicatorPresenting {
             min(NotchPanelMetrics.baseSideWidth, sideWidthBudget / 2)
         )
         let sideWidth = min(NotchPanelMetrics.maximumSideWidth, dynamicSideWidth)
-        let panelHeight = screen.hasNotch
+        // Make the panel substantially taller than the physical notch so the
+        // streaming text area can show multiple lines (Google AI Edge Eloquent-style
+        // flow-bar). Top of the panel still hugs the notch carve; the extra height
+        // extends below as a rounded rectangle (NotchShape handles both shapes).
+        let baseNotchHeight = screen.hasNotch
             ? screen.notchPanelHeight
             : max(NotchPanelMetrics.panelHeightMinimum, screen.notchPanelHeight)
+        let panelHeight = max(baseNotchHeight * 3.5, NotchPanelMetrics.streamingPanelHeight)
         let expandedWidth = notchWidth + (sideWidth * 2)
         let panelWidth = min(expandedWidth, maxPanelWidth)
 
@@ -339,14 +354,24 @@ struct NotchIndicatorView: View {
     
     var body: some View {
         Group {
-            if !state.partialText.isEmpty {
+            // Flow-bar layout (Eloquent-style): use whenever the indicator is
+            // ACTIVE — recording, processing, OR has streaming text to show.
+            // No transition from the standard notch chrome anymore; flow-bar
+            // is the indicator's active appearance.
+            if state.isRecording || state.isProcessing || !state.partialText.isEmpty {
                 streamingTextLayout
             } else {
-                HStack(spacing: 0) {
-                    leftSide
-                    centerSection
-                        .frame(width: notchWidth)
-                    rightSide
+                // Idle (briefly between sessions or before a recording starts):
+                // standard notch chrome pinned to the top of the panel.
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        leftSide
+                        centerSection
+                            .frame(width: notchWidth)
+                        rightSide
+                    }
+                    .frame(height: NotchPanelMetrics.standardRowHeight)
+                    Spacer(minLength: 0)
                 }
             }
         }
@@ -357,29 +382,68 @@ struct NotchIndicatorView: View {
         .themeRefresh()
     }
 
-    /// Full-width streaming text layout — replaces the notch carve + side panels
-    /// while live cleanup tokens are arriving. Same idea as Eloquent's wide bubble:
-    /// the entire indicator is one horizontal text strip with a small status dot
-    /// on the left. Text grows from the right, oldest scrolls off the left.
+    /// Eloquent-style flow-bar layout — replaces the standard notch chrome when
+    /// streaming text is active. Top row: pulsing button + small status caption.
+    /// Bottom: multi-line text area filling the rest of the panel. Text wraps
+    /// across multiple lines, head-truncates so the most recent content stays
+    /// visible at the bottom.
     private var streamingTextLayout: some View {
-        HStack(spacing: 8) {
-            if state.isProcessing {
-                IndicatorProcessingView(dotCount: 3, dotDiameter: 3, spacing: 2)
-                    .frame(width: 18)
-            } else {
-                Circle()
-                    .fill(AppColors.overlayRecording)
-                    .frame(width: 6, height: 6)
+        VStack(alignment: .leading, spacing: 6) {
+            // Top row: status indicator (pulsing button) + small status label.
+            HStack(spacing: 10) {
+                if state.isRecording {
+                    stopButton
+                } else {
+                    processingPulseButton
+                }
+                Text(state.isRecording ? "Recording…" : "Polishing…")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(AppColors.overlayTextSecondary)
+                Spacer(minLength: 0)
             }
+            .frame(height: 22)
+
+            // Text area: takes the rest of the panel height. Wraps to multiple
+            // lines. Trailing alignment + head truncation keeps the most recent
+            // tokens visible at the bottom as the model writes.
             Text(state.partialText)
-                .font(.system(size: 12, weight: .medium))
+                .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(AppColors.overlayTextPrimary)
-                .lineLimit(1)
+                .lineLimit(nil)
                 .truncationMode(.head)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, NotchPanelMetrics.sidePadding)
+        .padding(.vertical, 10)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    /// Pulsing processing affordance — same visual weight as the stop button
+    /// so the indicator stays "alive-looking" during the cleanup decode phase.
+    private var processingPulseButton: some View {
+        ZStack {
+            Circle()
+                .fill(AppColors.overlayTooltipAccent.opacity(0.85))
+                .frame(width: 18, height: 18)
+                .shadow(color: AppColors.overlayTooltipAccent.opacity(0.28), radius: 4)
+            IndicatorProcessingView(dotCount: 3, dotDiameter: 3, spacing: 2)
+                .frame(width: 14)
+        }
+        .overlay(
+            Circle()
+                .stroke(AppColors.overlayTooltipAccent.opacity(0.5), lineWidth: 1.4)
+                .frame(width: 18, height: 18)
+                .scaleEffect(state.isProcessing ? 1.45 : 1)
+                .opacity(state.isProcessing ? 0 : 0.2)
+                .animation(
+                    state.isProcessing
+                        ? .easeOut(duration: 1.1).repeatForever(autoreverses: false)
+                        : .easeInOut(duration: 0.2),
+                    value: state.isProcessing
+                )
+        )
     }
     
     private var leftSide: some View {

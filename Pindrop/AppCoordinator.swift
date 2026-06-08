@@ -735,15 +735,18 @@ final class AppCoordinator {
         // lifetime of the AppCoordinator. The Engine itself is also tracked in
         // GemmaLiteRTLMEngine.loadedEngines for static-accessor lookups.
 
-        // Live cleanup streaming: route the in-process Gemma enhancer's per-token
-        // output into the floating indicator so the user watches cleanup happen
-        // live — same UX shape as Google AI Edge Eloquent's notch text fill.
-        // The enhancer is @MainActor so the callback fires on the main actor;
-        // no Task wrap needed. updatePartialText is internally throttled to
-        // ~10 Hz so the per-token call rate doesn't storm SwiftUI invalidation.
-        aiEnhancementService.gemmaEnhancer.onPartial = { [weak self] text in
-            self?.floatingIndicatorState.updatePartialText(text)
-        }
+        // Cleanup partials (the per-token edit-list JSON from refineAsEdits) are
+        // NOT routed to the indicator — showing raw JSON during cleanup confuses
+        // the user, who sees "some code" appearing instead of clean text. The
+        // indicator instead keeps the last STT partial visible during cleanup
+        // with the "Polishing…" status, and the cleaned final text commits to
+        // the cursor when cleanup completes. Same UX shape as Eloquent: live
+        // text during speech, polishing status during cleanup, final in cursor.
+        //
+        // (If we later add a red/green diff animation à la Eloquent, that
+        // would consume the cleanup partial stream — but it needs a different
+        // UI surface than just dumping text into partialText.)
+        aiEnhancementService.gemmaEnhancer.onPartial = nil
 
         // Gemma 4 12B text companion: if the user has staged the 12B model on
         // disk, load it alongside the E4B audio engine at startup. Once loaded,
@@ -2646,22 +2649,36 @@ final class AppCoordinator {
                 )
             }
 
-            // Phase 2: the coordinator always stands up now. It owns the committed/
-            // tentative split, LocalAgreement-2 commit rules, and deterministic cleanup —
-            // none of which need an LLM. Live LLM refinement has been removed (see
-            // StreamingRefinementCoordinator.swift header). Post-stop holistic enhancement
-            // still runs via `runBasicPostStopEnhance`.
-            let coord = StreamingRefinementCoordinator()
-            coord.beginSession(outputSink: outputManager)
-            streamingRefinementCoordinator = coord
-            if let refinementAssignment = settingsStore.resolveAssignment(for: .streamingRefinement) {
-                Log.transcription.info(
-                    "Streaming refinement coordinator engaged (provider=\(refinementAssignment.kind.rawValue), model=\(refinementAssignment.modelID)) — live LLM refinement disabled in Phase 2, post-stop path unchanged"
-                )
+            // Phase 2: the coordinator owns committed/tentative split + LocalAgreement-2
+            // commit rules. It's designed for Apple/Parakeet-style INCREMENTAL output
+            // (each partial extends/refines the previous). Gemma's chunked re-transcription
+            // re-emits the WHOLE text every 1.5s — the coordinator's stability heuristics
+            // mistake that for instability and never commit. So we skip the coordinator
+            // for Gemma streaming sessions; the post-stop path uses the raw finalStreamedText
+            // directly, and outputManager's standard insertion happens once with the
+            // cleaned final text.
+            if GemmaLiteRTLMEngine.sharedEngine == nil {
+                let coord = StreamingRefinementCoordinator()
+                coord.beginSession(outputSink: outputManager)
+                streamingRefinementCoordinator = coord
+                if let refinementAssignment = settingsStore.resolveAssignment(for: .streamingRefinement) {
+                    Log.transcription.info(
+                        "Streaming refinement coordinator engaged (provider=\(refinementAssignment.kind.rawValue), model=\(refinementAssignment.modelID)) — live LLM refinement disabled in Phase 2, post-stop path unchanged"
+                    )
+                } else {
+                    Log.transcription.info(
+                        "Streaming refinement coordinator engaged with deterministic cleanup only"
+                    )
+                }
             } else {
-                Log.transcription.info(
-                    "Streaming refinement coordinator engaged with deterministic cleanup only"
-                )
+                streamingRefinementCoordinator = nil
+                // Without the coordinator, we still need to initialize the output
+                // manager's streaming-insertion state so the post-stop
+                // `finishStreamingInsertion(finalText:)` call has something to
+                // commit against. The coordinator normally calls this in
+                // beginSession — replicate that single side-effect for Gemma.
+                outputManager.beginStreamingInsertion()
+                Log.transcription.info("Gemma streaming: skipping StreamingRefinementCoordinator (chunked re-transcription doesn't fit its incremental-commit heuristics); outputManager.beginStreamingInsertion called manually.")
             }
 
             attachStreamingAudioForwarding()
@@ -2678,6 +2695,18 @@ final class AppCoordinator {
             onPartial: { [weak self] text in
                 Task { @MainActor in
                     guard let self else { return }
+                    // Gemma streaming (Path B): partials are PREVIEW only — show in
+                    // the floating indicator, never type into the cursor's target app.
+                    // Cursor commit happens once at the end with the cleaned final
+                    // text via the existing post-stop flow (outputManager.finishStreamingInsertion).
+                    // This matches Google AI Edge Eloquent's behavior: live text appears
+                    // in the bubble during speech, final text lands in the editor on stop.
+                    if GemmaLiteRTLMEngine.sharedEngine != nil {
+                        self.floatingIndicatorState.updatePartialText(text)
+                        return
+                    }
+                    // Apple/Parakeet streaming path (incremental commit): keeps the
+                    // pre-Gemma behavior where text is typed at the cursor as it streams.
                     if let coord = self.streamingRefinementCoordinator {
                         await coord.ingestPartial(text)
                     } else {
