@@ -317,6 +317,50 @@ final class AppCoordinator {
     private var isStreamingTranscriptionSessionActive = false
     private var streamingAudioProcessingTask: Task<Void, Never>?
     private var streamingInsertionUpdateTask: Task<Void, Never>?
+
+    /// Companion Gemma engine loaded with the 12B text-only model, when staged.
+    /// Held strongly here so it survives across the app's lifetime; the LiteRT-LM
+    /// Engine is also published to `GemmaLiteRTLMEngine.loadedEngines` so the
+    /// in-process enhancer can find it via `sharedTextEngine`.
+    private var gemmaTextCompanionEngine: GemmaLiteRTLMEngine?
+
+    private func setupGemmaTextCompanion() {
+        let appSupportURL: URL
+        do {
+            appSupportURL = try FileManager.default.url(
+                for: .applicationSupportDirectory, in: .userDomainMask,
+                appropriateFor: nil, create: false
+            )
+        } catch {
+            Log.boot.warning("Gemma 12B companion: failed to resolve Application Support URL: \(error.localizedDescription)")
+            return
+        }
+
+        let modelDir = appSupportURL
+            .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
+            .appendingPathComponent("AIModels", isDirectory: true)
+            .appendingPathComponent("gemma-4-12b-text-litert-lm", isDirectory: true)
+
+        let contents = (try? FileManager.default.contentsOfDirectory(atPath: modelDir.path)) ?? []
+        guard contents.contains(where: { $0.hasSuffix(".litertlm") }) else {
+            Log.boot.info("Gemma 12B companion not staged at \(modelDir.path); AI Enhancement will use E4B for cleanup.")
+            return
+        }
+
+        Log.boot.info("Gemma 12B companion staged at \(modelDir.path); loading in background.")
+        let engine = GemmaLiteRTLMEngine()
+        self.gemmaTextCompanionEngine = engine
+
+        Task { @MainActor [weak self] in
+            do {
+                try await engine.loadModel(name: "gemma-4-12b-text-litert-lm", downloadBase: nil)
+                Log.boot.info("Gemma 12B companion loaded — AI Enhancement, summarization, and metadata now use 12B.")
+            } catch {
+                Log.boot.warning("Gemma 12B companion failed to load: \(error.localizedDescription) — falling back to E4B for AI tasks.")
+                self?.gemmaTextCompanionEngine = nil
+            }
+        }
+    }
     /// The refinement coordinator for the current streaming session, if a
     /// `streamingRefinement` assignment resolved at session start. When non-nil, partial
     /// and final streaming callbacks are routed through the coordinator rather than
@@ -687,6 +731,10 @@ final class AppCoordinator {
         observeSettings()
         setupNotifications()
 
+        // Strong reference to the 12B companion engine — keeps it alive for the
+        // lifetime of the AppCoordinator. The Engine itself is also tracked in
+        // GemmaLiteRTLMEngine.loadedEngines for static-accessor lookups.
+
         // Live cleanup streaming: route the in-process Gemma enhancer's per-token
         // output into the floating indicator so the user watches cleanup happen
         // live — same UX shape as Google AI Edge Eloquent's notch text fill.
@@ -696,6 +744,14 @@ final class AppCoordinator {
         aiEnhancementService.gemmaEnhancer.onPartial = { [weak self] text in
             self?.floatingIndicatorState.updatePartialText(text)
         }
+
+        // Gemma 4 12B text companion: if the user has staged the 12B model on
+        // disk, load it alongside the E4B audio engine at startup. Once loaded,
+        // GemmaLiteRTLMEngine.sharedTextEngine returns the 12B, so every AI
+        // Enhancement / cleanup / summarization / metadata generation path
+        // automatically prefers the larger model. Falls back to E4B if the 12B
+        // isn't present.
+        setupGemmaTextCompanion()
 
         Log.boot.info("AppCoordinator init finished enableSystemHooks=\(self.enableSystemHooks)")
     }

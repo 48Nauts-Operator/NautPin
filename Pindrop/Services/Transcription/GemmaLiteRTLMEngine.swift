@@ -51,11 +51,40 @@ public final class GemmaLiteRTLMEngine: TranscriptionEngine, CapabilityReporting
 
     private var engine: Engine?
     private var modelPath: String?
+    /// Registry key (ModelManager model name) for this engine instance. Set when
+    /// loaded via `loadModel(name:downloadBase:)`. Used to populate/remove the
+    /// static `loadedEngines` dictionary on load/unload.
+    private var registryName: String?
 
-    /// Shared accessor so the in-process AI Enhancement path can talk to the SAME
-    /// loaded engine — no second model load, no LM Studio HTTP hop. Set when this
-    /// instance finishes loading; cleared on unload.
-    public static private(set) var sharedEngine: Engine?
+    /// Registry of loaded LiteRT-LM engines keyed by ModelManager model name.
+    /// Allows multiple Gemma variants to coexist in memory — e.g. E4B for STT
+    /// + 12B for cleanup. The in-process AI Enhancement path uses this to find
+    /// the best available text-task engine without a second HTTP/HTTPS hop.
+    public static private(set) var loadedEngines: [String: Engine] = [:]
+
+    /// Convenience accessor for callers that just want "any loaded Gemma engine"
+    /// (e.g. the AI Enhancement fallback path). Returns the audio E4B if loaded,
+    /// otherwise any other loaded Gemma. Preserves backwards-compat with the
+    /// pre-registry `sharedEngine` getter.
+    public static var sharedEngine: Engine? {
+        loadedEngines["gemma-4-12b-it-litert-lm"] ?? loadedEngines.values.first
+    }
+
+    /// Preferred engine for live cleanup (the post-stop AI Enhancement path).
+    /// Defaults to E4B because it's ~5× faster per token than the 12B and the
+    /// cleanup task — emitting a small JSON edit list — doesn't benefit much
+    /// from the larger model. The 12B is reserved for non-latency-sensitive
+    /// text tasks: Logbook topic clusters, summarization, metadata generation,
+    /// Voice Edit. Access via `sharedTextEngineHeavy` for those callers.
+    public static var sharedTextEngine: Engine? {
+        loadedEngines["gemma-4-12b-it-litert-lm"] ?? loadedEngines["gemma-4-12b-text-litert-lm"]
+    }
+
+    /// 12B-preferred accessor for batch text tasks where quality matters more
+    /// than per-call latency. Falls back to E4B if 12B isn't loaded.
+    public static var sharedTextEngineHeavy: Engine? {
+        loadedEngines["gemma-4-12b-text-litert-lm"] ?? loadedEngines["gemma-4-12b-it-litert-lm"]
+    }
 
     /// NautPin's pipeline produces 16 kHz mono Float32 PCM (see TranscriptionEngine
     /// protocol header).
@@ -102,9 +131,18 @@ public final class GemmaLiteRTLMEngine: TranscriptionEngine, CapabilityReporting
             try await engine.initialize()
             self.engine = engine
             self.modelPath = resolvedPath
-            Self.sharedEngine = engine
+            // Publish to the multi-model registry under the model name (if known)
+            // so other in-process consumers (cleanup enhancer, summarization,
+            // metadata generation) can locate this engine by name.
+            if let name = self.registryName {
+                Self.loadedEngines[name] = engine
+            } else {
+                // Backwards-compat: legacy loads without a name still occupy the
+                // default audio slot so the shared accessors find something.
+                Self.loadedEngines["gemma-4-12b-it-litert-lm"] = engine
+            }
             state = .ready
-            Log.boot.info("GemmaLiteRTLMEngine loaded in \(String(format: "%.2fs", CFAbsoluteTimeGetCurrent() - wallStart))")
+            Log.boot.info("GemmaLiteRTLMEngine loaded in \(String(format: "%.2fs", CFAbsoluteTimeGetCurrent() - wallStart)) registryName=\(self.registryName ?? "<unset>")")
         } catch {
             Log.boot.error("GemmaLiteRTLMEngine.loadModel failed after \(String(format: "%.2fs", CFAbsoluteTimeGetCurrent() - wallStart)): \(error.localizedDescription)")
             self.error = error
@@ -124,6 +162,7 @@ public final class GemmaLiteRTLMEngine: TranscriptionEngine, CapabilityReporting
             .appendingPathComponent(AppPaths.applicationSupportFolderName, isDirectory: true)
             .appendingPathComponent("AIModels", isDirectory: true)
             .appendingPathComponent(name, isDirectory: true)
+        self.registryName = name
         try await loadModel(path: candidate.path)
     }
 
@@ -158,7 +197,12 @@ public final class GemmaLiteRTLMEngine: TranscriptionEngine, CapabilityReporting
     public func unloadModel() async {
         engine = nil
         modelPath = nil
-        Self.sharedEngine = nil
+        if let name = registryName {
+            Self.loadedEngines.removeValue(forKey: name)
+        } else {
+            Self.loadedEngines.removeValue(forKey: "gemma-4-12b-it-litert-lm")
+        }
+        registryName = nil
         state = .unloaded
     }
 

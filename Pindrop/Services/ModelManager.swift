@@ -554,6 +554,26 @@ class ModelManager {
             availability: .available
         ),
 
+        // Gemma 4 12B text-only model. Loaded ALONGSIDE the E4B for higher-quality
+        // cleanup, summarization, metadata generation, and future text-heavy tasks
+        // (Voice Edit, Logbook topic clusters, structured extraction). 6.1 GB on
+        // disk + ~7.7 GB GPU memory when loaded. Sourced from
+        // huggingface.co/litert-community/gemma-4-12B-it-litert-lm.
+        // Selectable as a transcription model too (it'd compile, just won't actually
+        // do audio — the HF 12B is text-only). Real use case is cleanup.
+        WhisperModel(
+            name: "gemma-4-12b-text-litert-lm",
+            displayName: "Gemma 4 12B (Text, Local)",
+            sizeInMB: 6100,
+            description: "Text-only Gemma 4 12B for in-process cleanup, summarization, and metadata. Loads alongside the E4B audio model so AI Enhancement runs on the larger LLM with no HTTP hop.",
+            speedRating: 7.0,
+            accuracyRating: 9.8,
+            language: .multilingual,
+            languageSupport: .gemma4Multilingual,
+            provider: .gemma,
+            availability: .available
+        ),
+
         // Coming Soon - Cloud Providers
         WhisperModel(
             name: "openai_whisper-1",
@@ -898,8 +918,20 @@ class ModelManager {
         }
 
         try fileManager.createDirectory(at: targetDir, withIntermediateDirectories: true)
-        let destURL = targetDir.appendingPathComponent("gemma-4-E4B-it.litertlm")
-        let sourceURL = URL(string: "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/resolve/main/gemma-4-E4B-it.litertlm")!
+
+        // Dispatch by model name to the right HuggingFace artifact.
+        let destURL: URL
+        let sourceURL: URL
+        switch modelName {
+        case "gemma-4-12b-text-litert-lm":
+            destURL = targetDir.appendingPathComponent("gemma-4-12B-it.litertlm")
+            sourceURL = URL(string: "https://huggingface.co/litert-community/gemma-4-12B-it-litert-lm/resolve/main/gemma-4-12B-it.litertlm")!
+        default:
+            // Default: the E4B audio model (matches the historical "gemma-4-12b-it-litert-lm"
+            // model name which is mislabeled but is what's in user defaults already).
+            destURL = targetDir.appendingPathComponent("gemma-4-E4B-it.litertlm")
+            sourceURL = URL(string: "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/resolve/main/gemma-4-E4B-it.litertlm")!
+        }
 
         Log.boot.info("Gemma download begin from=\(sourceURL.absoluteString) to=\(destURL.path)")
         let downloadStart = CFAbsoluteTimeGetCurrent()
