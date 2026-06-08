@@ -2646,22 +2646,36 @@ final class AppCoordinator {
                 )
             }
 
-            // Phase 2: the coordinator always stands up now. It owns the committed/
-            // tentative split, LocalAgreement-2 commit rules, and deterministic cleanup —
-            // none of which need an LLM. Live LLM refinement has been removed (see
-            // StreamingRefinementCoordinator.swift header). Post-stop holistic enhancement
-            // still runs via `runBasicPostStopEnhance`.
-            let coord = StreamingRefinementCoordinator()
-            coord.beginSession(outputSink: outputManager)
-            streamingRefinementCoordinator = coord
-            if let refinementAssignment = settingsStore.resolveAssignment(for: .streamingRefinement) {
-                Log.transcription.info(
-                    "Streaming refinement coordinator engaged (provider=\(refinementAssignment.kind.rawValue), model=\(refinementAssignment.modelID)) — live LLM refinement disabled in Phase 2, post-stop path unchanged"
-                )
+            // Phase 2: the coordinator owns committed/tentative split + LocalAgreement-2
+            // commit rules. It's designed for Apple/Parakeet-style INCREMENTAL output
+            // (each partial extends/refines the previous). Gemma's chunked re-transcription
+            // re-emits the WHOLE text every 1.5s — the coordinator's stability heuristics
+            // mistake that for instability and never commit. So we skip the coordinator
+            // for Gemma streaming sessions; the post-stop path uses the raw finalStreamedText
+            // directly, and outputManager's standard insertion happens once with the
+            // cleaned final text.
+            if GemmaLiteRTLMEngine.sharedEngine == nil {
+                let coord = StreamingRefinementCoordinator()
+                coord.beginSession(outputSink: outputManager)
+                streamingRefinementCoordinator = coord
+                if let refinementAssignment = settingsStore.resolveAssignment(for: .streamingRefinement) {
+                    Log.transcription.info(
+                        "Streaming refinement coordinator engaged (provider=\(refinementAssignment.kind.rawValue), model=\(refinementAssignment.modelID)) — live LLM refinement disabled in Phase 2, post-stop path unchanged"
+                    )
+                } else {
+                    Log.transcription.info(
+                        "Streaming refinement coordinator engaged with deterministic cleanup only"
+                    )
+                }
             } else {
-                Log.transcription.info(
-                    "Streaming refinement coordinator engaged with deterministic cleanup only"
-                )
+                streamingRefinementCoordinator = nil
+                // Without the coordinator, we still need to initialize the output
+                // manager's streaming-insertion state so the post-stop
+                // `finishStreamingInsertion(finalText:)` call has something to
+                // commit against. The coordinator normally calls this in
+                // beginSession — replicate that single side-effect for Gemma.
+                outputManager.beginStreamingInsertion()
+                Log.transcription.info("Gemma streaming: skipping StreamingRefinementCoordinator (chunked re-transcription doesn't fit its incremental-commit heuristics); outputManager.beginStreamingInsertion called manually.")
             }
 
             attachStreamingAudioForwarding()

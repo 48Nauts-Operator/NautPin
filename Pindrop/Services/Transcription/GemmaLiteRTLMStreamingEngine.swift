@@ -116,6 +116,9 @@ public final class GemmaLiteRTLMStreamingEngine: StreamingTranscriptionEngine {
         retransTimer?.invalidate()
         retransTimer = nil
 
+        let bufferSamples = audioBuffer.count
+        Log.transcription.info("Gemma streaming stop: buffer=\(bufferSamples) samples, lastPartial=\(self.lastTranscription.count) chars")
+
         // Wait briefly for any in-flight transcription to finish so we can use
         // its result. Bounded so we don't hang forever on a stuck inference.
         var waited: TimeInterval = 0
@@ -128,10 +131,16 @@ public final class GemmaLiteRTLMStreamingEngine: StreamingTranscriptionEngine {
         // any audio that arrived after the last in-flight pass started. On
         // failure, fall back to the latest partial we successfully captured.
         let finalText: String
-        if let fresh = try? await runTranscription() {
-            finalText = fresh
+        if !audioBuffer.isEmpty {
+            do {
+                finalText = try await runTranscription()
+                Log.transcription.info("Gemma streaming final pass produced \(finalText.count) chars")
+            } catch {
+                Log.transcription.warning("Gemma streaming: final pass failed (\(error.localizedDescription)), using last partial (\(self.lastTranscription.count) chars)")
+                finalText = lastTranscription
+            }
         } else {
-            Log.transcription.warning("Gemma streaming: final pass failed, using last partial")
+            Log.transcription.warning("Gemma streaming: buffer empty at stop — falling back to last partial (\(self.lastTranscription.count) chars)")
             finalText = lastTranscription
         }
 
