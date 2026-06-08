@@ -9,6 +9,16 @@ import SwiftUI
 import AppKit
 
 private enum NotchPanelMetrics {
+    /// Minimum panel height when streaming text is being shown. Lets the live
+    /// transcription wrap to multiple lines. Tuned to match Google AI Edge
+    /// Eloquent's flow-bar proportions.
+    static let streamingPanelHeight: CGFloat = 140
+    /// Height of the standard recording/timer row inside the taller panel. Pins
+    /// the original notch-style chrome to the top portion so the empty space
+    /// below isn't visible — matches the user's existing mental model when
+    /// no streaming text is showing.
+    static let standardRowHeight: CGFloat = 38
+
     static let fallbackNotchWidth: CGFloat = 186
     static let minimumNotchWidth: CGFloat = 150
     static let baseSideWidth: CGFloat = 102
@@ -158,9 +168,14 @@ final class FloatingIndicatorController: FloatingIndicatorPresenting {
             min(NotchPanelMetrics.baseSideWidth, sideWidthBudget / 2)
         )
         let sideWidth = min(NotchPanelMetrics.maximumSideWidth, dynamicSideWidth)
-        let panelHeight = screen.hasNotch
+        // Make the panel substantially taller than the physical notch so the
+        // streaming text area can show multiple lines (Google AI Edge Eloquent-style
+        // flow-bar). Top of the panel still hugs the notch carve; the extra height
+        // extends below as a rounded rectangle (NotchShape handles both shapes).
+        let baseNotchHeight = screen.hasNotch
             ? screen.notchPanelHeight
             : max(NotchPanelMetrics.panelHeightMinimum, screen.notchPanelHeight)
+        let panelHeight = max(baseNotchHeight * 3.5, NotchPanelMetrics.streamingPanelHeight)
         let expandedWidth = notchWidth + (sideWidth * 2)
         let panelWidth = min(expandedWidth, maxPanelWidth)
 
@@ -339,14 +354,24 @@ struct NotchIndicatorView: View {
     
     var body: some View {
         Group {
-            if !state.partialText.isEmpty {
+            // Flow-bar layout (Eloquent-style): use whenever the indicator is
+            // ACTIVE — recording, processing, OR has streaming text to show.
+            // No transition from the standard notch chrome anymore; flow-bar
+            // is the indicator's active appearance.
+            if state.isRecording || state.isProcessing || !state.partialText.isEmpty {
                 streamingTextLayout
             } else {
-                HStack(spacing: 0) {
-                    leftSide
-                    centerSection
-                        .frame(width: notchWidth)
-                    rightSide
+                // Idle (briefly between sessions or before a recording starts):
+                // standard notch chrome pinned to the top of the panel.
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        leftSide
+                        centerSection
+                            .frame(width: notchWidth)
+                        rightSide
+                    }
+                    .frame(height: NotchPanelMetrics.standardRowHeight)
+                    Spacer(minLength: 0)
                 }
             }
         }
@@ -357,34 +382,41 @@ struct NotchIndicatorView: View {
         .themeRefresh()
     }
 
-    /// Full-width streaming text layout — replaces the notch carve + side panels
-    /// while live STT partials (during speech) or cleanup tokens (post-stop) are
-    /// arriving. Same shape as Google AI Edge Eloquent's wide bubble: a pulsing
-    /// stop/processing button on the left, text taking the rest of the width,
-    /// no waveform graph. Text grows from the right; oldest scrolls off the
-    /// left via head-truncation so the most recent words are always visible.
+    /// Eloquent-style flow-bar layout — replaces the standard notch chrome when
+    /// streaming text is active. Top row: pulsing button + small status caption.
+    /// Bottom: multi-line text area filling the rest of the panel. Text wraps
+    /// across multiple lines, head-truncates so the most recent content stays
+    /// visible at the bottom.
     private var streamingTextLayout: some View {
-        HStack(spacing: 10) {
-            // Left: pulsing stop button while recording, pulsing dots when
-            // processing. Same visual prominence in both states so the user
-            // always knows the indicator is active.
-            if state.isRecording {
-                stopButton
-            } else {
-                processingPulseButton
+        VStack(alignment: .leading, spacing: 6) {
+            // Top row: status indicator (pulsing button) + small status label.
+            HStack(spacing: 10) {
+                if state.isRecording {
+                    stopButton
+                } else {
+                    processingPulseButton
+                }
+                Text(state.isRecording ? "Recording…" : "Polishing…")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(AppColors.overlayTextSecondary)
+                Spacer(minLength: 0)
             }
+            .frame(height: 22)
 
-            // Right: text takes the entire remaining width. Trailing alignment
-            // so the latest tokens are always against the right edge — feels
-            // like the model is "writing into" the bubble from the right.
+            // Text area: takes the rest of the panel height. Wraps to multiple
+            // lines. Trailing alignment + head truncation keeps the most recent
+            // tokens visible at the bottom as the model writes.
             Text(state.partialText)
                 .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(AppColors.overlayTextPrimary)
-                .lineLimit(1)
+                .lineLimit(nil)
                 .truncationMode(.head)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, NotchPanelMetrics.sidePadding)
+        .padding(.vertical, 10)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 

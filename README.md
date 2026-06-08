@@ -58,9 +58,10 @@ Combined with the Claude Code Stop-hook we publish separately, this becomes a ha
 NautPin now ships an **end-to-end in-process Gemma 4 pipeline** via Google's LiteRT-LM Swift package — the same architecture Google AI Edge Eloquent uses:
 
 - **Speech-to-text**: Gemma 4 E4B audio-multimodal model (3.4 GB, auto-downloaded from `huggingface.co/litert-community/gemma-4-E4B-it-litert-lm`). Encoder-free: raw 16 kHz PCM → cleaned text in a single forward pass on Apple Silicon GPU.
-- **Cleanup / AI Enhancement**: the same loaded Gemma engine, accessed in-process. **No LM Studio HTTP hop, no external dependency.**
-- **Edit-list cleanup**: cleanup emits a small JSON list of find/replace edits instead of re-emitting the entire rewritten transcript. ~10× faster on long dictations (no more linear scaling with output length).
-- **Live notch text**: cleanup tokens stream into the menu-bar indicator as they decode (10 Hz throttled so SwiftUI doesn't storm).
+- **Live streaming (Path B)**: a chunked re-transcription engine runs the audio model every ~1.5s on the accumulating buffer DURING speech, so most of the STT work is done by the time you press stop. Post-stop wait dropped from 25-30s to ~10s on long dictations.
+- **Flow-bar indicator**: a tall multi-line text panel anchored at the notch shows the live transcription as you speak — pulsing recording button + multi-line text area. Same UX shape as Eloquent's flow-bar. Status transitions to "Polishing…" during cleanup.
+- **Cleanup / AI Enhancement**: the same loaded Gemma engine, accessed in-process. **No LM Studio HTTP hop, no external dependency.** Edit-list cleanup (a small JSON list of find/replace edits) instead of re-emitting the entire rewritten transcript — caps cleanup time on long inputs.
+- **Optional 12B companion**: load the public Gemma 4 12B alongside the E4B for higher-quality non-latency-sensitive text tasks (Logbook topic clusters, summarization, metadata). Auto-detected when staged on disk.
 
 Select **Gemma 4 E4B (Audio, Local)** in Settings → Models to enable. The model auto-downloads on first selection. LM Studio is still supported but no longer required for fully-local cleanup.
 

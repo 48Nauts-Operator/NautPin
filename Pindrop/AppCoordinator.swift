@@ -735,15 +735,18 @@ final class AppCoordinator {
         // lifetime of the AppCoordinator. The Engine itself is also tracked in
         // GemmaLiteRTLMEngine.loadedEngines for static-accessor lookups.
 
-        // Live cleanup streaming: route the in-process Gemma enhancer's per-token
-        // output into the floating indicator so the user watches cleanup happen
-        // live — same UX shape as Google AI Edge Eloquent's notch text fill.
-        // The enhancer is @MainActor so the callback fires on the main actor;
-        // no Task wrap needed. updatePartialText is internally throttled to
-        // ~10 Hz so the per-token call rate doesn't storm SwiftUI invalidation.
-        aiEnhancementService.gemmaEnhancer.onPartial = { [weak self] text in
-            self?.floatingIndicatorState.updatePartialText(text)
-        }
+        // Cleanup partials (the per-token edit-list JSON from refineAsEdits) are
+        // NOT routed to the indicator — showing raw JSON during cleanup confuses
+        // the user, who sees "some code" appearing instead of clean text. The
+        // indicator instead keeps the last STT partial visible during cleanup
+        // with the "Polishing…" status, and the cleaned final text commits to
+        // the cursor when cleanup completes. Same UX shape as Eloquent: live
+        // text during speech, polishing status during cleanup, final in cursor.
+        //
+        // (If we later add a red/green diff animation à la Eloquent, that
+        // would consume the cleanup partial stream — but it needs a different
+        // UI surface than just dumping text into partialText.)
+        aiEnhancementService.gemmaEnhancer.onPartial = nil
 
         // Gemma 4 12B text companion: if the user has staged the 12B model on
         // disk, load it alongside the E4B audio engine at startup. Once loaded,
