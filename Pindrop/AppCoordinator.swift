@@ -2678,6 +2678,18 @@ final class AppCoordinator {
             onPartial: { [weak self] text in
                 Task { @MainActor in
                     guard let self else { return }
+                    // Gemma streaming (Path B): partials are PREVIEW only — show in
+                    // the floating indicator, never type into the cursor's target app.
+                    // Cursor commit happens once at the end with the cleaned final
+                    // text via the existing post-stop flow (outputManager.finishStreamingInsertion).
+                    // This matches Google AI Edge Eloquent's behavior: live text appears
+                    // in the bubble during speech, final text lands in the editor on stop.
+                    if GemmaLiteRTLMEngine.sharedEngine != nil {
+                        self.floatingIndicatorState.updatePartialText(text)
+                        return
+                    }
+                    // Apple/Parakeet streaming path (incremental commit): keeps the
+                    // pre-Gemma behavior where text is typed at the cursor as it streams.
                     if let coord = self.streamingRefinementCoordinator {
                         await coord.ingestPartial(text)
                     } else {

@@ -358,21 +358,27 @@ struct NotchIndicatorView: View {
     }
 
     /// Full-width streaming text layout — replaces the notch carve + side panels
-    /// while live cleanup tokens are arriving. Same idea as Eloquent's wide bubble:
-    /// the entire indicator is one horizontal text strip with a small status dot
-    /// on the left. Text grows from the right, oldest scrolls off the left.
+    /// while live STT partials (during speech) or cleanup tokens (post-stop) are
+    /// arriving. Same shape as Google AI Edge Eloquent's wide bubble: a pulsing
+    /// stop/processing button on the left, text taking the rest of the width,
+    /// no waveform graph. Text grows from the right; oldest scrolls off the
+    /// left via head-truncation so the most recent words are always visible.
     private var streamingTextLayout: some View {
-        HStack(spacing: 8) {
-            if state.isProcessing {
-                IndicatorProcessingView(dotCount: 3, dotDiameter: 3, spacing: 2)
-                    .frame(width: 18)
+        HStack(spacing: 10) {
+            // Left: pulsing stop button while recording, pulsing dots when
+            // processing. Same visual prominence in both states so the user
+            // always knows the indicator is active.
+            if state.isRecording {
+                stopButton
             } else {
-                Circle()
-                    .fill(AppColors.overlayRecording)
-                    .frame(width: 6, height: 6)
+                processingPulseButton
             }
+
+            // Right: text takes the entire remaining width. Trailing alignment
+            // so the latest tokens are always against the right edge — feels
+            // like the model is "writing into" the bubble from the right.
             Text(state.partialText)
-                .font(.system(size: 12, weight: .medium))
+                .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(AppColors.overlayTextPrimary)
                 .lineLimit(1)
                 .truncationMode(.head)
@@ -380,6 +386,32 @@ struct NotchIndicatorView: View {
         }
         .padding(.horizontal, NotchPanelMetrics.sidePadding)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    /// Pulsing processing affordance — same visual weight as the stop button
+    /// so the indicator stays "alive-looking" during the cleanup decode phase.
+    private var processingPulseButton: some View {
+        ZStack {
+            Circle()
+                .fill(AppColors.overlayTooltipAccent.opacity(0.85))
+                .frame(width: 18, height: 18)
+                .shadow(color: AppColors.overlayTooltipAccent.opacity(0.28), radius: 4)
+            IndicatorProcessingView(dotCount: 3, dotDiameter: 3, spacing: 2)
+                .frame(width: 14)
+        }
+        .overlay(
+            Circle()
+                .stroke(AppColors.overlayTooltipAccent.opacity(0.5), lineWidth: 1.4)
+                .frame(width: 18, height: 18)
+                .scaleEffect(state.isProcessing ? 1.45 : 1)
+                .opacity(state.isProcessing ? 0 : 0.2)
+                .animation(
+                    state.isProcessing
+                        ? .easeOut(duration: 1.1).repeatForever(autoreverses: false)
+                        : .easeInOut(duration: 0.2),
+                    value: state.isProcessing
+                )
+        )
     }
     
     private var leftSide: some View {
