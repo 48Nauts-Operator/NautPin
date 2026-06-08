@@ -192,6 +192,7 @@
 		VOCABWORDA1B2C3D4 /* VocabularyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = VOCABWORDA1B2C3D4E5 /* VocabularyWord.swift */; };
 		WHISPERENG02A2B3C4D5E6F /* WhisperKitEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = WHISPERENG03A2B3C4D5E6F /* WhisperKitEngine.swift */; };
 		GEMMAENG02A2B3C4D5E6F /* GemmaLiteRTLMEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = GEMMAENG03A2B3C4D5E6F /* GemmaLiteRTLMEngine.swift */; };
+		GEMMASTRM02A2B3C4D5E6F /* GemmaLiteRTLMStreamingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = GEMMASTRM03A2B3C4D5E6F /* GemmaLiteRTLMStreamingEngine.swift */; };
 		GEMMAENH02A2B3C4D5E6F /* GemmaLiteRTLMEnhancer.swift in Sources */ = {isa = PBXBuildFile; fileRef = GEMMAENH03A2B3C4D5E6F /* GemmaLiteRTLMEnhancer.swift */; };
 		WHISPERENG04A2B3C4D5E6F /* WhisperKitEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = WHISPERENG01A2B3C4D5E6F /* WhisperKitEngineTests.swift */; };
 		WKSPIDX02A2B3C4D5E6F /* WorkspaceFileIndexService.swift in Sources */ = {isa = PBXBuildFile; fileRef = WKSPIDX01A2B3C4D5E6F /* WorkspaceFileIndexService.swift */; };
@@ -400,6 +401,7 @@
 		WHISPERENG01A2B3C4D5E6F /* WhisperKitEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperKitEngineTests.swift; sourceTree = "<group>"; };
 		WHISPERENG03A2B3C4D5E6F /* WhisperKitEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperKitEngine.swift; sourceTree = "<group>"; };
 		GEMMAENG03A2B3C4D5E6F /* GemmaLiteRTLMEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemmaLiteRTLMEngine.swift; sourceTree = "<group>"; };
+		GEMMASTRM03A2B3C4D5E6F /* GemmaLiteRTLMStreamingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemmaLiteRTLMStreamingEngine.swift; sourceTree = "<group>"; };
 		GEMMAENH03A2B3C4D5E6F /* GemmaLiteRTLMEnhancer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemmaLiteRTLMEnhancer.swift; sourceTree = "<group>"; };
 		WKSPIDX01A2B3C4D5E6F /* WorkspaceFileIndexService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceFileIndexService.swift; sourceTree = "<group>"; };
 		WORDRPLACEA1B2C3D4E5 /* WordReplacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordReplacement.swift; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 				TTSENGINE01A2B3C4D5E6F /* TextToSpeechEngine.swift */,
 				WHISPERENG03A2B3C4D5E6F /* WhisperKitEngine.swift */,
 				GEMMAENG03A2B3C4D5E6F /* GemmaLiteRTLMEngine.swift */,
+				GEMMASTRM03A2B3C4D5E6F /* GemmaLiteRTLMStreamingEngine.swift */,
 				PARAKEETENG01A2B3C4D5E6F /* ParakeetEngine.swift */,
 				PARAKEETSTRM01A2B3C4D5E6F /* ParakeetStreamingEngine.swift */,
 				APPLESPEECHENG01A2B3C4D5 /* AppleSpeechEngine.swift */,
@@ -1123,6 +1126,7 @@
 				TRANSENG02A2B3C4D5E6F /* TranscriptionEngine.swift in Sources */,
 				WHISPERENG02A2B3C4D5E6F /* WhisperKitEngine.swift in Sources */,
 				GEMMAENG02A2B3C4D5E6F /* GemmaLiteRTLMEngine.swift in Sources */,
+				GEMMASTRM02A2B3C4D5E6F /* GemmaLiteRTLMStreamingEngine.swift in Sources */,
 				PARAKEETENG02A2B3C4D5E6F /* ParakeetEngine.swift in Sources */,
 				APPLESPEECHENG02A2B3C4D5 /* AppleSpeechEngine.swift in Sources */,
 				AUDIOCAPS02A2B3C4D5E6F /* AudioEngineCapabilities.swift in Sources */,

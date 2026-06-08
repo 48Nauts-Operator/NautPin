@@ -345,6 +345,27 @@ class TranscriptionService {
     }
 
     func prepareStreamingEngine() async throws {
+        // Short-circuit: when the Gemma E4B audio engine is loaded (user picked
+        // it as their STT model), use chunked re-transcription via the same
+        // engine — no separate model load, runs alongside the batch path. This
+        // is Path B from issue #8: STT runs DURING speech so post-stop latency
+        // drops dramatically.
+        if GemmaLiteRTLMEngine.sharedEngine != nil {
+            if !(streamingEngine is GemmaLiteRTLMStreamingEngine) {
+                if let existing = streamingEngine {
+                    await existing.unloadModel()
+                }
+                let gemmaStreaming = GemmaLiteRTLMStreamingEngine()
+                streamingEngine = gemmaStreaming
+                applyStreamingCallbacks()
+                try await gemmaStreaming.loadModel(name: "gemma-streaming")
+            }
+            if state == .unloaded || state == .error {
+                state = .ready
+            }
+            return
+        }
+
         let profile = streamingChunkProfileProvider()
         let requestedBackend = streamingBackendProvider()
 
